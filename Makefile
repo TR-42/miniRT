@@ -15,10 +15,14 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_LOADER	:=\
+	loader.c\
+
 SRCS_UTILS	:=\
 	ft_strtod.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 
 HEADERS_DIR		:=	./headers
