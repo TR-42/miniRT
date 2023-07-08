@@ -86,3 +86,20 @@ norm:
 -include $(DEPS)
 
 .PHONY:	clean_local bonus norm
+
+# region tests
+
+T_STRTOD	:=	t_strtod
+
+TESTS	:=\
+	$(T_STRTOD)\
+
+$(T_STRTOD):	.tests/$(T_STRTOD).c $(OBJS_NOMAIN) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
+
+tclean:
+	rm -f $(TESTS) $(addsuffix .d,$(TESTS))
+
+.PHONY: tclean
+
+# endregion tests
