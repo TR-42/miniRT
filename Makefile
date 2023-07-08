@@ -15,7 +15,11 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_UTILS	:=\
+	ft_strtod.c\
+
 SRCS_NOMAIN	:= \
+	$(addprefix utils/, $(SRCS_UTILS))\
 
 HEADERS_DIR		:=	./headers
 
