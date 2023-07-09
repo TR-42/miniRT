@@ -19,6 +19,7 @@ SRCS_LOADER	:=\
 	loader.c\
 
 SRCS_UTILS	:=\
+	error_exit.c\
 	ft_strtod.c\
 
 SRCS_NOMAIN	:= \

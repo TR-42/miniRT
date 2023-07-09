@@ -25,4 +25,41 @@ double	ft_strtod(
 			char **endptr
 			);
 
+/**
+ * @brief 現在のerrnoを読み取り、それにあったエラー文を出力したうえでプログラムを終了する
+ * 
+ * @param str エラー文の前に出力する文字列
+ */
+void	perr_exit(
+			const char *str
+			)
+		__attribute__((noreturn))
+		;
+
+/**
+ * @brief 指定のerrnoにあったエラー文を出力したうえでプログラムを終了する
+ * 
+ * @param str エラー文の前に出力する文字列
+ * @param _errno 出力したいエラーの番号
+ */
+void	strerr_exit(
+			const char *str,
+			int _errno
+			)
+		__attribute__((noreturn))
+		;
+
+/**
+ * @brief 指定のエラー文を出力したうえでプログラムを終了する
+ * 
+ * @param str エラー文の前に出力する文字列
+ * @param msg 出力したいエラー文
+ */
+void	errstr_exit(
+			const char *str,
+			const char *msg
+			)
+		__attribute__((noreturn))
+		;
+
 #endif
