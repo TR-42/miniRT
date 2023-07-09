@@ -94,8 +94,11 @@ typedef union u_objs
 
 typedef struct s_scene
 {
+	bool		is_amb_l_set;
 	t_amb_light	amb_light;
+	bool		is_camera_set;
 	t_cam		camera;
+	bool		is_light_set;
 	t_light		light;
 	size_t		objs_cnt;
 	t_objs		*objs;
