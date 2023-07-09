@@ -14,7 +14,7 @@
 #include <limits.h>
 #include "../ft_string/ft_string.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	size_t	length;
 
