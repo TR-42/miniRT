@@ -26,6 +26,16 @@ double	ft_strtod(
 			);
 
 /**
+ * @brief 二次元配列のfreeを行う。ft_splitを行ったものなど。
+ * 
+ * @param arr2d freeをかける二次元配列
+ * @return void* 常にNULLを返す
+ */
+void	*free2darr(
+			void **arr2d
+			);
+
+/**
  * @brief 現在のerrnoを読み取り、それにあったエラー文を出力したうえでプログラムを終了する
  * 
  * @param str エラー文の前に出力する文字列

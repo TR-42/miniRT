@@ -20,6 +20,7 @@ SRCS_LOADER	:=\
 
 SRCS_UTILS	:=\
 	error_exit.c\
+	free2darr.c\
 	ft_strtod.c\
 
 SRCS_NOMAIN	:= \
