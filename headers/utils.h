@@ -13,6 +13,7 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include <stdbool.h>
 # include <stddef.h>
 
 /**
@@ -35,6 +36,20 @@ size_t	arrlen2d(
 double	ft_strtod(
 			const char *str,
 			char **endptr
+			);
+
+/**
+ * @brief 小数文字列をdoubleに変換する。指数標記には非対応。
+ * 
+ * @param str 文字列(先頭の空白は無視される)
+ * @param endptr 無効となった場所のポインタ(NULLが渡された場合は、ポインタを記録しない)
+ * @param dst 解析結果の値を書き込む場所
+ * @return bool 解析に成功したかどうか (指定の文字列内に有効な数値のみが存在した場合にTRUE)
+ */
+bool	try_strtod(
+			const char *str,
+			char **endptr,
+			double *dst
 			);
 
 /**
