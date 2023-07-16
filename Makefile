@@ -16,6 +16,7 @@ SRCS_MAIN	:= \
 	main.c \
 
 SRCS_LOADER	:=\
+	_errors.c\
 	loader.c\
 
 SRCS_UTILS	:=\
