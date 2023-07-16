@@ -17,6 +17,7 @@ SRCS_MAIN	:= \
 
 SRCS_LOADER	:=\
 	_errors.c\
+	_parse_rgb.c\
 	loader.c\
 
 SRCS_UTILS	:=\
