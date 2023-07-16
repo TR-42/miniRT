@@ -13,6 +13,7 @@
 #ifndef RT_TYPES_H
 # define RT_TYPES_H
 
+# include <stdbool.h>
 # include <stddef.h>
 
 # include "vect3d.h"
