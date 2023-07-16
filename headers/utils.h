@@ -39,6 +39,20 @@ double	ft_strtod(
 			);
 
 /**
+ * @brief 指定の数字文字列をbyte型に変換する
+ * 
+ * @param str 文字列
+ * @param dst 解析結果の値を記録する場所
+ * @return bool 解析に成功したかどうか
+ */
+bool	try_str_to_byte(
+			const char *str,
+			unsigned char *dst
+			)
+		__attribute__((nonnull))
+		;
+
+/**
  * @brief 小数文字列をdoubleに変換する。指数標記には非対応。
  * 
  * @param str 文字列(先頭の空白は無視される)

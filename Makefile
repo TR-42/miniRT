@@ -23,6 +23,7 @@ SRCS_UTILS	:=\
 	error_exit.c\
 	free2darr.c\
 	ft_strtod.c\
+	try_str_to_byte.c\
 	try_strtod.c\
 
 SRCS_NOMAIN	:= \
