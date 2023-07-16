@@ -13,6 +13,18 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include <stddef.h>
+
+/**
+ * @brief 二次元配列の長さを求める
+ * 
+ * @param arr2d 二次元配列へのポインタ
+ * @return size_t 配列の長さ (NULLの場合は0が返る)
+ */
+size_t	arrlen2d(
+			const void *const *arr2d
+			);
+
 /**
  * @brief 小数文字列をdoubleに変換する。指数標記には非対応。
  * 

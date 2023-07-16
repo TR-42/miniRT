@@ -19,6 +19,7 @@ SRCS_LOADER	:=\
 	loader.c\
 
 SRCS_UTILS	:=\
+	arrlen2d.c\
 	error_exit.c\
 	free2darr.c\
 	ft_strtod.c\
