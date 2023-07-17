@@ -109,11 +109,15 @@ norm:
 # region tests
 
 T_STRTOD	:=	t_strtod
+T_LOAD_RT	:=	t_load_rt
 
 TESTS	:=\
 	$(T_STRTOD)\
+	$(T_LOAD_RT)\
 
 $(T_STRTOD):	.tests/$(T_STRTOD).c $(OBJS_NOMAIN) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
+$(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(OBJS_NOMAIN) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
 
 tclean:
