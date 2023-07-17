@@ -10,23 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// - errno
-#include <errno.h>
-
-// - perror
-#include <stdio.h>
-
 // - exit
 #include <stdlib.h>
-
-// - strerror
-#include <string.h>
-
-// - write
-#include <unistd.h>
-
-#include <ft_put/ft_put.h>
-#include <ft_string/ft_string.h>
 
 #include <utils.h>
 
@@ -35,7 +20,7 @@ void	perr_exit(
 	const char *str
 )
 {
-	strerr_exit(str, errno);
+	exit(perr_retint(str, 1));
 }
 
 __attribute__((noreturn))
@@ -44,7 +29,7 @@ void	strerr_exit(
 	int _errno
 )
 {
-	errstr_exit(str, strerror(_errno));
+	exit(strerr_retint(str, _errno, 1));
 }
 
 __attribute__((noreturn))
@@ -53,12 +38,5 @@ void	errstr_exit(
 	const char *msg
 )
 {
-	if (str != NULL)
-		ft_putstr_fd(str, STDERR_FILENO);
-	if (msg != NULL)
-	{
-		write(STDERR_FILENO, ": ", 2);
-		ft_putendl_fd(msg, STDERR_FILENO);
-	}
-	exit(1);
+	exit(errstr_retint(str, msg, 1));
 }
