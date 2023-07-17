@@ -35,5 +35,5 @@ bool	try_str_to_byte(
 	if (ft_isdigit(*str))
 		v = (v * 10) + (*str++ - '0');
 	*dst = (unsigned char)v;
-	return (v < 256);
+	return (*str == '\0' && v < 256);
 }
