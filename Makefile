@@ -22,6 +22,7 @@ SRCS_LOADER	:=\
 	_load_cylinder.c\
 	_load_light.c\
 	_load_plane.c\
+	_load_sphere.c\
 	_parse_rgb.c\
 	_parse_vec3.c\
 	loader.c\
