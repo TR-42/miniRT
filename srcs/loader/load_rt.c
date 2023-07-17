@@ -16,10 +16,23 @@
 // - errno
 #include <errno.h>
 
+#include <ft_string/ft_string.h>
 #include <gnl/get_next_line.h>
 
 #include <rt_loader.h>
 #include <utils.h>
+
+static	char	*_remove_lf(char *str)
+{
+	size_t	len;
+
+	if (str == NULL || *str == '\0')
+		return (str);
+	len = ft_strlen(str);
+	if (str[len - 1] == '\n')
+		str[len - 1] = '\0';
+	return (str);
+}
 
 // 何かに失敗したら、その時点で解析を終了する。
 // 今までの解析結果 (malloc済みのobjsなど) はfreeされないので注意
@@ -44,7 +57,7 @@ t_lderr	load_rt(
 	errno = 0;
 	while (err == LOAD_ERR_SUCCESS)
 	{
-		tmp = get_next_line(&gnl);
+		tmp = _remove_lf(get_next_line(&gnl));
 		if (tmp == NULL)
 			break ;
 		err = load_rt_line(tmp, dst);
