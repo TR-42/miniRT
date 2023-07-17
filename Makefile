@@ -30,6 +30,7 @@ SRCS_LOADER	:=\
 SRCS_UTILS	:=\
 	arrlen2d.c\
 	error_exit.c\
+	error_retint.c\
 	free2darr.c\
 	ft_strtod.c\
 	try_str_to_byte.c\

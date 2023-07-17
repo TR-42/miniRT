@@ -113,4 +113,47 @@ void	errstr_exit(
 		__attribute__((noreturn))
 		;
 
+/**
+ * @brief 現在のerrnoを読み取り、それにあったエラー文を出力したうえで指定の値を返す
+ * 
+ * @param str エラー文の前に出力する文字列
+ * @param ret 返す値
+ * @return int `ret`で指定された値
+ */
+int		perr_retint(
+			const char *str,
+			int ret
+			)
+		;
+
+/**
+ * @brief 指定のerrnoにあったエラー文を出力したうえで指定の値を返す
+ * 
+ * @param str エラー文の前に出力する文字列
+ * @param _errno 出力したいエラーの番号
+ * @param ret 返す値
+ * @return int `ret`で指定された値
+ */
+int		strerr_retint(
+			const char *str,
+			int _errno,
+			int ret
+			)
+		;
+
+/**
+ * @brief 指定のエラー文を出力したうえで指定の値を返す
+ * 
+ * @param str エラー文の前に出力する文字列
+ * @param msg 出力したいエラー文
+ * @param ret 返す値
+ * @return int `ret`で指定された値
+ */
+int		errstr_retint(
+			const char *str,
+			const char *msg,
+			int ret
+			)
+		;
+
 #endif
