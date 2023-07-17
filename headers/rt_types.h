@@ -51,7 +51,10 @@ typedef struct s_light
 
 typedef enum e_tobj
 {
+	T_OBJ_UNKNOWN,
 	T_OBJ_SPHERE,
+	T_OBJ_PLANE,
+	T_OBJ_CYLINDER,
 }	t_tobj;
 
 typedef struct s_objs_comm

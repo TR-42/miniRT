@@ -25,6 +25,7 @@ t_plane	_load_plane(
 	t_plane	v;
 
 	v = (t_plane){0};
+	v.comm.type = T_OBJ_PLANE;
 	if (arrlen2d((void *)arr) != ELEM_CNT)
 		*err = LOAD_ERR_TOO_FEW_ARGS;
 	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
