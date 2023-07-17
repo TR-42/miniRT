@@ -78,12 +78,12 @@ static t_lderr	_parse_input(char *const arr[], t_scene *scene)
 	}
 	else if (ft_strncmp(arr[0], TID_CAMERA, sizeof(TID_CAMERA)) == 0)
 	{
-		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
+		if (!_is_dup_def(&(scene->is_camera_set), &err))
 			scene->camera = _load_camera(arr, &err);
 	}
 	else if (ft_strncmp(arr[0], TID_LIGHT, sizeof(TID_LIGHT)) == 0)
 	{
-		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
+		if (!_is_dup_def(&(scene->is_light_set), &err))
 			scene->light = _load_light(arr, &err);
 	}
 	else
