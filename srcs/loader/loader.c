@@ -22,6 +22,8 @@
 #include <rt_loader.h>
 #include <utils.h>
 
+#include "_rt_loader.h"
+
 #define TYPE_ID_AMB_LIGHT "A"
 #define TYPE_ID_CAMERA "C"
 #define TYPE_ID_LIGHT "L"
@@ -33,11 +35,11 @@ static bool	_parse_input_obj(char *const arr[], t_scene *scene)
 {
 	(void)scene;
 	if (ft_strncmp(arr[0], TYPE_ID_SPHERE, sizeof(TYPE_ID_SPHERE)))
-		;
+		_load_sphere(arr, scene);
 	else if (ft_strncmp(arr[0], TYPE_ID_PLANE, sizeof(TYPE_ID_PLANE)))
-		;
+		_load_plane(arr, scene);
 	else if (ft_strncmp(arr[0], TYPE_ID_CYLINDER, sizeof(TYPE_ID_CYLINDER)))
-		;
+		_load_cylinder(arr, scene);
 	else
 		return (false);
 	return (true);
@@ -54,11 +56,11 @@ static void	_split_and_parse(char *str, t_scene *scene)
 	if (arr[0] == NULL)
 		;
 	else if (ft_strncmp(arr[0], TYPE_ID_AMB_LIGHT, sizeof(TYPE_ID_AMB_LIGHT)))
-		;
+		_load_amb_light(arr, scene);
 	else if (ft_strncmp(arr[0], TYPE_ID_CAMERA, sizeof(TYPE_ID_CAMERA)))
-		;
+		_load_camera(arr, scene);
 	else if (ft_strncmp(arr[0], TYPE_ID_LIGHT, sizeof(TYPE_ID_LIGHT)))
-		;
+		_load_light(arr, scene);
 	else if (!_parse_input_obj(arr, scene))
 		errstr_exit("parse input: Unknwon Type Identifier", arr[0]);
 	free2darr((void **)arr);
@@ -80,6 +82,9 @@ t_scene	load_rt(int fd)
 	gnl = gen_gnl_state(fd, 4096);
 	if (gnl.buf == NULL)
 		perr_exit("gnl_init");
+	scene.objs = vect_init(128, sizeof(t_objs));
+	if (scene.objs.p == NULL)
+		perr_exit("vect_init");
 	errno = 0;
 	while (true)
 	{
