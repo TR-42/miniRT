@@ -30,12 +30,10 @@ bool	try_str_to_byte(
 			str += 1;
 	else
 		str += 1;
-	if (!ft_isdigit(*str))
-		return (*str == '\0');
-	v = (v * 10) + (*str++ - '0');
-	if (!ft_isdigit(*str))
-		return (*str == '\0');
-	v = (v * 10) + (*str++ - '0');
+	if (ft_isdigit(*str))
+		v = (v * 10) + (*str++ - '0');
+	if (ft_isdigit(*str))
+		v = (v * 10) + (*str++ - '0');
 	*dst = (unsigned char)v;
 	return (v < 256);
 }
