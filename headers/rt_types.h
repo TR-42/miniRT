@@ -16,6 +16,8 @@
 # include <stdbool.h>
 # include <stddef.h>
 
+# include <ft_vect/ft_vect.h>
+
 # include "vect3d.h"
 
 typedef unsigned char	t_byte;
@@ -102,8 +104,7 @@ typedef struct s_scene
 	t_cam		camera;
 	bool		is_light_set;
 	t_light		light;
-	size_t		objs_cnt;
-	t_objs		*objs;
+	t_vect		objs;
 }	t_scene;
 
 #endif
