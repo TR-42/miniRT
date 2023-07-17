@@ -24,12 +24,12 @@
 
 #include "_rt_loader.h"
 
-#define TYPE_ID_AMB_LIGHT "A"
-#define TYPE_ID_CAMERA "C"
-#define TYPE_ID_LIGHT "L"
-#define TYPE_ID_SPHERE "sp"
-#define TYPE_ID_PLANE "pl"
-#define TYPE_ID_CYLINDER "cy"
+#define TID_AMB_LIGHT "A"
+#define TID_CAMERA "C"
+#define TID_LIGHT "L"
+#define TID_SPHERE "sp"
+#define TID_PLANE "pl"
+#define TID_CYLINDER "cy"
 
 static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
 {
@@ -38,11 +38,11 @@ static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
 
 	obj = (t_objs){0};
 	err = LOAD_ERR_SUCCESS;
-	if (ft_strncmp(arr[0], TYPE_ID_SPHERE, sizeof(TYPE_ID_SPHERE)))
+	if (ft_strncmp(arr[0], TID_SPHERE, sizeof(TID_SPHERE)))
 		obj.sphere = _load_sphere(arr, &err);
-	else if (ft_strncmp(arr[0], TYPE_ID_PLANE, sizeof(TYPE_ID_PLANE)))
+	else if (ft_strncmp(arr[0], TID_PLANE, sizeof(TID_PLANE)))
 		obj.plane = _load_plane(arr, &err);
-	else if (ft_strncmp(arr[0], TYPE_ID_CYLINDER, sizeof(TYPE_ID_CYLINDER)))
+	else if (ft_strncmp(arr[0], TID_CYLINDER, sizeof(TID_CYLINDER)))
 		obj.cylinder = _load_cylinder(arr, &err);
 	else
 		err = LOAD_ERR_UNKNOWN_TYPE_ID;
@@ -71,17 +71,17 @@ static t_lderr	_parse_input(char *const arr[], t_scene *scene)
 {
 	t_lderr	err;
 
-	if (ft_strncmp(arr[0], TYPE_ID_AMB_LIGHT, sizeof(TYPE_ID_AMB_LIGHT)))
+	if (ft_strncmp(arr[0], TID_AMB_LIGHT, sizeof(TID_AMB_LIGHT)))
 	{
 		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
 			scene->amb_light = _load_amb_light(arr, &err);
 	}
-	else if (ft_strncmp(arr[0], TYPE_ID_CAMERA, sizeof(TYPE_ID_CAMERA)))
+	else if (ft_strncmp(arr[0], TID_CAMERA, sizeof(TID_CAMERA)))
 	{
 		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
 			scene->camera = _load_camera(arr, &err);
 	}
-	else if (ft_strncmp(arr[0], TYPE_ID_LIGHT, sizeof(TYPE_ID_LIGHT)))
+	else if (ft_strncmp(arr[0], TID_LIGHT, sizeof(TID_LIGHT)))
 	{
 		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
 			scene->light = _load_light(arr, &err);
