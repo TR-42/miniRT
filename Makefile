@@ -24,6 +24,7 @@ SRCS_LOADER	:=\
 	_load_sphere.c\
 	_parse_rgb.c\
 	_parse_vec3.c\
+	load_rt.c\
 	loader.c\
 
 SRCS_UTILS	:=\
