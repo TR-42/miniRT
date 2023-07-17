@@ -44,6 +44,7 @@ typedef struct s_light
 {
 	t_vec3	point;
 	double	brightness;
+	t_rgb	color;
 }	t_light;
 
 typedef enum e_tobj
