@@ -31,70 +31,88 @@
 #define TYPE_ID_PLANE "pl"
 #define TYPE_ID_CYLINDER "cy"
 
-static bool	_parse_input_obj(char *const arr[], t_scene *scene)
+static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
 {
-	(void)scene;
+	t_lderr	err;
+
 	if (ft_strncmp(arr[0], TYPE_ID_SPHERE, sizeof(TYPE_ID_SPHERE)))
-		_load_sphere(arr, scene);
+		err = _load_sphere(arr, scene);
 	else if (ft_strncmp(arr[0], TYPE_ID_PLANE, sizeof(TYPE_ID_PLANE)))
-		_load_plane(arr, scene);
+		err = _load_plane(arr, scene);
 	else if (ft_strncmp(arr[0], TYPE_ID_CYLINDER, sizeof(TYPE_ID_CYLINDER)))
-		_load_cylinder(arr, scene);
+		err = _load_cylinder(arr, scene);
 	else
-		return (false);
-	return (true);
+		err = LOAD_ERR_UNKNOWN_TYPE_ID;
+	return (err);
 }
 
-static void	_split_and_parse(char *str, t_scene *scene)
+static t_lderr	_parse_input(char *const arr[], t_scene *scene)
+{
+	t_lderr	err;
+
+	if (ft_strncmp(arr[0], TYPE_ID_AMB_LIGHT, sizeof(TYPE_ID_AMB_LIGHT)))
+		err = _load_amb_light(arr, scene);
+	else if (ft_strncmp(arr[0], TYPE_ID_CAMERA, sizeof(TYPE_ID_CAMERA)))
+		err = _load_camera(arr, scene);
+	else if (ft_strncmp(arr[0], TYPE_ID_LIGHT, sizeof(TYPE_ID_LIGHT)))
+		err = _load_light(arr, scene);
+	else
+		err = _parse_input_obj(arr, scene);
+	return (err);
+}
+
+__attribute__((nonnull))
+t_lderr	load_rt_line(
+	const char *line,
+	t_scene *dst
+)
 {
 	char	**arr;
+	t_lderr	err;
 
-	arr = ft_split(str, ' ');
-	free(str);
+	if (*line == '\0')
+		return (LOAD_ERR_SUCCESS);
+	arr = ft_split(line, ' ');
 	if (arr == NULL)
-		perr_exit("ft_split");
-	if (arr[0] == NULL)
-		;
-	else if (ft_strncmp(arr[0], TYPE_ID_AMB_LIGHT, sizeof(TYPE_ID_AMB_LIGHT)))
-		_load_amb_light(arr, scene);
-	else if (ft_strncmp(arr[0], TYPE_ID_CAMERA, sizeof(TYPE_ID_CAMERA)))
-		_load_camera(arr, scene);
-	else if (ft_strncmp(arr[0], TYPE_ID_LIGHT, sizeof(TYPE_ID_LIGHT)))
-		_load_light(arr, scene);
-	else if (!_parse_input_obj(arr, scene))
-		errstr_exit("parse input: Unknwon Type Identifier", arr[0]);
+		return (perr_retint("ft_split", LOAD_ERR_PRINTED));
+	err = LOAD_ERR_SUCCESS;
+	if (arr[0] != NULL)
+		err = _parse_input(arr, dst);
 	free2darr((void **)arr);
+	return (err);
 }
 
-/**
- * @brief RTファイルを読み込み、解析し、sceneに記録して返す
- * 
- * @param fd RTファイルのファイルディスクリプタ
- * @return t_scene 読み込み/解析結果 (エラー発生時はexit(1))
- */
-t_scene	load_rt(int fd)
+// 何かに失敗したら、その時点で解析を終了する。
+// 今までの解析結果 (malloc済みのobjsなど) はfreeされないので注意
+__attribute__((nonnull))
+t_lderr	load_rt(
+	int fd,
+	t_scene *dst
+)
 {
-	t_scene		scene;
+	t_lderr		err;
 	t_gnl_state	gnl;
 	char		*tmp;
 
-	scene = (t_scene){0};
+	*dst = (t_scene){0};
+	err = LOAD_ERR_SUCCESS;
 	gnl = gen_gnl_state(fd, 4096);
 	if (gnl.buf == NULL)
-		perr_exit("gnl_init");
-	scene.objs = vect_init(128, sizeof(t_objs));
-	if (scene.objs.p == NULL)
-		perr_exit("vect_init");
+		return (perr_retint("gnl_init", LOAD_ERR_PRINTED));
+	dst->objs = vect_init(128, sizeof(t_objs));
+	if (dst->objs.p == NULL)
+		err = perr_retint("vect_init", LOAD_ERR_PRINTED);
 	errno = 0;
-	while (true)
+	while (err == LOAD_ERR_SUCCESS)
 	{
 		tmp = get_next_line(&gnl);
 		if (tmp == NULL)
 			break ;
-		_split_and_parse(tmp, &scene);
+		err = load_rt_line(tmp, dst);
+		free(tmp);
 	}
 	if (errno != 0)
-		strerr_exit("gnl", errno);
+		err = perr_retint("gnl", LOAD_ERR_PRINTED);
 	dispose_gnl_state(&gnl);
-	return (scene);
+	return (err);
 }

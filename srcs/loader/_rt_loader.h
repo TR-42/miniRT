@@ -13,59 +13,61 @@
 #ifndef _RT_LOADER_H
 # define _RT_LOADER_H
 
-# include <rt_types.h>
+# include <rt_loader.h>
 
-void	_load_amb_light(
+t_lderr	_load_amb_light(
 			char *const arr[],
 			t_scene *scene
 			)
 		__attribute__((nonnull))
 		;
 
-void	_load_camera(
+t_lderr	_load_camera(
 			char *const arr[],
 			t_scene *scene
 			)
 		__attribute__((nonnull))
 		;
 
-void	_load_light(
+t_lderr	_load_light(
 			char *const arr[],
 			t_scene *scene
 			)
 		__attribute__((nonnull))
 		;
 
-void	_load_sphere(
+t_lderr	_load_sphere(
 			char *const arr[],
 			t_scene *scene
 			)
 		__attribute__((nonnull))
 		;
 
-void	_load_plane(
+t_lderr	_load_plane(
 			char *const arr[],
 			t_scene *scene
 			)
 		__attribute__((nonnull))
 		;
 
-void	_load_cylinder(
+t_lderr	_load_cylinder(
 			char *const arr[],
 			t_scene *scene
 			)
 		__attribute__((nonnull))
 		;
 
-t_rgb	_parse_rgb(
-			const char *input
-			)
-		__attribute__((nonnull))
-		;
-
-t_vec3	_parse_vec3(
+t_lderr	_parse_rgb(
 			const char *input,
-			bool is_normalized
+			t_rgb *dst
+			)
+		__attribute__((nonnull))
+		;
+
+t_lderr	_parse_vec3(
+			const char *input,
+			bool is_normalized,
+			t_vec3 *dst
 			)
 		__attribute__((nonnull))
 		;

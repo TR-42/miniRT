@@ -24,28 +24,32 @@ static bool	_is_normalized(double v)
 }
 
 __attribute__((nonnull))
-t_vec3	_parse_vec3(
+t_lderr	_parse_vec3(
 	const char *input,
-	bool is_normalized
+	bool is_normalized,
+	t_vec3 *dst
 )
 {
+	t_lderr	err;
 	char	**arr2d;
-	t_vec3	ret;
 
+	err = LOAD_ERR_SUCCESS;
 	arr2d = ft_split(input, ',');
+	if (arr2d == NULL)
+		return (perr_retint("_parse_vec3/ft_split", LOAD_ERR_PRINTED));
 	if (arrlen2d((void *)arr2d) != ELEM_CNT)
-		_err_too_few_param_exit();
-	if (!try_strtod(arr2d[0], NULL, &(ret.x))
-		|| !try_strtod(arr2d[1], NULL, &(ret.y))
-		|| !try_strtod(arr2d[2], NULL, &(ret.z)))
-		_err_notnum_exit();
+		err = LOAD_ERR_TOO_FEW_PARAMS;
+	if (!try_strtod(arr2d[0], NULL, &(dst->x))
+		|| !try_strtod(arr2d[1], NULL, &(dst->y))
+		|| !try_strtod(arr2d[2], NULL, &(dst->z)))
+		err = LOAD_ERR_NOT_A_NUMBER;
 	if (is_normalized && !(
-			_is_normalized(ret.x)
-			&& _is_normalized(ret.y)
-			&& _is_normalized(ret.x)
+			_is_normalized(dst->x)
+			&& _is_normalized(dst->y)
+			&& _is_normalized(dst->x)
 		)
 	)
-		_err_val_out_of_range_exit();
+		err = LOAD_ERR_VAL_OUT_OF_RANGE;
 	free2darr((void **)arr2d);
-	return (ret);
+	return (err);
 }

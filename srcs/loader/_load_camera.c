@@ -17,20 +17,26 @@
 #define ELEM_CNT 4
 
 __attribute__((nonnull))
-void	_load_camera(
+t_lderr	_load_camera(
 	char *const arr[],
 	t_scene *scene
 )
 {
+	t_lderr	err;
 	t_cam	v;
 
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		_err_too_few_param_exit();
+		return (LOAD_ERR_TOO_FEW_ARGS);
 	v = (t_cam){0};
-	v.point = _parse_vec3(arr[1], false);
-	v.orientation = _parse_vec3(arr[2], true);
+	err = _parse_vec3(arr[1], false, &(v.point));
+	if (err != LOAD_ERR_SUCCESS)
+		return (err);
+	err = _parse_vec3(arr[2], true, &(v.orientation));
+	if (err != LOAD_ERR_SUCCESS)
+		return (err);
 	if (!try_str_to_byte(arr[3], &(v.fov)) || 180 < v.fov)
-		_err_val_out_of_range_exit();
+		return (LOAD_ERR_VAL_OUT_OF_RANGE);
 	scene->is_camera_set = true;
 	scene->camera = v;
+	return (LOAD_ERR_SUCCESS);
 }

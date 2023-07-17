@@ -17,21 +17,25 @@
 #define ELEM_CNT 3
 
 __attribute__((nonnull))
-void	_load_amb_light(
+t_lderr	_load_amb_light(
 	char *const arr[],
 	t_scene *scene
 )
 {
+	t_lderr		err;
 	t_amb_light	v;
 
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		_err_too_few_param_exit();
+		return (LOAD_ERR_TOO_FEW_ARGS);
 	v = (t_amb_light){0};
 	if (!try_strtod(arr[1], NULL, &(v.ratio)))
-		_err_notnum_exit();
+		return (LOAD_ERR_NOT_A_NUMBER);
 	if (v.ratio < 0 || 1 < v.ratio)
-		_err_val_out_of_range_exit();
-	v.color = _parse_rgb(arr[2]);
+		return (LOAD_ERR_VAL_OUT_OF_RANGE);
+	err = _parse_rgb(arr[2], &(v.color));
+	if (err != LOAD_ERR_SUCCESS)
+		return (err);
 	scene->is_amb_l_set = true;
 	scene->amb_light = v;
+	return (LOAD_ERR_SUCCESS);
 }

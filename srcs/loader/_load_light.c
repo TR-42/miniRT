@@ -17,22 +17,28 @@
 #define ELEM_CNT 4
 
 __attribute__((nonnull))
-void	_load_light(
+t_lderr	_load_light(
 	char *const arr[],
 	t_scene *scene
 )
 {
+	t_lderr	err;
 	t_light	v;
 
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		_err_too_few_param_exit();
+		return (LOAD_ERR_TOO_FEW_ARGS);
 	v = (t_light){0};
-	v.point = _parse_vec3(arr[1], false);
+	err = _parse_vec3(arr[1], false, &(v.point));
+	if (err != LOAD_ERR_SUCCESS)
+		return (err);
 	if (!try_strtod(arr[2], NULL, &(v.brightness)))
-		_err_notnum_exit();
+		return (LOAD_ERR_NOT_A_NUMBER);
 	if (v.brightness < 0 || 1 < v.brightness)
-		_err_val_out_of_range_exit();
-	v.color = _parse_rgb(arr[3]);
+		return (LOAD_ERR_VAL_OUT_OF_RANGE);
+	err = _parse_rgb(arr[3], &(v.color));
+	if (err != LOAD_ERR_SUCCESS)
+		return (err);
 	scene->is_light_set = true;
 	scene->light = v;
+	return (LOAD_ERR_SUCCESS);
 }
