@@ -17,33 +17,22 @@
 #define ELEM_CNT 6
 
 __attribute__((nonnull))
-t_lderr	_load_cylinder(
+t_cylnd	_load_cylinder(
 	char *const arr[],
-	t_scene *scene
+	t_lderr *err
 )
 {
-	t_lderr	err;
-	t_objs	obj;
-	t_cylnd	*v;
+	t_cylnd	v;
 
+	v = (t_cylnd){0};
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		return (LOAD_ERR_TOO_FEW_ARGS);
-	obj = (t_objs){0};
-	v = &(obj.cylinder);
-	err = _parse_vec3(arr[1], false, &(v->center));
-	if (err != LOAD_ERR_SUCCESS)
-		return (err);
-	err = _parse_vec3(arr[2], true, &(v->axis));
-	if (err != LOAD_ERR_SUCCESS)
-		return (err);
-	if (!try_strtod(arr[3], NULL, &(v->diameter))
-		|| !try_strtod(arr[4], NULL, &(v->height)))
-		return (LOAD_ERR_NOT_A_NUMBER);
-	err = _parse_rgb(arr[5], &(v->color));
-	if (err != LOAD_ERR_SUCCESS)
-		return (err);
-	if (!vect_push_back(&(scene->objs), &obj, NULL))
-		return (errstr_retint(
-				"load_cylinder", "push_back failed", LOAD_ERR_PRINTED));
-	return (LOAD_ERR_SUCCESS);
+		*err = LOAD_ERR_TOO_FEW_ARGS;
+	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
+		&& _parse_vec3(arr[2], true, &(v.axis), err) == LOAD_ERR_SUCCESS
+		&& (!try_strtod(arr[3], NULL, &(v.diameter))
+			|| !try_strtod(arr[4], NULL, &(v.height))))
+		*err = LOAD_ERR_NOT_A_NUMBER;
+	else
+		_parse_rgb(arr[5], &(v.color), err);
+	return (v);
 }

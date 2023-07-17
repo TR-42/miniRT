@@ -34,16 +34,37 @@
 static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
 {
 	t_lderr	err;
+	t_objs	obj;
 
+	obj = (t_objs){0};
+	err = LOAD_ERR_SUCCESS;
 	if (ft_strncmp(arr[0], TYPE_ID_SPHERE, sizeof(TYPE_ID_SPHERE)))
-		err = _load_sphere(arr, scene);
+		obj.sphere = _load_sphere(arr, &err);
 	else if (ft_strncmp(arr[0], TYPE_ID_PLANE, sizeof(TYPE_ID_PLANE)))
-		err = _load_plane(arr, scene);
+		obj.plane = _load_plane(arr, &err);
 	else if (ft_strncmp(arr[0], TYPE_ID_CYLINDER, sizeof(TYPE_ID_CYLINDER)))
-		err = _load_cylinder(arr, scene);
+		obj.cylinder = _load_cylinder(arr, &err);
 	else
 		err = LOAD_ERR_UNKNOWN_TYPE_ID;
-	return (err);
+	if (err != LOAD_ERR_SUCCESS)
+		return (err);
+	if (!vect_push_back(&(scene->objs), &obj, NULL))
+		return (perr_retint("parse_input_obj/push_back", LOAD_ERR_PRINTED));
+	return (LOAD_ERR_SUCCESS);
+}
+
+static bool	_is_dup_def(bool *flag, t_lderr *err)
+{
+	if (*flag)
+	{
+		*err = LOAD_ERR_DUP_DEF;
+		return (true);
+	}
+	else
+	{
+		*flag = true;
+		return (false);
+	}
 }
 
 static t_lderr	_parse_input(char *const arr[], t_scene *scene)
@@ -51,11 +72,20 @@ static t_lderr	_parse_input(char *const arr[], t_scene *scene)
 	t_lderr	err;
 
 	if (ft_strncmp(arr[0], TYPE_ID_AMB_LIGHT, sizeof(TYPE_ID_AMB_LIGHT)))
-		err = _load_amb_light(arr, scene);
+	{
+		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
+			scene->amb_light = _load_amb_light(arr, &err);
+	}
 	else if (ft_strncmp(arr[0], TYPE_ID_CAMERA, sizeof(TYPE_ID_CAMERA)))
-		err = _load_camera(arr, scene);
+	{
+		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
+			scene->camera = _load_camera(arr, &err);
+	}
 	else if (ft_strncmp(arr[0], TYPE_ID_LIGHT, sizeof(TYPE_ID_LIGHT)))
-		err = _load_light(arr, scene);
+	{
+		if (!_is_dup_def(&(scene->is_amb_l_set), &err))
+			scene->light = _load_light(arr, &err);
+	}
 	else
 		err = _parse_input_obj(arr, scene);
 	return (err);

@@ -15,61 +15,63 @@
 
 # include <rt_loader.h>
 
-t_lderr	_load_amb_light(
-			char *const arr[],
-			t_scene *scene
-			)
-		__attribute__((nonnull))
-		;
+t_amb_light	_load_amb_light(
+				char *const arr[],
+				t_lderr *err
+				)
+			__attribute__((nonnull))
+			;
 
-t_lderr	_load_camera(
-			char *const arr[],
-			t_scene *scene
-			)
-		__attribute__((nonnull))
-		;
+t_cam		_load_camera(
+				char *const arr[],
+				t_lderr *err
+				)
+			__attribute__((nonnull))
+			;
 
-t_lderr	_load_light(
-			char *const arr[],
-			t_scene *scene
-			)
-		__attribute__((nonnull))
-		;
+t_light		_load_light(
+				char *const arr[],
+				t_lderr *err
+				)
+			__attribute__((nonnull))
+			;
 
-t_lderr	_load_sphere(
-			char *const arr[],
-			t_scene *scene
-			)
-		__attribute__((nonnull))
-		;
+t_spher		_load_sphere(
+				char *const arr[],
+				t_lderr *err
+				)
+			__attribute__((nonnull))
+			;
 
-t_lderr	_load_plane(
-			char *const arr[],
-			t_scene *scene
-			)
-		__attribute__((nonnull))
-		;
+t_plane		_load_plane(
+				char *const arr[],
+				t_lderr *err
+				)
+			__attribute__((nonnull))
+			;
 
-t_lderr	_load_cylinder(
-			char *const arr[],
-			t_scene *scene
-			)
-		__attribute__((nonnull))
-		;
+t_cylnd		_load_cylinder(
+				char *const arr[],
+				t_lderr *err
+				)
+			__attribute__((nonnull))
+			;
 
-t_lderr	_parse_rgb(
-			const char *input,
-			t_rgb *dst
-			)
-		__attribute__((nonnull))
-		;
+t_lderr		_parse_rgb(
+				const char *input,
+				t_rgb *dst,
+				t_lderr *err
+				)
+			__attribute__((nonnull(1, 2)))
+			;
 
-t_lderr	_parse_vec3(
-			const char *input,
-			bool is_normalized,
-			t_vec3 *dst
-			)
-		__attribute__((nonnull))
-		;
+t_lderr		_parse_vec3(
+				const char *input,
+				bool is_normalized,
+				t_vec3 *dst,
+				t_lderr *err
+				)
+			__attribute__((nonnull(1, 3)))
+			;
 
 #endif

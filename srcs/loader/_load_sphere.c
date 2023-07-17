@@ -17,29 +17,20 @@
 #define ELEM_CNT 4
 
 __attribute__((nonnull))
-t_lderr	_load_sphere(
+t_spher	_load_sphere(
 	char *const arr[],
-	t_scene *scene
+	t_lderr *err
 )
 {
-	t_lderr	err;
-	t_objs	obj;
-	t_spher	*v;
+	t_spher	v;
 
+	v = (t_spher){0};
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		return (LOAD_ERR_TOO_FEW_ARGS);
-	obj = (t_objs){0};
-	v = &(obj.sphere);
-	err = _parse_vec3(arr[1], false, &(v->center));
-	if (err != LOAD_ERR_SUCCESS)
-		return (err);
-	if (!try_strtod(arr[2], NULL, &(v->diameter)))
-		return (LOAD_ERR_NOT_A_NUMBER);
-	err = _parse_rgb(arr[3], &(v->color));
-	if (err != LOAD_ERR_SUCCESS)
-		return (err);
-	if (!vect_push_back(&(scene->objs), &obj, NULL))
-		return (errstr_retint(
-				"load_sphere", "push_back failed", LOAD_ERR_PRINTED));
-	return (LOAD_ERR_SUCCESS);
+		*err = LOAD_ERR_TOO_FEW_ARGS;
+	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
+		&& !try_strtod(arr[2], NULL, &(v.diameter)))
+		*err = LOAD_ERR_NOT_A_NUMBER;
+	else
+		_parse_rgb(arr[3], &(v.color), err);
+	return (v);
 }
