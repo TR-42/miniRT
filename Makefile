@@ -16,7 +16,6 @@ SRCS_MAIN	:= \
 	main.c \
 
 SRCS_LOADER	:=\
-	_errors.c\
 	_load_amb_light.c\
 	_load_camera.c\
 	_load_cylinder.c\

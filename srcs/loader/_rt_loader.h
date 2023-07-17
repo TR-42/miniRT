@@ -72,16 +72,4 @@ t_lderr	_parse_vec3(
 		__attribute__((nonnull))
 		;
 
-void	_err_notnum_exit(void)
-		__attribute__((noreturn))
-		;
-
-void	_err_val_out_of_range_exit(void)
-		__attribute__((noreturn))
-		;
-
-void	_err_too_few_param_exit(void)
-		__attribute__((noreturn))
-		;
-
 #endif
