@@ -19,7 +19,7 @@
 
 static void	_print_vec3(const char *str, t_vec3 v)
 {
-	printf("\t%s: (%3.2f,%3.2f,%3.2f)\n",
+	printf("\t%s: (%3.10f,%3.10f,%3.10f)\n",
 		str, v.x, v.y, v.z);
 }
 

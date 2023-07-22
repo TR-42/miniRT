@@ -26,11 +26,11 @@ static void	_print_cylinder(t_cylnd v)
 	if (v.comm.type != T_OBJ_CYLINDER)
 		printf("\t!!! ERR: Object type mismatch (expected CYLINDER but was %s)\n",
 			_get_tobj_str(v.comm.type));
-	_print_vec3("Center", v.center);
-	_print_vec3("Axis", v.axis);
-	printf("\tDiameter: %f\n", v.diameter);
-	printf("\tHeight: %f\n", v.height);
-	_print_rgb("Color", v.color);
+	_print_vec3("  Center", v.center);
+	_print_vec3("    Axis", v.axis);
+	printf("\tDiameter: %.10f\n", v.diameter);
+	printf("\t  Height: %.10f\n", v.height);
+	_print_rgb("   Color", v.color);
 }
 
 #endif

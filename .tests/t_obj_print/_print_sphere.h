@@ -26,9 +26,9 @@ static void	_print_sphere(t_spher v)
 	if (v.comm.type != T_OBJ_SPHERE)
 		printf("\t!!! ERR: Object type mismatch (expected SPHERE but was %s)\n",
 			_get_tobj_str(v.comm.type));
-	_print_vec3("Center", v.center);
-	printf("\tDiameter: %f\n", v.diameter);
-	_print_rgb("Color", v.color);
+	_print_vec3("  Center", v.center);
+	printf("\tDiameter: %.10f\n", v.diameter);
+	_print_rgb("   Color", v.color);
 }
 
 #endif
