@@ -20,7 +20,7 @@ extern "C"
 #define DOUBLE_ALLOWABLE_ERROR 1e-12
 #include "t_loader_auto_utils.cpp"
 
-#define T(i, input, expected) { std::printf("%lu: ", i); Tester(input).t(expected); }
+#define T(i, input, expected) { std::printf("%3lu: ", i); Tester(input).t(expected); }
 
 int	main(void)
 {
@@ -83,5 +83,41 @@ int	main(void)
 			.color = _rgb(10, 0, 255),
 		})
 	)
+
+	T(++i,
+		"A 0.2",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
+
+	T(++i,
+		"A 0.2 255,255,",
+		LOAD_ERR_TOO_FEW_PARAMS
+	)
+
+	T(++i,
+		"A 1.2 255,255,255",
+		LOAD_ERR_VAL_OUT_OF_RANGE
+	)
+
+	T(++i,
+		"A -0.2 255,255,255",
+		LOAD_ERR_VAL_OUT_OF_RANGE
+	)
+
+	T(++i,
+		"A 0.2 256,255,255",
+		LOAD_ERR_NOT_A_NUMBER
+	)
+
+	T(++i,
+		"A 0.2 255,-1,255",
+		LOAD_ERR_NOT_A_NUMBER
+	)
+
+	T(++i,
+		"A 0.2 255,1,a",
+		LOAD_ERR_NOT_A_NUMBER
+	)
+
 	return (0);
 }
