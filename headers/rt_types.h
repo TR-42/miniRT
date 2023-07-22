@@ -92,7 +92,6 @@ typedef struct s_cylinder
 
 typedef union u_objs
 {
-	t_byte		_[U_OBJ_SIZE];
 	t_objs_comm	comm;
 	t_spher		sphere;
 	t_plane		plane;
