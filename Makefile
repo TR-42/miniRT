@@ -108,17 +108,23 @@ norm:
 
 # region tests
 
+CXX := c++
+
 T_STRTOD	:=	t_strtod
 T_LOAD_RT	:=	t_load_rt
+T_LOADER_AUTO	:=	t_loader_auto
 
 TESTS	:=\
 	$(T_STRTOD)\
 	$(T_LOAD_RT)\
+	$(T_LOADER_AUTO)\
 
 $(T_STRTOD):	.tests/$(T_STRTOD).c $(OBJS_NOMAIN) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
 $(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(OBJS_NOMAIN) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
+$(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(OBJS_NOMAIN) $(LIBFT)
+	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $^ $(LIB_LINK)
 
 tclean:
 	rm -f $(TESTS) $(addsuffix .d,$(TESTS))
