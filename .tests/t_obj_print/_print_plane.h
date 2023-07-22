@@ -27,7 +27,7 @@ static void	_print_plane(t_plane v)
 		printf("\t!!! ERR: Object type mismatch (expected PLANE but was %s)\n",
 			_get_tobj_str(v.comm.type));
 	_print_vec3("     Center", v.center);
-	_print_vec3("Orientation", v.center);
+	_print_vec3("Orientation", v.orientation);
 	_print_rgb("      Color", v.color);
 }
 
