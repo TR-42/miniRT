@@ -92,7 +92,15 @@ int	main(void)
 		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
+		"A 0.2 0,0,0 1",
+		LOAD_ERR_INVAL_ARGS_COUNT
+	)
+	T(++i,
 		"C -0,0,0 0,0,0",
+		LOAD_ERR_INVAL_ARGS_COUNT
+	)
+	T(++i,
+		"C -0,0,0 0,0,0 0 1",
 		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
@@ -100,7 +108,15 @@ int	main(void)
 		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
+		"L 0,0,0 0 0,0,0 1",
+		LOAD_ERR_INVAL_ARGS_COUNT
+	)
+	T(++i,
 		"sp 0,0,0 0",
+		LOAD_ERR_INVAL_ARGS_COUNT
+	)
+	T(++i,
+		"sp 0,0,0 0 0,0,0 0",
 		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
@@ -108,7 +124,15 @@ int	main(void)
 		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
+		"pl 0,0,0 0,0,0 0,0,0 0",
+		LOAD_ERR_INVAL_ARGS_COUNT
+	)
+	T(++i,
 		"cy 0,0,0 0,0,0 0 0",
+		LOAD_ERR_INVAL_ARGS_COUNT
+	)
+	T(++i,
+		"cy 0,0,0 0,0,0 0 0 0,0,0 0",
 		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 
