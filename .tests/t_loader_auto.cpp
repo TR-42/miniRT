@@ -21,11 +21,13 @@ extern "C"
 #include "t_loader_auto_utils.cpp"
 
 #define T(i, input, expected) { std::printf("%3lu: ", i); Tester(input).t(expected); }
+#define TITLE(text) { i = 0; puts("* " text); }
 
 int	main(void)
 {
 	size_t	i = 0;
 
+	TITLE("Valid Input")
 	T(++i,
 		"A 0.2 255,255,255",
 		((t_amb_light){
@@ -84,16 +86,43 @@ int	main(void)
 		})
 	)
 
+	TITLE("Too Few Arguments")
 	T(++i,
 		"A 0.2",
 		LOAD_ERR_TOO_FEW_ARGS
 	)
+	T(++i,
+		"C -0,0,0 0,0,0",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
+	T(++i,
+		"L 0,0,0 0",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
+	T(++i,
+		"sp 0,0,0 0",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
+	T(++i,
+		"pl 0,0,0 0,0,0",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
+	T(++i,
+		"cy 0,0,0 0,0,0 0 0",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
 
+	TITLE("Too Few Params")
 	T(++i,
 		"A 0.2 255,255,",
 		LOAD_ERR_TOO_FEW_PARAMS
 	)
+	T(++i,
+		"C -0,0, 0,0,0",
+		LOAD_ERR_TOO_FEW_ARGS
+	)
 
+	TITLE("Value out of range")
 	T(++i,
 		"A 1.2 255,255,255",
 		LOAD_ERR_VAL_OUT_OF_RANGE
@@ -104,6 +133,7 @@ int	main(void)
 		LOAD_ERR_VAL_OUT_OF_RANGE
 	)
 
+	TITLE("Not a Number")
 	T(++i,
 		"A 0.2 256,255,255",
 		LOAD_ERR_NOT_A_NUMBER
