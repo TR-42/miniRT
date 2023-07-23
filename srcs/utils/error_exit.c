@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:57:56 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:13:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/09 22:10:46 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/09 22:57:52 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <limits.h>
-#include "../ft_string/ft_string.h"
+// - exit
+#include <stdlib.h>
 
-void	ft_putstr_fd(const char *s, int fd)
+#include <utils.h>
+
+__attribute__((noreturn))
+void	perr_exit(
+	const char *str
+)
 {
-	size_t	length;
+	exit(perr_retint(str, 1));
+}
 
-	if (s == NULL)
-		return ;
-	while (*s != '\0')
-	{
-		length = ft_strnlen(s, INT_MAX);
-		write(fd, s, length);
-		s += length;
-	}
+__attribute__((noreturn))
+void	strerr_exit(
+	const char *str,
+	int _errno
+)
+{
+	exit(strerr_retint(str, _errno, 1));
+}
+
+__attribute__((noreturn))
+void	errstr_exit(
+	const char *str,
+	const char *msg
+)
+{
+	exit(errstr_retint(str, msg, 1));
 }

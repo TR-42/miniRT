@@ -15,7 +15,30 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_LOADER	:=\
+	_load_amb_light.c\
+	_load_camera.c\
+	_load_cylinder.c\
+	_load_light.c\
+	_load_plane.c\
+	_load_sphere.c\
+	_parse_rgb.c\
+	_parse_vec3.c\
+	load_rt.c\
+	loader.c\
+
+SRCS_UTILS	:=\
+	arrlen2d.c\
+	error_exit.c\
+	error_retint.c\
+	free2darr.c\
+	ft_strtod.c\
+	try_str_to_byte.c\
+	try_strtod.c\
+
 SRCS_NOMAIN	:= \
+	$(addprefix loader/, $(SRCS_LOADER))\
+	$(addprefix utils/, $(SRCS_UTILS))\
 
 HEADERS_DIR		:=	./headers
 
@@ -82,3 +105,30 @@ norm:
 -include $(DEPS)
 
 .PHONY:	clean_local bonus norm
+
+# region tests
+
+CXX := c++
+
+T_STRTOD	:=	t_strtod
+T_LOAD_RT	:=	t_load_rt
+T_LOADER_AUTO	:=	t_loader_auto
+
+TESTS	:=\
+	$(T_STRTOD)\
+	$(T_LOAD_RT)\
+	$(T_LOADER_AUTO)\
+
+$(T_STRTOD):	.tests/$(T_STRTOD).c $(OBJS_NOMAIN) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
+$(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(OBJS_NOMAIN) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
+$(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(OBJS_NOMAIN) $(LIBFT)
+	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $^ $(LIB_LINK)
+
+tclean:
+	rm -f $(TESTS) $(addsuffix .d,$(TESTS))
+
+.PHONY: tclean
+
+# endregion tests

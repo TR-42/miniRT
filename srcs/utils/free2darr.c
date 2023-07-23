@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   free2darr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:57:56 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:13:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/09 23:13:24 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/09 23:16:01 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <limits.h>
-#include "../ft_string/ft_string.h"
+#include <stdlib.h>
 
-void	ft_putstr_fd(const char *s, int fd)
+#include <utils.h>
+
+void	*free2darr(
+	void **arr2d
+)
 {
-	size_t	length;
+	size_t	i;
 
-	if (s == NULL)
-		return ;
-	while (*s != '\0')
-	{
-		length = ft_strnlen(s, INT_MAX);
-		write(fd, s, length);
-		s += length;
-	}
+	if (arr2d == NULL)
+		return (NULL);
+	i = 0;
+	while (arr2d[i] != NULL)
+		free(arr2d[i++]);
+	free(arr2d);
+	return (NULL);
 }

@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   vect3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:57:56 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:13:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/08 20:04:58 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/08 20:05:47 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <limits.h>
-#include "../ft_string/ft_string.h"
+#ifndef VECT3D_H
+# define VECT3D_H
 
-void	ft_putstr_fd(const char *s, int fd)
+typedef struct s_vec3
 {
-	size_t	length;
+	double	x;
+	double	y;
+	double	z;
+}	t_vec3;
 
-	if (s == NULL)
-		return ;
-	while (*s != '\0')
-	{
-		length = ft_strnlen(s, INT_MAX);
-		write(fd, s, length);
-		s += length;
-	}
-}
+#endif

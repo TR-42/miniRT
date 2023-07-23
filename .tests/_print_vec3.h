@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   _print_vec3.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:57:56 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:13:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/18 00:19:30 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/18 00:20:34 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <limits.h>
-#include "../ft_string/ft_string.h"
+#ifndef _PRINT_VEC3_H
+# define _PRINT_VEC3_H
 
-void	ft_putstr_fd(const char *s, int fd)
+# include <stdio.h>
+
+# include <vect3d.h>
+
+# define FLOAT_FMT "%14.10f"
+
+static void	_print_vec3(const char *str, t_vec3 v)
 {
-	size_t	length;
-
-	if (s == NULL)
-		return ;
-	while (*s != '\0')
-	{
-		length = ft_strnlen(s, INT_MAX);
-		write(fd, s, length);
-		s += length;
-	}
+	printf("\t%s: (" FLOAT_FMT "," FLOAT_FMT "," FLOAT_FMT ")\n",
+		str, v.x, v.y, v.z);
 }
+
+#endif

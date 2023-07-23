@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   _print_rgb.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:57:56 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:13:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/18 00:18:22 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/18 00:19:09 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <limits.h>
-#include "../ft_string/ft_string.h"
+#ifndef _PRINT_RGB_H
+# define _PRINT_RGB_H
 
-void	ft_putstr_fd(const char *s, int fd)
+# include <stdio.h>
+# include <rt_types.h>
+
+static void	_print_rgb(const char *str, t_rgb rgb)
 {
-	size_t	length;
-
-	if (s == NULL)
-		return ;
-	while (*s != '\0')
-	{
-		length = ft_strnlen(s, INT_MAX);
-		write(fd, s, length);
-		s += length;
-	}
+	printf("\t%s: (%3d,%3d,%3d) = (%02x,%02x,%02x)\n",
+		str,
+		rgb.r, rgb.g, rgb.b,
+		rgb.r, rgb.g, rgb.b);
 }
+
+#endif
