@@ -55,8 +55,12 @@ LIBFT_DIR	:=	./libft
 LIBFT	:=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	:=	make -C $(LIBFT_DIR)
 
+MLX_DIR	:=	./minilibx
+MLX	:=	$(MLX_DIR)/libmlx.a
+MLX_MAKE	:=	make -C $(MLX_DIR)
+
 override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
-INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR)
+INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 LIB_LINK	:=	-lm
 
 CC		:=	cc
@@ -64,7 +68,7 @@ CC		:=	cc
 all:	$(NAME)
 bonus:	$(NAME)
 
-$(NAME):	$(OBJS) $(LIBFT)
+$(NAME):	$(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
 debug: clean_local_obj
 	make CFLAGS='-DDEBUG -g'
@@ -79,6 +83,8 @@ $(OBJ_DIR)/%.o:	$(SRCS_BASE_DIR)/%.c
 
 $(LIBFT):
 	$(LIBFT_MAKE)
+$(MLX):
+	$(MLX_MAKE) 2> mlx_error.log
 
 bonus:	$(NAME)
 
@@ -96,6 +102,7 @@ clean: clean_local
 
 fclean:	fclean_local
 	$(LIBFT_MAKE) fclean
+	$(MLX_MAKE) clean
 
 re:	fclean all
 
