@@ -25,6 +25,7 @@ typedef enum e_load_err
 	LOAD_ERR_VAL_OUT_OF_RANGE,
 	LOAD_ERR_INVAL_ARGS_COUNT,
 	LOAD_ERR_TOO_FEW_PARAMS,
+	LOAD_ERR_NO_CAMERA,
 }	t_lderr;
 
 /**
