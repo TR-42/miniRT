@@ -17,9 +17,11 @@
 
 # include <vect3d.h>
 
+# define FLOAT_FMT "%14.10f"
+
 static void	_print_vec3(const char *str, t_vec3 v)
 {
-	printf("\t%s: (%3.10f,%3.10f,%3.10f)\n",
+	printf("\t%s: (" FLOAT_FMT "," FLOAT_FMT "," FLOAT_FMT ")\n",
 		str, v.x, v.y, v.z);
 }
 
