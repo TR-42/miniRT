@@ -27,7 +27,7 @@ static const char	*_get_lderr_str(t_lderr err)
 	else IF_RET_ERR_STR(LOAD_ERR_UNKNOWN_TYPE_ID)
 	else IF_RET_ERR_STR(LOAD_ERR_NOT_A_NUMBER)
 	else IF_RET_ERR_STR(LOAD_ERR_VAL_OUT_OF_RANGE)
-	else IF_RET_ERR_STR(LOAD_ERR_TOO_FEW_ARGS)
+	else IF_RET_ERR_STR(LOAD_ERR_INVAL_ARGS_COUNT)
 	else IF_RET_ERR_STR(LOAD_ERR_TOO_FEW_PARAMS)
 	else
 		return ("(Unknown load_error id)");

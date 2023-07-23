@@ -26,7 +26,7 @@ t_cam	_load_camera(
 
 	v = (t_cam){0};
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		*err = LOAD_ERR_TOO_FEW_ARGS;
+		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (_parse_vec3(arr[1], false, &(v.point), err) == LOAD_ERR_SUCCESS
 		&& _parse_vec3(arr[2], true, &(v.orientation), err) == LOAD_ERR_SUCCESS
 		&& (!try_str_to_byte(arr[3], &(v.fov)) || 180 < v.fov))

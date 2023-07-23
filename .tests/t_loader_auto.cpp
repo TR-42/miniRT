@@ -86,30 +86,30 @@ int	main(void)
 		})
 	)
 
-	TITLE("Too Few Arguments")
+	TITLE("Invalid Argument Count")
 	T(++i,
 		"A 0.2",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
 		"C -0,0,0 0,0,0",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
 		"L 0,0,0 0",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
 		"sp 0,0,0 0",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
 		"pl 0,0,0 0,0,0",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 	T(++i,
 		"cy 0,0,0 0,0,0 0 0",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 
 	TITLE("Too Few Params")
@@ -119,7 +119,7 @@ int	main(void)
 	)
 	T(++i,
 		"C -0,0, 0,0,0",
-		LOAD_ERR_TOO_FEW_ARGS
+		LOAD_ERR_INVAL_ARGS_COUNT
 	)
 
 	TITLE("Value out of range")

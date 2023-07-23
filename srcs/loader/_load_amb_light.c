@@ -26,7 +26,7 @@ t_amb_light	_load_amb_light(
 
 	v = (t_amb_light){0};
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		*err = LOAD_ERR_TOO_FEW_ARGS;
+		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (!try_strtod(arr[1], NULL, &(v.ratio)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
 	else if (v.ratio < 0 || 1 < v.ratio)

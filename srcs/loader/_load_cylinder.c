@@ -27,7 +27,7 @@ t_cylnd	_load_cylinder(
 	v = (t_cylnd){0};
 	v.comm.type = T_OBJ_CYLINDER;
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		*err = LOAD_ERR_TOO_FEW_ARGS;
+		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
 		&& _parse_vec3(arr[2], true, &(v.axis), err) == LOAD_ERR_SUCCESS
 		&& (!try_strtod(arr[3], NULL, &(v.diameter))

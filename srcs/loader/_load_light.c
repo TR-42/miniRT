@@ -26,7 +26,7 @@ t_light	_load_light(
 
 	v = (t_light){0};
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		*err = LOAD_ERR_TOO_FEW_ARGS;
+		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (_parse_vec3(arr[1], false, &(v.point), err) == LOAD_ERR_SUCCESS
 		&& !try_strtod(arr[2], NULL, &(v.brightness)))
 		*err = LOAD_ERR_NOT_A_NUMBER;

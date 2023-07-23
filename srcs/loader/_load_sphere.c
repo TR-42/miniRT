@@ -27,7 +27,7 @@ t_spher	_load_sphere(
 	v = (t_spher){0};
 	v.comm.type = T_OBJ_SPHERE;
 	if (arrlen2d((void *)arr) != ELEM_CNT)
-		*err = LOAD_ERR_TOO_FEW_ARGS;
+		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
 		&& !try_strtod(arr[2], NULL, &(v.diameter)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
