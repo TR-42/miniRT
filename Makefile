@@ -46,7 +46,8 @@ SRCS_BASE_DIR	:=	./srcs
 
 OBJ_DIR	:=	./objs
 OBJS_NOMAIN	:=	$(addprefix $(OBJ_DIR)/, $(SRCS_NOMAIN:.c=.o))
-OBJS	:=	$(OBJS_NOMAIN) $(addprefix $(OBJ_DIR)/, $(SRCS_MAIN:.c=.o))
+OBJS_MAIN	:=	$(addprefix $(OBJ_DIR)/, $(SRCS_MAIN:.c=.o))
+OBJS	:=	$(OBJS_NOMAIN) $(OBJS_MAIN)
 DEPS	:=	$(addprefix $(OBJ_DIR)/, $(OBJS:.o=.d))
 
 TEST_DIR	:=	.tests
@@ -55,17 +56,23 @@ LIBFT_DIR	:=	./libft
 LIBFT	:=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	:=	make -C $(LIBFT_DIR)
 
+MLX_DIR	:=	./minilibx
+MLX	:=	$(MLX_DIR)/libmlx.a
+MLX_MAKE	:=	make -C $(MLX_DIR)
+
+LIB_NOMAIN	:=	lib_nomain.a
+
 override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
-INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR)
-LIB_LINK	:=	-lm
+INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
+LIB_LINK	:=	-lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L. -l_nomain
 
 CC		:=	cc
 
 all:	$(NAME)
 bonus:	$(NAME)
 
-$(NAME):	$(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
+$(NAME):	$(OBJS_MAIN) $(LIBFT) $(MLX) $(LIB_NOMAIN)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS_MAIN) $(LIB_LINK)
 debug: clean_local_obj
 	make CFLAGS='-DDEBUG -g'
 faddr: clean_local_obj
@@ -77,8 +84,13 @@ $(OBJ_DIR)/%.o:	$(SRCS_BASE_DIR)/%.c
 	@test -d '$(dir $@)' || mkdir -p '$(dir $@)'
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
+$(LIB_NOMAIN): $(OBJS_NOMAIN)
+	ar rcs $@ $^
+
 $(LIBFT):
 	$(LIBFT_MAKE)
+$(MLX):
+	$(MLX_MAKE) 2> mlx_error.log
 
 bonus:	$(NAME)
 
@@ -89,13 +101,14 @@ clean_local:
 	rm -rf $(OBJ_DIR)
 
 fclean_local: clean_local
-	rm -f $(NAME)
+	rm -f $(NAME) $(LIB_NOMAIN)
 
 clean: clean_local
 	$(LIBFT_MAKE) clean
 
 fclean:	fclean_local
 	$(LIBFT_MAKE) fclean
+	$(MLX_MAKE) clean
 
 re:	fclean all
 
@@ -119,12 +132,12 @@ TESTS	:=\
 	$(T_LOAD_RT)\
 	$(T_LOADER_AUTO)\
 
-$(T_STRTOD):	.tests/$(T_STRTOD).c $(OBJS_NOMAIN) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
-$(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(OBJS_NOMAIN) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIB_LINK)
-$(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(OBJS_NOMAIN) $(LIBFT)
-	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $^ $(LIB_LINK)
+$(T_STRTOD):	.tests/$(T_STRTOD).c $(LIB_NOMAIN)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
+$(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(LIB_NOMAIN)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
+$(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(LIB_NOMAIN)
+	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $< $(LIB_LINK)
 
 tclean:
 	rm -f $(TESTS) $(addsuffix .d,$(TESTS))
