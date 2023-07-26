@@ -33,6 +33,7 @@ SRCS_UTILS	:=\
 	error_retint.c\
 	free2darr.c\
 	ft_strtod.c\
+	powf.c\
 	try_str_to_byte.c\
 	try_strtod.c\
 
