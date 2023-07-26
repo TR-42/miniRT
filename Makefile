@@ -38,6 +38,9 @@ SRCS_UTILS	:=\
 
 SRCS_VECT3D :=\
 	vec3_.c\
+	vec3_add.c\
+	vec3_mul.c\
+	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
 	$(addprefix loader/, $(SRCS_LOADER))\
