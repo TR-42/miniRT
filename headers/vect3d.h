@@ -20,6 +20,8 @@ typedef struct s_vec3
 	double	z;
 }	t_vec3;
 
+// ref: https://hakuhin.jp/as/vec3d.html
+
 t_vec3	vec3_(double x, double y, double z);
 
 #endif
