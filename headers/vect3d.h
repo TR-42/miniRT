@@ -31,5 +31,6 @@ t_vec3	vec3_mul(t_vec3 a, double b);
 double	vec3_len(t_vec3 a);
 
 double	vec3_dot(t_vec3 a, t_vec3 b);
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 
 #endif
