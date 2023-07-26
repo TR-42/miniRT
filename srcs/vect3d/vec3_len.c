@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vect3d.h                                           :+:      :+:    :+:   */
+/*   vec3_len.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 20:04:58 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/08 20:05:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/27 00:12:22 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/27 00:23:39 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECT3D_H
-# define VECT3D_H
+#include <math.h>
 
-typedef struct s_vec3
+#include <utils.h>
+
+#include <vect3d.h>
+
+double	vec3_len(
+	t_vec3 a
+)
 {
-	double	x;
-	double	y;
-	double	z;
-}	t_vec3;
-
-// ref: https://hakuhin.jp/as/vec3d.html
-
-t_vec3	vec3_(double x, double y, double z);
-
-t_vec3	vec3_add(t_vec3 a, t_vec3 b);
-t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
-t_vec3	vec3_mul(t_vec3 a, double b);
-
-double	vec3_len(t_vec3 a);
-
-#endif
+	return (
+		sqrt(
+			pow2f(a.x)
+			+ pow2f(a.y)
+			+ pow2f(a.z)
+		)
+	);
+}
