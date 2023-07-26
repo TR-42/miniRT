@@ -36,9 +36,13 @@ SRCS_UTILS	:=\
 	try_str_to_byte.c\
 	try_strtod.c\
 
+SRCS_VECT3D :=\
+	vec3_.c\
+
 SRCS_NOMAIN	:= \
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
+	$(addprefix vect3d/, $(SRCS_VECT3D))\
 
 HEADERS_DIR		:=	./headers
 

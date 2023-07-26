@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vect3d.h                                           :+:      :+:    :+:   */
+/*   vec3_.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 20:04:58 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/08 20:05:47 by kfujita          ###   ########.fr       */
+/*   Created: 2023/07/26 23:58:37 by kfujita           #+#    #+#             */
+/*   Updated: 2023/07/26 23:59:41 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECT3D_H
-# define VECT3D_H
+#include <vect3d.h>
 
-typedef struct s_vec3
+t_vec3	vec3_(
+	double x,
+	double y,
+	double z
+)
 {
-	double	x;
-	double	y;
-	double	z;
-}	t_vec3;
-
-t_vec3	vec3_(double x, double y, double z);
-
-#endif
+	return (
+		(t_vec3)
+		{
+			.x = x,
+			.y = y,
+			.z = z,
+		}
+	);
+}
