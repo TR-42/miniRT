@@ -33,12 +33,24 @@ SRCS_UTILS	:=\
 	error_retint.c\
 	free2darr.c\
 	ft_strtod.c\
+	powf.c\
 	try_str_to_byte.c\
 	try_strtod.c\
+
+SRCS_VECT3D :=\
+	vec3_.c\
+	vec3_add.c\
+	vec3_cross.c\
+	vec3_dot.c\
+	vec3_len.c\
+	vec3_mul.c\
+	vec3_normalize.c\
+	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
+	$(addprefix vect3d/, $(SRCS_VECT3D))\
 
 HEADERS_DIR		:=	./headers
 

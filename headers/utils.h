@@ -156,4 +156,36 @@ int		errstr_retint(
 			)
 		;
 
+/**
+ * @brief 指定の数を二乗して返す
+ * 
+ * @param value 二乗したい数
+ * @return double 計算結果
+ */
+double	pow2f(
+			double value
+			)
+		;
+
+/**
+ * @brief 指定の数を三乗して返す
+ * 
+ * @param value 三乗したい数
+ * @return double 計算結果
+ */
+double	pow3f(
+			double value
+			)
+		;
+
+/**
+ * @brief 指定の数を四乗して返す
+ * 
+ * @param value 四乗したい数
+ * @return double 計算結果
+ */
+double	pow4f(
+			double value
+			)
+		;
 #endif
