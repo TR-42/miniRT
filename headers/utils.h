@@ -188,4 +188,19 @@ double	pow4f(
 			double value
 			)
 		;
+
+/**
+ * @brief base64形式にエンコードする
+ * 
+ * @param d 変換したいデータ
+ * @param len データのサイズ [byte]
+ * @return char* base64文字列 (mallocされたもの)
+ */
+char	*base64_encode(
+			const unsigned char *d,
+			size_t len
+			)
+		__attribute__((nonnull))
+		;
+
 #endif

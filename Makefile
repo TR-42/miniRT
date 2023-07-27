@@ -29,6 +29,7 @@ SRCS_LOADER	:=\
 
 SRCS_UTILS	:=\
 	arrlen2d.c\
+	base64_encode.c\
 	error_exit.c\
 	error_retint.c\
 	free2darr.c\
