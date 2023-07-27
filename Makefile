@@ -15,6 +15,9 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_INLINE_IMG	:= \
+	print_inline_img.c \
+
 SRCS_LOADER	:=\
 	_load_amb_light.c\
 	_load_camera.c\
@@ -49,6 +52,7 @@ SRCS_VECT3D :=\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
