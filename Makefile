@@ -143,11 +143,13 @@ CXX := c++
 T_STRTOD	:=	t_strtod
 T_LOAD_RT	:=	t_load_rt
 T_LOADER_AUTO	:=	t_loader_auto
+T_INLINE_IMG	:=	t_inline_img
 
 TESTS	:=\
 	$(T_STRTOD)\
 	$(T_LOAD_RT)\
 	$(T_LOADER_AUTO)\
+	$(T_INLINE_IMG)\
 
 $(T_STRTOD):	.tests/$(T_STRTOD).c $(LIB_NOMAIN)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
@@ -155,6 +157,8 @@ $(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(LIB_NOMAIN)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
 $(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(LIB_NOMAIN)
 	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $< $(LIB_LINK)
+$(T_INLINE_IMG):	.tests/$(T_INLINE_IMG).cpp $(LIB_NOMAIN)
+	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
 
 tclean:
 	rm -f $(TESTS) $(addsuffix .d,$(TESTS))
