@@ -15,6 +15,9 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_INLINE_IMG	:= \
+	print_inline_img.c \
+
 SRCS_LOADER	:=\
 	_load_amb_light.c\
 	_load_camera.c\
@@ -29,6 +32,7 @@ SRCS_LOADER	:=\
 
 SRCS_UTILS	:=\
 	arrlen2d.c\
+	base64_encode.c\
 	error_exit.c\
 	error_retint.c\
 	free2darr.c\
@@ -48,6 +52,7 @@ SRCS_VECT3D :=\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
@@ -138,11 +143,13 @@ CXX := c++
 T_STRTOD	:=	t_strtod
 T_LOAD_RT	:=	t_load_rt
 T_LOADER_AUTO	:=	t_loader_auto
+T_INLINE_IMG	:=	t_inline_img
 
 TESTS	:=\
 	$(T_STRTOD)\
 	$(T_LOAD_RT)\
 	$(T_LOADER_AUTO)\
+	$(T_INLINE_IMG)\
 
 $(T_STRTOD):	.tests/$(T_STRTOD).c $(LIB_NOMAIN)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
@@ -150,6 +157,8 @@ $(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(LIB_NOMAIN)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
 $(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(LIB_NOMAIN)
 	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $< $(LIB_LINK)
+$(T_INLINE_IMG):	.tests/$(T_INLINE_IMG).cpp $(LIB_NOMAIN)
+	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
 
 tclean:
 	rm -f $(TESTS) $(addsuffix .d,$(TESTS))
