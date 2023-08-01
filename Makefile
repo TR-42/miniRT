@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/07/08 19:51:41 by kfujita          ###   ########.fr        #
+#    Updated: 2023/08/02 00:55:12 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,11 @@ NAME	:=	miniRT
 
 SRCS_MAIN	:= \
 	main.c \
+
+SRCS_CANVAS	:= \
+	dispose.c\
+	init.c\
+	to_bmp.c\
 
 SRCS_INLINE_IMG	:= \
 	print_inline_img.c \
@@ -52,6 +57,7 @@ SRCS_VECT3D :=\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix canvas/, $(SRCS_CANVAS))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
