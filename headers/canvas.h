@@ -38,13 +38,6 @@ bool	canvas_dispose(
 		__attribute__((nonnull))
 		;
 
-size_t	canvas_to_bmp(
-			const t_cnvas *canvas,
-			uint8_t **dst
-			)
-		__attribute__((nonnull))
-		;
-
 void	canvas_set_color(
 			t_cnvas *canvas,
 			size_t x,
