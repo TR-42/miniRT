@@ -45,4 +45,13 @@ size_t	canvas_to_bmp(
 		__attribute__((nonnull))
 		;
 
+void	canvas_set_color(
+			t_cnvas *canvas,
+			size_t x,
+			size_t y,
+			t_rgb color
+			)
+		__attribute__((nonnull))
+		;
+
 #endif

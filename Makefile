@@ -18,6 +18,7 @@ SRCS_MAIN	:= \
 SRCS_CANVAS	:= \
 	dispose.c\
 	init.c\
+	set_color.c\
 	to_bmp.c\
 
 SRCS_INLINE_IMG	:= \
