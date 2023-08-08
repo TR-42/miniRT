@@ -89,6 +89,18 @@ override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
 INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 LIB_LINK	:=	-lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L. -l_nomain
 
+ifneq (,$(findstring -DDEBUG, $(CFLAGS)))
+# os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b
+OS_TYPE	:= $(shell uname -s)
+ifeq ($(OS_TYPE),Darwin)
+	LIBPNG_DIR = $(shell brew --prefix libpng)
+	INCLUDES += -I$(LIBPNG_DIR)/include
+	LIB_LINK += -L$(LIBPNG_DIR)/lib
+endif
+
+	LIB_LINK	+=	-lpng
+endif
+
 CC		:=	cc
 
 all:	$(NAME)
