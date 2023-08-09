@@ -23,8 +23,8 @@ void	canvas_set_color(
 	t_byte	*dst;
 
 	dst = canvas->buf + ((y * canvas->width) + x) * 4;
-	dst[0] = 0;
-	dst[1] = color.r;
-	dst[2] = color.g;
-	dst[3] = color.b;
+	dst[3] = 255;
+	dst[0] = color.r;
+	dst[1] = color.g;
+	dst[2] = color.b;
 }
