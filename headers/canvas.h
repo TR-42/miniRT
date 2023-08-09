@@ -47,4 +47,11 @@ void	canvas_set_color(
 		__attribute__((nonnull))
 		;
 
+size_t	canvas_to_png(
+			t_cnvas *canvas,
+			t_byte **dst
+			)
+		__attribute__((nonnull))
+		;
+
 #endif

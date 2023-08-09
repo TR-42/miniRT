@@ -19,6 +19,7 @@ SRCS_CANVAS	:= \
 	dispose.c\
 	init.c\
 	set_color.c\
+	to_png.c\
 
 SRCS_INLINE_IMG	:= \
 	print_inline_img.c \
