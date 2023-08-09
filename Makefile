@@ -90,7 +90,7 @@ override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
 INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 LIB_LINK	:=	-lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L. -l_nomain
 
-ifneq (,$(findstring -DDEBUG, $(CFLAGS)))
+ifneq (,$(findstring -DENABLE_PNG, $(CFLAGS)))
 # os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b
 OS_TYPE	:= $(shell uname -s)
 ifeq ($(OS_TYPE),Darwin)
@@ -109,6 +109,10 @@ bonus:	$(NAME)
 
 $(NAME):	$(OBJS_MAIN) $(LIBFT) $(MLX) $(LIB_NOMAIN)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS_MAIN) $(LIB_LINK)
+png:
+	rm -f $(OBJ_DIR)/canvas/to_png.o
+	make CFLAGS='-DENABLE_PNG'
+	mv $(NAME) $@
 debug: clean_local_obj
 	make CFLAGS='-DDEBUG -g'
 faddr: clean_local_obj
