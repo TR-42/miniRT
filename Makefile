@@ -36,6 +36,10 @@ SRCS_LOADER	:=\
 	load_rt.c\
 	loader.c\
 
+SRCS_RAY	:=\
+	at.c\
+	init_dst.c\
+
 SRCS_UTILS	:=\
 	arrlen2d.c\
 	base64_encode.c\
@@ -61,6 +65,7 @@ SRCS_NOMAIN	:= \
 	$(addprefix canvas/, $(SRCS_CANVAS))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
+	$(addprefix ray/, $(SRCS_RAY))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
 
