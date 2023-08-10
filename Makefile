@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/07/08 19:51:41 by kfujita          ###   ########.fr        #
+#    Updated: 2023/08/02 00:55:12 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,12 @@ NAME	:=	miniRT
 
 SRCS_MAIN	:= \
 	main.c \
+
+SRCS_CANVAS	:= \
+	dispose.c\
+	init.c\
+	set_color.c\
+	to_png.c\
 
 SRCS_INLINE_IMG	:= \
 	print_inline_img.c \
@@ -52,6 +58,7 @@ SRCS_VECT3D :=\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix canvas/, $(SRCS_CANVAS))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix utils/, $(SRCS_UTILS))\
@@ -83,6 +90,18 @@ override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
 INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 LIB_LINK	:=	-lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L. -l_nomain
 
+ifneq (,$(findstring -DENABLE_PNG, $(CFLAGS)))
+# os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b
+OS_TYPE	:= $(shell uname -s)
+ifeq ($(OS_TYPE),Darwin)
+	LIBPNG_DIR = $(shell brew --prefix libpng)
+	INCLUDES += -I$(LIBPNG_DIR)/include
+	LIB_LINK += -L$(LIBPNG_DIR)/lib
+endif
+
+	LIB_LINK	+=	-lpng
+endif
+
 CC		:=	cc
 
 all:	$(NAME)
@@ -90,6 +109,10 @@ bonus:	$(NAME)
 
 $(NAME):	$(OBJS_MAIN) $(LIBFT) $(MLX) $(LIB_NOMAIN)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS_MAIN) $(LIB_LINK)
+png:
+	rm -f $(OBJ_DIR)/canvas/to_png.o
+	make CFLAGS='-DENABLE_PNG'
+	mv $(NAME) $@
 debug: clean_local_obj
 	make CFLAGS='-DDEBUG -g'
 faddr: clean_local_obj
