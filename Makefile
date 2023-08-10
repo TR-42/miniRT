@@ -166,7 +166,7 @@ norm:
 
 -include $(DEPS)
 
-.PHONY:	clean_local bonus norm
+.PHONY:	clean_local bonus norm png
 
 # region tests
 
