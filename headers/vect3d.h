@@ -25,6 +25,7 @@ typedef struct s_vec3
 t_vec3	vec3_(double x, double y, double z);
 
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+t_vec3	vec3_add3(t_vec3 a, t_vec3 b, t_vec3 c);
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_mul(t_vec3 a, double b);
 

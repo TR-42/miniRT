@@ -25,3 +25,18 @@ t_vec3	vec3_add(
 		)
 	);
 }
+
+t_vec3	vec3_add3(
+	t_vec3 a,
+	t_vec3 b,
+	t_vec3 c
+)
+{
+	return (
+		vec3_(
+			a.x + b.x + c.x,
+			a.y + b.y + c.y,
+			a.z + b.z + c.z
+		)
+	);
+}
