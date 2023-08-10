@@ -39,7 +39,7 @@ typedef struct s_cam
 {
 	t_vec3	point;
 	t_vec3	orientation;
-	t_byte	fov;
+	double	fov;
 }	t_cam;
 
 typedef struct s_light
