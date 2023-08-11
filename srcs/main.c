@@ -19,11 +19,18 @@
 #include <print_inline_img.h>
 #include <utils.h>
 
+#include <sphere.h>
+
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
 
 static t_rgb	_ray_to_rgb(t_ray ray)
 {
+	t_objs	obj;
+
+	obj = sphere_init(vec3_(0, 0, -2), 0.5, (t_rgb){255, 0, 0});
+	if (sphere_hit(&obj, &ray))
+		return (obj.sphere.color);
 	return ((t_rgb){
 		.r = abs((int)(ray.direction.x * 255)),
 		.g = abs((int)(ray.direction.y * 255)),

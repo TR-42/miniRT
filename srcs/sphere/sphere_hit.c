@@ -12,7 +12,7 @@
 
 #include <sphere.h>
 #include <utils.h>
-#include <stdio.h>
+
 // ref: https://zenn.dev/mebiusbox/books/8d9c42883df9f6/viewer/b85221
 //		#%F0%9F%93%8C-%E7%90%83%E3%81%AE%E8%BF%BD%E5%8A%A0
 __attribute__((nonnull))
