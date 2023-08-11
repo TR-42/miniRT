@@ -26,7 +26,6 @@ t_ray	cam_get_ray(
 {
 	t_ray	ray;
 	double	fov_y;
-	double	aspect_ratio;
 	double	px;
 	double	py;
 
@@ -35,12 +34,9 @@ t_ray	cam_get_ray(
 		|| canvas->height <= y)
 		return (ray);
 	ray.origin = cam->point;
-	aspect_ratio = (double)(canvas->width) / (double)(canvas->height);
 	fov_y = (cam->fov / canvas->width) * canvas->height;
-	if (canvas->height < canvas->width)
-		aspect_ratio = (double)(canvas->height) / (double)(canvas->width);
 	px = (2 * (((double)x + 0.5) / canvas->width) - 1)
-		* tan((fov_y / 2) * M_PI / 180) * aspect_ratio;
+		* tan((cam->fov / 2) * M_PI / 180);
 	py = (1 - (2 * ((double)y + 0.5) / canvas->height))
 		* tan((fov_y / 2) * M_PI / 180);
 	ray.direction = vec3_normalize(vec3_sub(vec3_(px, py, -1), ray.origin));
