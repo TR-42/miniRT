@@ -12,6 +12,9 @@
 
 #include <stdlib.h>
 
+#include <math.h>
+
+#include <camera.h>
 #include <canvas.h>
 #include <print_inline_img.h>
 #include <utils.h>
@@ -19,24 +22,37 @@
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
 
+static t_rgb	_ray_to_rgb(t_ray ray)
+{
+	return ((t_rgb){
+		.r = abs((int)(ray.direction.x * 255)),
+		.g = abs((int)(ray.direction.y * 255)),
+		.b = abs((int)(ray.direction.z * 255)),
+	});
+}
+
 static void	_set_gradient(
 	t_cnvas *canvas
 )
 {
 	int		ix;
 	int		iy;
-	t_rgb	color;
+	t_cam	cam;
+	t_ray	ray;
 
 	iy = 0;
-	color.b = 0.5 * 256;
+	cam = (t_cam){
+		.point = vec3_(0, 0, 0),
+		.orientation = vec3_normalize(vec3_(1, 1, 1)),
+		.fov = 60,
+	};
 	while (iy < CANVAS_HEIGHT)
 	{
 		ix = 0;
-		color.g = ((double)iy / CANVAS_HEIGHT) * 256;
 		while (ix < CANVAS_WIDTH)
 		{
-			color.r = ((double)ix / CANVAS_WIDTH) * 256;
-			canvas_set_color(canvas, ix, iy, color);
+			ray = cam_get_ray(&cam, canvas, ix, iy);
+			canvas_set_color(canvas, ix, iy, _ray_to_rgb(ray));
 			ix += 1;
 		}
 		iy += 1;

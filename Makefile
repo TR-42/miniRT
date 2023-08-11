@@ -15,6 +15,9 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_CAMERA	:=\
+	cam_get_ray.c\
+
 SRCS_CANVAS	:= \
 	dispose.c\
 	init.c\
@@ -35,6 +38,10 @@ SRCS_LOADER	:=\
 	_parse_vec3.c\
 	load_rt.c\
 	loader.c\
+
+SRCS_RAY	:=\
+	at.c\
+	init_dst.c\
 
 SRCS_UTILS	:=\
 	arrlen2d.c\
@@ -58,9 +65,11 @@ SRCS_VECT3D :=\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix camera/, $(SRCS_CAMERA))\
 	$(addprefix canvas/, $(SRCS_CANVAS))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
+	$(addprefix ray/, $(SRCS_RAY))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
 
@@ -157,7 +166,7 @@ norm:
 
 -include $(DEPS)
 
-.PHONY:	clean_local bonus norm
+.PHONY:	clean_local bonus norm png
 
 # region tests
 

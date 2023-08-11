@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_add.c                                         :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 00:01:39 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/27 00:08:37 by kfujita          ###   ########.fr       */
+/*   Created: 2023/08/10 20:00:54 by kfujita           #+#    #+#             */
+/*   Updated: 2023/08/10 20:04:54 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vect3d.h>
+#ifndef RAY_H
+# define RAY_H
 
-t_vec3	vec3_add(
-	t_vec3 a,
-	t_vec3 b
-)
-{
-	return (
-		vec3_(
-			a.x + b.x,
-			a.y + b.y,
-			a.z + b.z
-		)
-	);
-}
+# include "vect3d.h"
 
-t_vec3	vec3_add3(
-	t_vec3 a,
-	t_vec3 b,
-	t_vec3 c
-)
+typedef struct s_ray
 {
-	return (
-		vec3_(
-			a.x + b.x + c.x,
-			a.y + b.y + c.y,
-			a.z + b.z + c.z
-		)
-	);
-}
+	t_vec3	origin;
+	t_vec3	direction;
+}	t_ray;
+
+t_ray	ray_init_dst(
+			t_vec3 origin,
+			t_vec3 dst
+			)
+		;
+
+t_vec3	ray_at(
+			const t_ray *ray,
+			double t
+			)
+		__attribute__((nonnull))
+		;
+
+#endif
