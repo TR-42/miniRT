@@ -20,6 +20,6 @@ t_vec3	vec3_normalize(
 
 	len = vec3_len(a);
 	if (len != 0)
-		len /= len;
+		len = 1 / len;
 	return (vec3_mul(a, len));
 }
