@@ -50,7 +50,7 @@ static void	_set_gradient(
 	iy = 0;
 	cam = (t_cam){
 		.point = vec3_(0, 0, 0),
-		.orientation = vec3_normalize(vec3_(1, 1, 1)),
+		.orientation = vec3_normalize(vec3_(-1, -1, -10)),
 		.fov = 60,
 	};
 	while (iy < CANVAS_HEIGHT)
