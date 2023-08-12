@@ -43,6 +43,10 @@ SRCS_RAY	:=\
 	at.c\
 	init_dst.c\
 
+SRCS_SPHERE	:=\
+	sphere_hit.c\
+	sphere_init.c\
+
 SRCS_UTILS	:=\
 	arrlen2d.c\
 	base64_encode.c\
@@ -70,6 +74,7 @@ SRCS_NOMAIN	:= \
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix ray/, $(SRCS_RAY))\
+	$(addprefix sphere/, $(SRCS_SPHERE))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
 

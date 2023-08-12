@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_normalize.c                                   :+:      :+:    :+:   */
+/*   sphere_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 00:29:10 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/27 00:31:12 by kfujita          ###   ########.fr       */
+/*   Created: 2023/08/11 21:39:29 by kfujita           #+#    #+#             */
+/*   Updated: 2023/08/11 21:41:15 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vect3d.h>
+#include <sphere.h>
 
-t_vec3	vec3_normalize(
-	t_vec3 a
+t_objs	sphere_init(
+	t_vec3 center,
+	double diameter,
+	t_rgb color
 )
 {
-	double	len;
+	t_objs	v;
 
-	len = vec3_len(a);
-	if (len != 0)
-		len = 1 / len;
-	return (vec3_mul(a, len));
+	v = (t_objs){0};
+	v.comm.type = T_OBJ_SPHERE;
+	v.sphere.center = center;
+	v.sphere.diameter = diameter;
+	v.sphere.color = color;
+	return (v);
 }
