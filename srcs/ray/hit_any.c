@@ -36,6 +36,7 @@ bool	ray_hit_any(
 			hit_anything = true;
 			closest_so_far = _hit_rec.t;
 			*hit_rec = _hit_rec;
+			hit_rec->obj = objs + i;
 		}
 		i += 1;
 	}

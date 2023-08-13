@@ -58,14 +58,15 @@ typedef enum e_tobj
 	T_OBJ_CYLINDER,
 }	t_tobj;
 
+typedef union u_objs	t_objs;
+
 typedef struct s_hit
 {
-	double	t;
-	t_vec3	at;
-	t_vec3	normal;
+	double			t;
+	t_vec3			at;
+	t_vec3			normal;
+	const t_objs	*obj;
 }	t_hit;
-
-typedef union u_objs	t_objs;
 
 typedef bool			(*t_hit_func)(
 	const t_objs *obj,
