@@ -19,6 +19,7 @@
 # include <ft_vect/ft_vect.h>
 
 # include "vect3d.h"
+# include "ray.h"
 
 typedef unsigned char	t_byte;
 
@@ -57,9 +58,26 @@ typedef enum e_tobj
 	T_OBJ_CYLINDER,
 }	t_tobj;
 
+typedef struct s_hit
+{
+	double	t;
+	t_vec3	at;
+	t_vec3	normal;
+}	t_hit;
+
+typedef union u_objs	t_objs;
+
+typedef bool			(*t_hit_func)(
+	const t_objs *obj,
+	const t_ray *ray,
+	const double t_range[2],
+	t_hit *hit_rec
+) __attribute__((nonnull));
+
 typedef struct s_objs_comm
 {
-	t_tobj	type;
+	t_tobj		type;
+	t_hit_func	hit_func;
 }	t_objs_comm;
 
 typedef struct s_sphere
@@ -90,13 +108,13 @@ typedef struct s_cylinder
 
 # define U_OBJ_SIZE 64
 
-typedef union u_objs
+union u_objs
 {
 	t_objs_comm	comm;
 	t_spher		sphere;
 	t_plane		plane;
 	t_cylnd		cylinder;
-}	t_objs;
+};
 
 typedef struct s_scene
 {

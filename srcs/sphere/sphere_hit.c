@@ -15,28 +15,65 @@
 #include <sphere.h>
 #include <utils.h>
 
-// ref: https://zenn.dev/mebiusbox/books/8d9c42883df9f6/viewer/b85221
-//		#%F0%9F%93%8C-%E7%90%83%E3%81%AE%E8%BF%BD%E5%8A%A0
 __attribute__((nonnull))
-double	sphere_hit(
+static double	_get_d(
 	const t_objs *obj,
-	const t_ray *ray
+	const t_ray *ray,
+	double *a,
+	double *b
 )
 {
 	t_vec3	oc;
+	double	c;
+
+	oc = vec3_sub(ray->origin, obj->sphere.center);
+	*a = vec3_dot(ray->direction, ray->direction);
+	*b = 2 * vec3_dot(ray->direction, oc);
+	c = vec3_dot(oc, oc) - pow2f(obj->sphere.diameter);
+	return (pow2f(*b) - (4 * (*a) * c));
+}
+
+__attribute__((nonnull))
+static bool	_set_hit_rec(
+	const t_objs *obj,
+	const t_ray *ray,
+	double tmp,
+	t_hit *hit_rec
+)
+{
+	hit_rec->t = tmp;
+	hit_rec->at = ray_at(ray, tmp);
+	hit_rec->normal = vec3_div(
+			vec3_sub(hit_rec->at, obj->sphere.center), obj->sphere.diameter);
+	return (true);
+}
+
+// ref: https://zenn.dev/mebiusbox/books/8d9c42883df9f6/viewer/b85221
+//		#%F0%9F%93%8C-%E7%90%83%E3%81%AE%E8%BF%BD%E5%8A%A0
+__attribute__((nonnull))
+bool	sphere_hit(
+	const t_objs *obj,
+	const t_ray *ray,
+	const double t_range[2],
+	t_hit *hit_rec
+)
+{
 	double	a;
 	double	b;
-	double	c;
 	double	d;
+	double	tmp;
 
 	if (obj->comm.type != T_OBJ_SPHERE)
 		return (false);
-	oc = vec3_sub(ray->origin, obj->sphere.center);
-	a = vec3_dot(ray->direction, ray->direction);
-	b = 2 * vec3_dot(ray->direction, oc);
-	c = vec3_dot(oc, oc) - pow2f(obj->sphere.diameter);
-	d = pow2f(b) - (4 * a * c);
-	if (d < 0)
-		return (-1);
-	return ((-b - sqrtf(d)) / (2 * a));
+	d = _get_d(obj, ray, &a, &b);
+	if (d <= 0)
+		return (false);
+	d = pow2f(d);
+	tmp = (-b - d) / (2 * a);
+	if (t_range[0] < tmp && tmp < t_range[1])
+		return (_set_hit_rec(obj, ray, tmp, hit_rec));
+	tmp = (-b + d) / (2 * a);
+	if (t_range[0] < tmp && tmp < t_range[1])
+		return (_set_hit_rec(obj, ray, tmp, hit_rec));
+	return (false);
 }

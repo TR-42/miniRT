@@ -23,9 +23,11 @@ t_objs	sphere_init(
 			)
 		;
 
-double	sphere_hit(
+bool	sphere_hit(
 			const t_objs *obj,
-			const t_ray *ray
+			const t_ray *ray,
+			const double t_range[2],
+			t_hit *hit_rec
 			)
 		__attribute__((nonnull))
 		;

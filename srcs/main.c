@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <limits.h>
 
 #include <math.h>
 
@@ -27,12 +28,20 @@
 static t_rgb	_ray_to_rgb(t_ray ray)
 {
 	t_objs	obj;
-	double	v;
+	t_hit	hit;
+	bool	does_hit;
 
+	hit = (t_hit){0};
 	obj = sphere_init(vec3_(0, 0, -2), 0.5, (t_rgb){255, 0, 0});
-	v = sphere_hit(&obj, &ray);
-	if (0 < v)
-		return (sphere_color(&obj, &ray, v));
+	does_hit = sphere_hit(&obj, &ray, (double [2]){0, __DBL_MAX__}, &hit);
+	if (does_hit)
+	{
+		return ((t_rgb){
+			.r = (hit.normal.x + 1) * 127.99,
+			.g = (hit.normal.y + 1) * 127.99,
+			.b = (hit.normal.z + 1) * 127.99,
+		});
+	}
 	return ((t_rgb){
 		.r = abs((int)(ray.direction.x * 255)),
 		.g = abs((int)(ray.direction.y * 255)),
@@ -52,7 +61,7 @@ static void	_set_gradient(
 	iy = 0;
 	cam = (t_cam){
 		.point = vec3_(0, 0, 0),
-		.orientation = vec3_normalize(vec3_(1, 1, 10)),
+		.orientation = vec3_normalize(vec3_(0, 0, 1)),
 		.fov = 60,
 	};
 	while (iy < CANVAS_HEIGHT)
