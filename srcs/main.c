@@ -37,9 +37,9 @@ static t_rgb	_ray_to_rgb(t_ray ray)
 	if (does_hit)
 	{
 		return ((t_rgb){
-			.r = (hit.normal.x + 1) * 127.99,
-			.g = (hit.normal.y + 1) * 127.99,
-			.b = (hit.normal.z + 1) * 127.99,
+			.r = (int)fabs((hit.normal.x + 1) * 127.99),
+			.g = (int)fabs((hit.normal.y + 1) * 127.99),
+			.b = (int)fabs((hit.normal.z + 1) * 127.99),
 		});
 	}
 	return ((t_rgb){
