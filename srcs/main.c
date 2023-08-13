@@ -21,19 +21,20 @@
 #include <utils.h>
 
 #include <sphere.h>
+#include <scene.h>
 
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
 
+static t_objs	g_obj_arr[16];
+
 static t_rgb	_ray_to_rgb(t_ray ray)
 {
-	t_objs	obj;
 	t_hit	hit;
 	bool	does_hit;
 
 	hit = (t_hit){0};
-	obj = sphere_init(vec3_(0, 0, -2), 0.5, (t_rgb){255, 0, 0});
-	does_hit = sphere_hit(&obj, &ray, (double [2]){0, __DBL_MAX__}, &hit);
+	does_hit = ray_hit_any(&ray, g_obj_arr, 2, &hit);
 	if (does_hit)
 	{
 		return ((t_rgb){
@@ -91,6 +92,8 @@ int	main(
 	(void)argv;
 	if (!canvas_init(&canvas, CANVAS_HEIGHT, CANVAS_WIDTH))
 		return (perr_retint("canvas_init", 1));
+	g_obj_arr[0] = sphere_init(vec3_(0, 0, -2), 0.6, (t_rgb){255, 0, 0});
+	g_obj_arr[1] = sphere_init(vec3_(0, -100, 0), 99, (t_rgb){0, 255, 0});
 	_set_gradient(&canvas);
 	tmp = NULL;
 	len = canvas_to_png(&canvas, &tmp);
