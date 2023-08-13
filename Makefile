@@ -41,6 +41,7 @@ SRCS_LOADER	:=\
 
 SRCS_RAY	:=\
 	at.c\
+	hit_any.c\
 	init_dst.c\
 
 SRCS_SPHERE	:=\
