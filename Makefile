@@ -63,6 +63,7 @@ SRCS_VECT3D :=\
 	vec3_.c\
 	vec3_add.c\
 	vec3_cross.c\
+	vec3_div.c\
 	vec3_dot.c\
 	vec3_len.c\
 	vec3_mul.c\
