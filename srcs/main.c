@@ -43,11 +43,7 @@ static t_rgb	_ray_to_rgb(t_ray ray)
 			.b = (int)fabs((hit.normal.z + 1) * 127.99),
 		});
 	}
-	return ((t_rgb){
-		.r = abs((int)(ray.direction.x * 255)),
-		.g = abs((int)(ray.direction.y * 255)),
-		.b = abs((int)(ray.direction.z * 255)),
-	});
+	return ((t_rgb){0});
 }
 
 static void	_set_gradient(
