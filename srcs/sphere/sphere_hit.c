@@ -68,7 +68,7 @@ bool	sphere_hit(
 	d = _get_d(obj, ray, &a, &b);
 	if (d <= 0)
 		return (false);
-	d = pow2f(d);
+	d = sqrtf(d);
 	tmp = (-b - d) / (2 * a);
 	if (t_range[0] < tmp && tmp < t_range[1])
 		return (_set_hit_rec(obj, ray, tmp, hit_rec));
