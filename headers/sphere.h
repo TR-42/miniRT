@@ -23,7 +23,7 @@ t_objs	sphere_init(
 			)
 		;
 
-bool	sphere_hit(
+double	sphere_hit(
 			const t_objs *obj,
 			const t_ray *ray
 			)

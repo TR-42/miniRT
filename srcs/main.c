@@ -27,10 +27,12 @@
 static t_rgb	_ray_to_rgb(t_ray ray)
 {
 	t_objs	obj;
+	double	v;
 
 	obj = sphere_init(vec3_(0, 0, -2), 0.5, (t_rgb){255, 0, 0});
-	if (sphere_hit(&obj, &ray))
-		return (obj.sphere.color);
+	v = sphere_hit(&obj, &ray);
+	if (0 < v)
+		return (sphere_color(&obj, &ray, v));
 	return ((t_rgb){
 		.r = abs((int)(ray.direction.x * 255)),
 		.g = abs((int)(ray.direction.y * 255)),
@@ -50,7 +52,7 @@ static void	_set_gradient(
 	iy = 0;
 	cam = (t_cam){
 		.point = vec3_(0, 0, 0),
-		.orientation = vec3_normalize(vec3_(-1, -1, -10)),
+		.orientation = vec3_normalize(vec3_(1, 1, 10)),
 		.fov = 60,
 	};
 	while (iy < CANVAS_HEIGHT)
