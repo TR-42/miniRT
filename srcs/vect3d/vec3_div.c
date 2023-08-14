@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_init.c                                      :+:      :+:    :+:   */
+/*   vec3_div.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 21:39:29 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/11 21:41:15 by kfujita          ###   ########.fr       */
+/*   Created: 2023/08/13 23:57:30 by kfujita           #+#    #+#             */
+/*   Updated: 2023/08/13 23:57:41 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sphere.h>
+#include <vect3d.h>
 
-t_objs	sphere_init(
-	t_vec3 center,
-	double diameter,
-	t_rgb color
+t_vec3	vec3_div(
+	t_vec3 a,
+	double b
 )
 {
-	t_objs	v;
-
-	v = (t_objs){0};
-	v.comm.type = T_OBJ_SPHERE;
-	v.comm.hit_func = sphere_hit;
-	v.sphere.center = center;
-	v.sphere.diameter = diameter;
-	v.sphere.color = color;
-	return (v);
+	return (
+		vec3_(
+			a.x / b,
+			a.y / b,
+			a.z / b
+		)
+	);
 }

@@ -28,6 +28,7 @@ t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_add3(t_vec3 a, t_vec3 b, t_vec3 c);
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_mul(t_vec3 a, double b);
+t_vec3	vec3_div(t_vec3 a, double b);
 
 double	vec3_len(t_vec3 a);
 

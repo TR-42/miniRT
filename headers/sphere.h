@@ -25,7 +25,17 @@ t_objs	sphere_init(
 
 bool	sphere_hit(
 			const t_objs *obj,
-			const t_ray *ray
+			const t_ray *ray,
+			const double t_range[2],
+			t_hit *hit_rec
+			)
+		__attribute__((nonnull))
+		;
+
+t_rgb	sphere_color(
+			const t_objs *obj,
+			const t_ray *ray,
+			double hit_at
 			)
 		__attribute__((nonnull))
 		;

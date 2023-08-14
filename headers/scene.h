@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_init.c                                      :+:      :+:    :+:   */
+/*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 21:39:29 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/11 21:41:15 by kfujita          ###   ########.fr       */
+/*   Created: 2023/08/14 00:33:43 by kfujita           #+#    #+#             */
+/*   Updated: 2023/08/14 00:36:19 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sphere.h>
+#ifndef SCENE_H
+# define SCENE_H
 
-t_objs	sphere_init(
-	t_vec3 center,
-	double diameter,
-	t_rgb color
-)
-{
-	t_objs	v;
+# include "rt_types.h"
 
-	v = (t_objs){0};
-	v.comm.type = T_OBJ_SPHERE;
-	v.comm.hit_func = sphere_hit;
-	v.sphere.center = center;
-	v.sphere.diameter = diameter;
-	v.sphere.color = color;
-	return (v);
-}
+bool	ray_hit_any(
+			const t_ray *ray,
+			const t_objs *objs,
+			size_t objs_len,
+			t_hit *hit_rec
+			)
+		__attribute__((nonnull))
+		;
+
+#endif

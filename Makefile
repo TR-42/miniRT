@@ -41,9 +41,11 @@ SRCS_LOADER	:=\
 
 SRCS_RAY	:=\
 	at.c\
+	hit_any.c\
 	init_dst.c\
 
 SRCS_SPHERE	:=\
+	sphere_color.c\
 	sphere_hit.c\
 	sphere_init.c\
 
@@ -62,6 +64,7 @@ SRCS_VECT3D :=\
 	vec3_.c\
 	vec3_add.c\
 	vec3_cross.c\
+	vec3_div.c\
 	vec3_dot.c\
 	vec3_len.c\
 	vec3_mul.c\
