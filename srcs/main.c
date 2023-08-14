@@ -29,6 +29,43 @@
 
 static t_objs	g_obj_arr[16];
 
+static t_rgb	_brend_rgb(
+	t_rgb a,
+	double a_ratio,
+	t_rgb b,
+	double b_ratio
+)
+{
+	double	total;
+
+	if (a_ratio < 0)
+		a_ratio = 0;
+	if (b_ratio < 0)
+		b_ratio = 0;
+	total = a_ratio + b_ratio;
+	if (total == 0)
+		return ((t_rgb){0});
+	a_ratio = a_ratio / total;
+	b_ratio = b_ratio / total;
+	return ((t_rgb){
+		.r = a.r * a_ratio + b.r * b_ratio,
+		.g = a.g * a_ratio + b.g * b_ratio,
+		.b = a.b * a_ratio + b.b * b_ratio,
+	});
+}
+
+static t_rgb	_get_sky_color(t_ray ray)
+{
+	double	t;
+
+	t = fabs(ray.direction.y + 1) / 2;
+	return ((t_rgb){
+		.r = (0.5 + (0.5 * t)) * 255.9999,
+		.g = (0.7 + (0.3 * t)) * 255.9999,
+		.b = (1.0 + (0.0 * t)) * 255.9999,
+	});
+}
+
 static t_rgb	_ray_to_rgb(t_ray ray)
 {
 	t_hit	hit;
@@ -46,14 +83,15 @@ static t_rgb	_ray_to_rgb(t_ray ray)
 		if (!does_hit)
 			break ;
 		ray.origin = hit.at;
-		ray.direction = vec3_sub(ray.direction, vec3_mul(hit.normal,
-					2 * vec3_dot(ray.direction, hit.normal)));
-		color = (t_rgb){
-			.r = color.r * 0.5 + hit.obj->sphere.color.r * 0.5,
-			.g = color.g * 0.5 + hit.obj->sphere.color.g * 0.5,
-			.b = color.b * 0.5 + hit.obj->sphere.color.b * 0.5,
-		};
+		ray.direction = vec3_normalize(vec3_sub(ray.direction,
+					vec3_mul(hit.normal,
+						2 * vec3_dot(ray.direction, hit.normal))));
+		color = _brend_rgb(color, 1, hit.obj->sphere.color, 2);
 	}
+	if (hit.obj == NULL)
+		color = _get_sky_color(ray);
+	else
+		color = _brend_rgb(color, 2, _get_sky_color(ray), 1);
 	return (color);
 }
 
