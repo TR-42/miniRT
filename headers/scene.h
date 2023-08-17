@@ -24,4 +24,13 @@ bool	ray_hit_any(
 		__attribute__((nonnull))
 		;
 
+t_rgb	ray_to_rgb(
+			t_ray ray,
+			const t_objs *objs,
+			size_t objs_len,
+			size_t call_cnt
+			)
+		__attribute__((nonnull))
+		;
+
 #endif

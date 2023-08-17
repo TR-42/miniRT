@@ -29,72 +29,6 @@
 
 static t_objs	g_obj_arr[16];
 
-static t_rgb	_brend_rgb(
-	t_rgb a,
-	double a_ratio,
-	t_rgb b,
-	double b_ratio
-)
-{
-	double	total;
-
-	if (a_ratio < 0)
-		a_ratio = 0;
-	if (b_ratio < 0)
-		b_ratio = 0;
-	total = a_ratio + b_ratio;
-	if (total == 0)
-		return ((t_rgb){0});
-	a_ratio = a_ratio / total;
-	b_ratio = b_ratio / total;
-	return ((t_rgb){
-		.r = a.r * a_ratio + b.r * b_ratio,
-		.g = a.g * a_ratio + b.g * b_ratio,
-		.b = a.b * a_ratio + b.b * b_ratio,
-	});
-}
-
-static t_rgb	_get_sky_color(t_ray ray)
-{
-	double	t;
-
-	t = fabs(ray.direction.y + 1) / 2;
-	return ((t_rgb){
-		.r = (0.5 + (0.5 * t)) * 255.9999,
-		.g = (0.7 + (0.3 * t)) * 255.9999,
-		.b = (1.0 + (0.0 * t)) * 255.9999,
-	});
-}
-
-static t_rgb	_ray_to_rgb(t_ray ray)
-{
-	t_hit	hit;
-	t_rgb	color;
-	bool	does_hit;
-	size_t	ray_chk_cnt;
-
-	hit = (t_hit){0};
-	color = (t_rgb){0};
-	does_hit = true;
-	ray_chk_cnt = 0;
-	while (++ray_chk_cnt <= RAY_CHK_MAX)
-	{
-		does_hit = ray_hit_any(&ray, g_obj_arr, 6, &hit);
-		if (!does_hit)
-			break ;
-		ray.origin = hit.at;
-		ray.direction = vec3_normalize(vec3_sub(ray.direction,
-					vec3_mul(hit.normal,
-						2 * vec3_dot(ray.direction, hit.normal))));
-		color = _brend_rgb(color, 1, hit.obj->sphere.color, 2);
-	}
-	if (hit.obj == NULL)
-		color = _get_sky_color(ray);
-	else
-		color = _brend_rgb(color, 2, _get_sky_color(ray), 1);
-	return (color);
-}
-
 static void	_set_gradient(
 	t_cnvas *canvas
 )
@@ -116,7 +50,7 @@ static void	_set_gradient(
 		while (ix < CANVAS_WIDTH)
 		{
 			ray = cam_get_ray(&cam, canvas, ix, iy);
-			canvas_set_color(canvas, ix, iy, _ray_to_rgb(ray));
+			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, g_obj_arr, 6, 0));
 			ix += 1;
 		}
 		iy += 1;
