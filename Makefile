@@ -43,6 +43,7 @@ SRCS_RAY	:=\
 	at.c\
 	hit_any.c\
 	init_dst.c\
+	to_rgb.c\
 
 SRCS_SPHERE	:=\
 	sphere_color.c\
