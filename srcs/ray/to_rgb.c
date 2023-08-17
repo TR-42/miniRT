@@ -13,18 +13,30 @@
 #include <math.h>
 
 #include <scene.h>
+#include <utils.h>
 
 #define CALL_CNT_MAX 50
+#define REFLECT_RATE_0 0.7
 
+// ref: https://zenn.dev/eijian/articles/raytracing-15-20220911
 static t_rgb	_brend_rgb(
 	t_rgb a,
-	t_rgb b
+	t_rgb b,
+	const t_ray *ray,
+	const t_hit *hit
 )
 {
+	double	cos_theta;
+	double	reflect_rate;
+
+	cos_theta = vec3_dot(ray->direction, hit->normal)
+		/ (vec3_len(ray->direction) * vec3_len(hit->normal));
+	reflect_rate = REFLECT_RATE_0
+		+ ((1 - REFLECT_RATE_0) * pow(1 - cos_theta, 5));
 	return ((t_rgb){
-		.r = ((int)a.r * b.r) / 255,
-		.g = ((int)a.g * b.g) / 255,
-		.b = ((int)a.b * b.b) / 255,
+		.r = ((int)a.r * b.r * reflect_rate) / 255,
+		.g = ((int)a.g * b.g * reflect_rate) / 255,
+		.b = ((int)a.b * b.b * reflect_rate) / 255,
 	});
 }
 
@@ -61,5 +73,5 @@ t_rgb	ray_to_rgb(
 	ray.direction = vec3_normalize(vec3_sub(ray.direction,
 				vec3_mul(hit.normal, 2 * vec3_dot(ray.direction, hit.normal))));
 	color = ray_to_rgb(ray, objs, objs_len, call_cnt);
-	return (_brend_rgb(color, hit.obj->sphere.color));
+	return (_brend_rgb(color, hit.obj->sphere.color, &ray, &hit));
 }
