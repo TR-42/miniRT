@@ -35,8 +35,7 @@ __attribute__((nonnull))
 t_rgb	ray_to_rgb(
 	t_ray ray,
 	const t_objs *objs,
-	size_t objs_len,
-	size_t call_cnt
+	size_t objs_len
 )
 {
 	t_hit	hit;
@@ -44,8 +43,6 @@ t_rgb	ray_to_rgb(
 	double	ref_rate;
 
 	color = _get_sky_color(ray, &ref_rate);
-	if (CALL_CNT_MAX < ++call_cnt)
-		return (color);
 	hit = (t_hit){0};
 	if (!ray_hit_any(&ray, objs, objs_len, &hit))
 		return (color);
@@ -53,7 +50,6 @@ t_rgb	ray_to_rgb(
 	ray.origin = hit.at;
 	ray.direction = vec3_normalize(vec3_sub(ray.direction,
 				vec3_mul(hit.normal, 2 * vec3_dot(ray.direction, hit.normal))));
-	color = ray_to_rgb(ray, objs, objs_len, call_cnt);
 	ref_rate = vec3_dot(hit.normal, ray.direction) * ref_rate;
 	return (brend_rgb(color, hit.obj->sphere.color, ref_rate));
 }

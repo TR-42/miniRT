@@ -50,7 +50,7 @@ static void	_set_gradient(
 		while (ix < CANVAS_WIDTH)
 		{
 			ray = cam_get_ray(&cam, canvas, ix, iy);
-			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, g_obj_arr, 6, 0));
+			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, g_obj_arr, 6));
 			ix += 1;
 		}
 		iy += 1;
