@@ -40,4 +40,6 @@ t_rgb	sphere_color(
 		__attribute__((nonnull))
 		;
 
+void	sphere_init_f(t_spher *v);
+
 #endif
