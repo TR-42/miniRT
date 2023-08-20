@@ -38,6 +38,7 @@ SRCS_LOADER	:=\
 	_parse_vec3.c\
 	load_rt.c\
 	loader.c\
+	print_load_err.c\
 
 SRCS_RAY	:=\
 	at.c\

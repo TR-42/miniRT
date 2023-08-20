@@ -56,4 +56,6 @@ t_lderr	load_rt_line(
 		__attribute__((nonnull))
 		;
 
+void	print_load_err(t_lderr err);
+
 #endif
