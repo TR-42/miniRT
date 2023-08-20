@@ -16,6 +16,8 @@
 # include <stdbool.h>
 # include <stddef.h>
 
+# include <rt_types.h>
+
 /**
  * @brief 二次元配列の長さを求める
  * 
@@ -201,6 +203,13 @@ char	*base64_encode(
 			size_t len
 			)
 		__attribute__((nonnull))
+		;
+
+t_rgb	brend_rgb(
+			t_rgb a,
+			t_rgb b,
+			double ref_rate
+			)
 		;
 
 #endif

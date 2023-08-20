@@ -53,6 +53,7 @@ SRCS_SPHERE	:=\
 SRCS_UTILS	:=\
 	arrlen2d.c\
 	base64_encode.c\
+	brend_rgb.c\
 	error_exit.c\
 	error_retint.c\
 	free2darr.c\

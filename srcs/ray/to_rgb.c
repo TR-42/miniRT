@@ -13,23 +13,9 @@
 #include <math.h>
 
 #include <scene.h>
+#include <utils.h>
 
 #define CALL_CNT_MAX 50
-
-static t_rgb	_brend_rgb(
-	t_rgb a,
-	t_rgb b,
-	double ref_rate
-)
-{
-	if (ref_rate <= 0)
-		return ((t_rgb){0});
-	return ((t_rgb){
-		.r = ((int)a.r * b.r * ref_rate) / 255,
-		.g = ((int)a.g * b.g * ref_rate) / 255,
-		.b = ((int)a.b * b.b * ref_rate) / 255,
-	});
-}
 
 __attribute__((nonnull))
 static t_rgb	_get_sky_color(t_ray ray, double *ref_rate)
@@ -69,5 +55,5 @@ t_rgb	ray_to_rgb(
 				vec3_mul(hit.normal, 2 * vec3_dot(ray.direction, hit.normal))));
 	color = ray_to_rgb(ray, objs, objs_len, call_cnt);
 	ref_rate = vec3_dot(hit.normal, ray.direction) * ref_rate;
-	return (_brend_rgb(color, hit.obj->sphere.color, ref_rate));
+	return (brend_rgb(color, hit.obj->sphere.color, ref_rate));
 }
