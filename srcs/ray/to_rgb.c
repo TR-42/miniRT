@@ -10,43 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-
 #include <scene.h>
 #include <utils.h>
-
-#define CALL_CNT_MAX 50
-
-__attribute__((nonnull))
-static t_rgb	_get_sky_color(t_ray ray, double *ref_rate)
-{
-	double	t;
-
-	*ref_rate = 1;
-	t = fabs(ray.direction.y + 1) / 2;
-	return ((t_rgb){
-		.r = (0.5 + (0.5 * t)) * 255.9999,
-		.g = (0.7 + (0.3 * t)) * 255.9999,
-		.b = (1.0 + (0.0 * t)) * 255.9999,
-	});
-}
 
 __attribute__((nonnull))
 t_rgb	ray_to_rgb(
 	t_ray ray,
-	const t_objs *objs,
-	size_t objs_len
+	const t_scene *scene
 )
 {
 	t_hit	hit;
 	t_rgb	color;
+	t_objs	*objs;
 	double	ref_rate;
 
-	color = _get_sky_color(ray, &ref_rate);
+	objs = (t_objs *)(scene->objs.p);
 	hit = (t_hit){0};
-	if (!ray_hit_any(&ray, objs, objs_len, &hit))
-		return (color);
-	ref_rate = 1;
+	if (!ray_hit_any(&ray, objs, scene->objs.len, &hit))
+		return ((t_rgb){0});
+	color = scene->amb_light.color;
+	ref_rate = scene->amb_light.ratio;
 	ray.origin = hit.at;
 	ray.direction = vec3_normalize(vec3_sub(ray.direction,
 				vec3_mul(hit.normal, 2 * vec3_dot(ray.direction, hit.normal))));

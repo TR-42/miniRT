@@ -26,8 +26,7 @@ bool	ray_hit_any(
 
 t_rgb	ray_to_rgb(
 			t_ray ray,
-			const t_objs *objs,
-			size_t objs_len
+			const t_scene *scene
 			)
 		__attribute__((nonnull))
 		;

@@ -29,7 +29,7 @@ t_cam	_load_camera(
 		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (_parse_vec3(arr[1], false, &(v.point), err) == LOAD_ERR_SUCCESS
 		&& _parse_vec3(arr[2], true, &(v.orientation), err) == LOAD_ERR_SUCCESS
-		&& (!try_strtod(arr[3], NULL, &(v.fov)) || 0 < v.fov || 180 < v.fov))
+		&& (!try_strtod(arr[3], NULL, &(v.fov)) || v.fov < 0 || 180 < v.fov))
 		*err = LOAD_ERR_VAL_OUT_OF_RANGE;
 	return (v);
 }

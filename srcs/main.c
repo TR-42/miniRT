@@ -11,50 +11,61 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <limits.h>
-
-#include <math.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #include <camera.h>
 #include <canvas.h>
+#include <rt_loader.h>
 #include <print_inline_img.h>
 #include <utils.h>
 
-#include <sphere.h>
 #include <scene.h>
 
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
-#define RAY_CHK_MAX 16
-
-static t_objs	g_obj_arr[16];
 
 static void	_set_gradient(
-	t_cnvas *canvas
+	t_cnvas *canvas,
+	const t_scene *scene
 )
 {
 	int		ix;
 	int		iy;
-	t_cam	cam;
 	t_ray	ray;
 
 	iy = 0;
-	cam = (t_cam){
-		.point = vec3_(0, 2, 5),
-		.orientation = vec3_normalize(vec3_(0, 3, 10)),
-		.fov = 50,
-	};
 	while (iy < CANVAS_HEIGHT)
 	{
 		ix = 0;
 		while (ix < CANVAS_WIDTH)
 		{
-			ray = cam_get_ray(&cam, canvas, ix, iy);
-			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, g_obj_arr, 6));
+			ray = cam_get_ray(&(scene->camera), canvas, ix, iy);
+			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, scene));
 			ix += 1;
 		}
 		iy += 1;
 	}
+}
+
+__attribute__((nonnull))
+static bool	_load_rt_file(
+	const char *fname,
+	t_scene *dst
+)
+{
+	int		fd;
+	t_lderr	err;
+
+	fd = open(fname, O_RDONLY);
+	if (fd < 0)
+		return (perr_retint("open RT file", false));
+	err = load_rt(fd, dst);
+	if (err == LOAD_ERR_SUCCESS)
+		return (true);
+	vect_dispose(&(dst->objs));
+	print_load_err(err);
+	return (false);
 }
 
 int	main(
@@ -63,24 +74,25 @@ int	main(
 )
 {
 	t_cnvas	canvas;
+	t_scene	scene;
 	t_byte	*tmp;
 	size_t	len;
 	int		ret;
 
-	(void)argc;
-	(void)argv;
+	if (argc != 2)
+		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
 	if (!canvas_init(&canvas, CANVAS_HEIGHT, CANVAS_WIDTH))
 		return (perr_retint("canvas_init", 1));
-	g_obj_arr[0] = sphere_init(vec3_(0, 0, -2), 0.6, (t_rgb){255, 0, 0});
-	g_obj_arr[1] = sphere_init(vec3_(0, -100, 0), 99, (t_rgb){0, 255, 0});
-	g_obj_arr[2] = sphere_init(vec3_(1, -0.7, -2), 0.4, (t_rgb){255, 0, 255});
-	g_obj_arr[3] = sphere_init(vec3_(2, 0, -3), 0.4, (t_rgb){255, 255, 0});
-	g_obj_arr[4] = sphere_init(vec3_(-1, -0.2, -2), 0.4, (t_rgb){0, 0, 255});
-	g_obj_arr[5] = sphere_init(vec3_(-2, -0.6, -3), 0.4, (t_rgb){0, 255, 255});
-	_set_gradient(&canvas);
+	if (!_load_rt_file(argv[1], &scene))
+	{
+		canvas_dispose(&canvas);
+		return (EXIT_FAILURE);
+	}
+	_set_gradient(&canvas, &scene);
 	tmp = NULL;
 	len = canvas_to_png(&canvas, &tmp);
 	canvas_dispose(&canvas);
+	vect_dispose(&(scene.objs));
 	ret = print_inline_img(tmp, len);
 	if (!ret)
 		perr_retint("print_inline_img", 0);

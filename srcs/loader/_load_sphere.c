@@ -13,6 +13,7 @@
 #include <utils.h>
 
 #include "_rt_loader.h"
+#include <sphere.h>
 
 #define ELEM_CNT 4
 
@@ -33,5 +34,6 @@ t_spher	_load_sphere(
 		*err = LOAD_ERR_NOT_A_NUMBER;
 	else
 		_parse_rgb(arr[3], &(v.color), err);
+	sphere_init_f(&v);
 	return (v);
 }

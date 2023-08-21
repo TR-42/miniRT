@@ -22,9 +22,14 @@ t_objs	sphere_init(
 
 	v = (t_objs){0};
 	v.comm.type = T_OBJ_SPHERE;
-	v.comm.hit_func = sphere_hit;
+	sphere_init_f(&(v.sphere));
 	v.sphere.center = center;
 	v.sphere.diameter = diameter;
 	v.sphere.color = color;
 	return (v);
+}
+
+void	sphere_init_f(t_spher *v)
+{
+	v->comm.hit_func = sphere_hit;
 }
