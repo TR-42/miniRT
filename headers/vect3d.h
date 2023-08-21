@@ -36,4 +36,6 @@ double	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 t_vec3	vec3_normalize(t_vec3 a);
 
+t_vec3	vec3_reflect(t_vec3 input, t_vec3 normal);
+
 #endif

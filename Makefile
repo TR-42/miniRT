@@ -72,6 +72,7 @@ SRCS_VECT3D :=\
 	vec3_len.c\
 	vec3_mul.c\
 	vec3_normalize.c\
+	vec3_reflect.c\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
