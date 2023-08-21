@@ -22,9 +22,9 @@ static t_rgb	_apply_amb_light(
 	t_vec3	tmp;
 	double	ref_rate;
 
-	tmp = vec3_sub(
-			ray->direction,
-			vec3_mul(hit->normal, 2 * vec3_dot(ray->direction, hit->normal))
+	tmp = vec3_reflect(
+			vec3_mul(ray->direction, -1),
+			hit->normal
 			);
 	ref_rate = scene->amb_light.ratio;
 	ref_rate *= vec3_dot(hit->normal, vec3_normalize(tmp));
