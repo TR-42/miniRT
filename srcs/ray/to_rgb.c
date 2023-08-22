@@ -16,7 +16,7 @@
 #include <utils.h>
 
 // RRR: Reflection Rate Ratio
-#define RRR_AMB 1
+#define RRR_AMB 10
 #define RRR_DIRECT 69
 #define RRR_MIRROR 30
 #define MIRROR_REF_ALPHA 8
@@ -40,9 +40,19 @@ static double	_get_direct_ref_rate(
 {
 	double	dot_n_l;
 	double	ref_rate;
+	t_ray	ray_to_light;
+	t_hit	tmp;
+	double	hit_to_l_len;
 
 	dot_n_l = vec3_dot(hit->normal, *hit_to_light);
 	if (dot_n_l <= 0)
+		return (0);
+	ray_to_light.direction = *hit_to_light;
+	ray_to_light.origin
+		= vec3_add(hit->at, vec3_mul(*hit_to_light, 1. / 0xFFFF));
+	hit_to_l_len = vec3_len(vec3_sub(scene->light.point, ray_to_light.origin));
+	if (ray_hit_any(&ray_to_light, (t_objs *)scene->objs.p,
+			scene->objs.len, &tmp) && tmp.t < hit_to_l_len)
 		return (0);
 	ref_rate = scene->light.brightness;
 	ref_rate *= (double)RRR_DIRECT / (RRR_AMB + RRR_DIRECT + RRR_MIRROR);
