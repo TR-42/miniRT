@@ -38,6 +38,7 @@ SRCS_LOADER	:=\
 	_parse_vec3.c\
 	load_rt.c\
 	loader.c\
+	print_load_err.c\
 
 SRCS_RAY	:=\
 	at.c\
@@ -53,6 +54,7 @@ SRCS_SPHERE	:=\
 SRCS_UTILS	:=\
 	arrlen2d.c\
 	base64_encode.c\
+	brend_rgb.c\
 	error_exit.c\
 	error_retint.c\
 	free2darr.c\
@@ -70,6 +72,7 @@ SRCS_VECT3D :=\
 	vec3_len.c\
 	vec3_mul.c\
 	vec3_normalize.c\
+	vec3_reflect.c\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
@@ -192,13 +195,13 @@ TESTS	:=\
 	$(T_LOADER_AUTO)\
 	$(T_INLINE_IMG)\
 
-$(T_STRTOD):	.tests/$(T_STRTOD).c $(LIB_NOMAIN)
+$(T_STRTOD):	.tests/$(T_STRTOD).c $(LIB_NOMAIN) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
-$(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(LIB_NOMAIN)
+$(T_LOAD_RT):	.tests/$(T_LOAD_RT).c $(LIB_NOMAIN) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
-$(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(LIB_NOMAIN)
+$(T_LOADER_AUTO):	.tests/$(T_LOADER_AUTO).cpp $(LIB_NOMAIN) $(LIBFT) $(MLX)
 	$(CXX) $(CFLAGS) -g -fsanitize=address $(INCLUDES) -o $@ $< $(LIB_LINK)
-$(T_INLINE_IMG):	.tests/$(T_INLINE_IMG).cpp $(LIB_NOMAIN)
+$(T_INLINE_IMG):	.tests/$(T_INLINE_IMG).cpp $(LIB_NOMAIN) $(LIBFT) $(MLX)
 	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ $< $(LIB_LINK)
 
 tclean:

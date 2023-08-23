@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_init.c                                      :+:      :+:    :+:   */
+/*   vec3_reflect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 21:39:29 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/11 21:41:15 by kfujita          ###   ########.fr       */
+/*   Created: 2023/08/21 23:56:57 by kfujita           #+#    #+#             */
+/*   Updated: 2023/08/22 00:00:19 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sphere.h>
+#include <vect3d.h>
 
-t_objs	sphere_init(
-	t_vec3 center,
-	double diameter,
-	t_rgb color
+t_vec3	vec3_reflect(
+	t_vec3 input,
+	t_vec3 normal
 )
 {
-	t_objs	v;
+	double	in_norm_dot;
 
-	v = (t_objs){0};
-	v.comm.type = T_OBJ_SPHERE;
-	sphere_init_f(&(v.sphere));
-	v.sphere.center = center;
-	v.sphere.diameter = diameter;
-	v.sphere.color = color;
-	return (v);
-}
-
-void	sphere_init_f(t_spher *v)
-{
-	v->comm.hit_func = sphere_hit;
+	in_norm_dot = vec3_dot(input, normal);
+	return (
+		vec3_sub(
+			vec3_mul(normal, 2 * in_norm_dot),
+			input
+		)
+	);
 }

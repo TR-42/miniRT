@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_init.c                                      :+:      :+:    :+:   */
+/*   brend_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 21:39:29 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/11 21:41:15 by kfujita          ###   ########.fr       */
+/*   Created: 2023/08/20 14:51:04 by kfujita           #+#    #+#             */
+/*   Updated: 2023/08/20 15:16:39 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sphere.h>
+#include <utils.h>
 
-t_objs	sphere_init(
-	t_vec3 center,
-	double diameter,
-	t_rgb color
+t_rgb	brend_rgb(
+	t_rgb a,
+	t_rgb b,
+	double ref_rate
 )
 {
-	t_objs	v;
-
-	v = (t_objs){0};
-	v.comm.type = T_OBJ_SPHERE;
-	sphere_init_f(&(v.sphere));
-	v.sphere.center = center;
-	v.sphere.diameter = diameter;
-	v.sphere.color = color;
-	return (v);
-}
-
-void	sphere_init_f(t_spher *v)
-{
-	v->comm.hit_func = sphere_hit;
+	if (ref_rate <= 0)
+		return ((t_rgb){0});
+	return ((t_rgb){
+		.r = ((int)a.r * b.r * ref_rate) / 255,
+		.g = ((int)a.g * b.g * ref_rate) / 255,
+		.b = ((int)a.b * b.b * ref_rate) / 255,
+	});
 }

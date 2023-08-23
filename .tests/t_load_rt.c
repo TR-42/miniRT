@@ -46,7 +46,7 @@ static void	_print_scene(const t_scene *s)
 	printf("Camera: %d\n", s->is_camera_set);
 	_print_vec3("View Point", s->camera.point);
 	_print_vec3("Orientation", s->camera.orientation);
-	printf("\tFOV: %d\n", s->camera.fov);
+	printf("\tFOV: %lf\n", s->camera.fov);
 	printf("Light: %d\n", s->is_light_set);
 	_print_vec3("Light Point", s->light.point);
 	printf("\tBrightness: %f\n", s->light.brightness);
@@ -67,7 +67,7 @@ int	main(int argc, const char *argv[])
 		if (fd < 0)
 			perr_exit(argv[1]);
 	}
-	err = load_rt(STDIN_FILENO, &scene);
+	err = load_rt(fd, &scene);
 	printf("err: %s\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n", _get_lderr_str(err));
 	_print_scene(&scene);
 	if (scene.objs.p != NULL)

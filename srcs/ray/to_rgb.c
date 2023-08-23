@@ -13,53 +13,94 @@
 #include <math.h>
 
 #include <scene.h>
+#include <utils.h>
 
-#define CALL_CNT_MAX 50
+// RRR: Reflection Rate Ratio
+#define RRR_AMB 10
+#define RRR_DIRECT 69
+#define RRR_MIRROR 30
+#define MIRROR_REF_ALPHA 8
 
-static t_rgb	_brend_rgb(
-	t_rgb a,
-	t_rgb b
+static double	_get_amb_light_ref_rate(
+	const t_scene *scene
 )
 {
-	return ((t_rgb){
-		.r = ((int)a.r * b.r) / 255,
-		.g = ((int)a.g * b.g) / 255,
-		.b = ((int)a.b * b.b) / 255,
-	});
+	double	ref_rate;
+
+	ref_rate = scene->amb_light.ratio;
+	ref_rate *= (double)RRR_AMB / (RRR_AMB + RRR_DIRECT + RRR_MIRROR);
+	return (ref_rate);
 }
 
-static t_rgb	_get_sky_color(t_ray ray)
+static double	_get_direct_ref_rate(
+	const t_scene *scene,
+	const t_hit *hit,
+	const t_vec3 *hit_to_light
+)
 {
-	double	t;
+	double	dot_n_l;
+	double	ref_rate;
+	t_ray	ray_to_light;
+	t_hit	tmp;
+	double	hit_to_l_len;
 
-	t = fabs(ray.direction.y + 1) / 2;
-	return ((t_rgb){
-		.r = (0.5 + (0.5 * t)) * 255.9999,
-		.g = (0.7 + (0.3 * t)) * 255.9999,
-		.b = (1.0 + (0.0 * t)) * 255.9999,
-	});
+	dot_n_l = vec3_dot(hit->normal, *hit_to_light);
+	if (dot_n_l <= 0)
+		return (0);
+	ray_to_light.direction = *hit_to_light;
+	ray_to_light.origin
+		= vec3_add(hit->at, vec3_mul(*hit_to_light, 1. / 0xFFFF));
+	hit_to_l_len = vec3_len(vec3_sub(scene->light.point, ray_to_light.origin));
+	if (ray_hit_any(&ray_to_light, (t_objs *)scene->objs.p,
+			scene->objs.len, &tmp) && tmp.t < hit_to_l_len)
+		return (0);
+	ref_rate = scene->light.brightness;
+	ref_rate *= (double)RRR_DIRECT / (RRR_AMB + RRR_DIRECT + RRR_MIRROR);
+	ref_rate *= dot_n_l;
+	return (ref_rate);
+}
+
+static double	_get_mirror_ref_rate(
+	const t_scene *scene,
+	const t_ray *ray,
+	const t_hit *hit,
+	const t_vec3 *hit_to_light
+)
+{
+	double	ref_rate;
+	double	dot_v_r;
+
+	dot_v_r = vec3_dot(
+			vec3_mul(ray->direction, -1),
+			vec3_normalize(vec3_reflect(*hit_to_light, hit->normal))
+			);
+	if (dot_v_r <= 0)
+		return (0);
+	ref_rate = scene->light.brightness;
+	ref_rate *= (double)RRR_MIRROR / (RRR_AMB + RRR_DIRECT + RRR_MIRROR);
+	ref_rate *= pow(dot_v_r, MIRROR_REF_ALPHA);
+	return (ref_rate);
 }
 
 __attribute__((nonnull))
 t_rgb	ray_to_rgb(
 	t_ray ray,
-	const t_objs *objs,
-	size_t objs_len,
-	size_t call_cnt
+	const t_scene *scene
 )
 {
 	t_hit	hit;
-	t_rgb	color;
+	t_objs	*objs;
+	t_vec3	hit_to_light;
+	double	ref_rate;
 
-	color = _get_sky_color(ray);
-	if (CALL_CNT_MAX < ++call_cnt)
-		return (color);
+	objs = (t_objs *)(scene->objs.p);
 	hit = (t_hit){0};
-	if (!ray_hit_any(&ray, objs, objs_len, &hit))
-		return (color);
-	ray.origin = hit.at;
-	ray.direction = vec3_normalize(vec3_sub(ray.direction,
-				vec3_mul(hit.normal, 2 * vec3_dot(ray.direction, hit.normal))));
-	color = ray_to_rgb(ray, objs, objs_len, call_cnt);
-	return (_brend_rgb(color, hit.obj->sphere.color));
+	if (!ray_hit_any(&ray, objs, scene->objs.len, &hit))
+		return ((t_rgb){0});
+	hit_to_light = vec3_normalize(vec3_sub(scene->light.point, hit.at));
+	ref_rate = _get_direct_ref_rate(scene, &hit, &hit_to_light);
+	if (ref_rate != 0)
+		ref_rate += _get_mirror_ref_rate(scene, &ray, &hit, &hit_to_light);
+	ref_rate += _get_amb_light_ref_rate(scene);
+	return (brend_rgb(scene->amb_light.color, hit.obj->sphere.color, ref_rate));
 }
