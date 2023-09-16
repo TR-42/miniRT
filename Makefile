@@ -109,7 +109,7 @@ LIB_NOMAIN	:=	lib_nomain.a
 
 override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
 INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
-LIB_LINK	:=	-lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L. -l_nomain
+LIB_LINK	:=	-L. -l_nomain -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
 
 ifneq (,$(findstring -DENABLE_PNG, $(CFLAGS)))
 # os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b
