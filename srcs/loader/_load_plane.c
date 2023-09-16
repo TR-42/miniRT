@@ -6,13 +6,14 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 08:40:20 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/17 11:53:39 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/09/17 00:44:29 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <utils.h>
 
 #include "_rt_loader.h"
+#include <plane.h>
 
 #define ELEM_CNT 4
 
@@ -31,5 +32,6 @@ t_plane	_load_plane(
 	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
 		&& _parse_vec3(arr[2], true, &(v.orientation), err) == LOAD_ERR_SUCCESS)
 		_parse_rgb(arr[3], &(v.color), err);
+	plane_init_f(&v);
 	return (v);
 }
