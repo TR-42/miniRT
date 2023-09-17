@@ -15,6 +15,17 @@
 #include <plane.h>
 #include <utils.h>
 
+// ref: https://knzw.tech/raytracing/?page_id=78
+// レイと平面の交差判定
+static bool	_plane_hit(
+	const t_plane *obj,
+	const t_ray *ray,
+	const double t_range[2],
+	t_hit *hit_rec
+)
+{
+}
+
 __attribute__((nonnull))
 bool	plane_hit(
 	const t_objs *obj,
@@ -23,12 +34,7 @@ bool	plane_hit(
 	t_hit *hit_rec
 )
 {
-	double	a;
-	double	b;
-	double	d;
-	double	tmp;
-
 	if (obj->comm.type != T_OBJ_PLANE)
 		return (false);
-	return (false);
+	return (_plane_hit(&(obj->plane), ray, t_range, hit_rec));
 }
