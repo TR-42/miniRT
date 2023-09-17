@@ -24,6 +24,11 @@ SRCS_CANVAS	:= \
 	set_color.c\
 	to_png.c\
 
+SRCS_CYLINDER	:=\
+	cylinder_color.c\
+	cylinder_hit.c\
+	cylinder_init.c\
+
 SRCS_INLINE_IMG	:= \
 	print_inline_img.c \
 
@@ -78,6 +83,7 @@ SRCS_VECT3D :=\
 SRCS_NOMAIN	:= \
 	$(addprefix camera/, $(SRCS_CAMERA))\
 	$(addprefix canvas/, $(SRCS_CANVAS))\
+	$(addprefix cylinder/, $(SRCS_CYLINDER))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix ray/, $(SRCS_RAY))\

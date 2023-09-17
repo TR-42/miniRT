@@ -22,6 +22,10 @@ static bool	_cylinder_hit(
 	t_hit *hit_rec
 )
 {
+	(void)obj;
+	(void)ray;
+	(void)t_range;
+	(void)hit_rec;
 	return (false);
 }
 
