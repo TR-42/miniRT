@@ -34,4 +34,5 @@ t_objs	cylinder_init(
 void	cylinder_init_f(t_cylnd *v)
 {
 	v->comm.hit_func = cylinder_hit;
+	v->comm.rgb_func = cylinder_color;
 }
