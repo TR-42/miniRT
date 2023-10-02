@@ -32,4 +32,5 @@ t_objs	sphere_init(
 void	sphere_init_f(t_spher *v)
 {
 	v->comm.hit_func = sphere_hit;
+	v->comm.rgb_func = sphere_color;
 }
