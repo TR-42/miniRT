@@ -33,6 +33,7 @@ SRCS_INLINE_IMG	:= \
 	print_inline_img.c \
 
 SRCS_LOADER	:=\
+	_ignore_comment.c\
 	_load_amb_light.c\
 	_load_camera.c\
 	_load_cylinder.c\
