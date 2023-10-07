@@ -65,6 +65,7 @@ SRCS_UTILS	:=\
 	free2darr.c\
 	ft_strtod.c\
 	powf.c\
+	rgb_func_default.c\
 	try_str_to_byte.c\
 	try_strtod.c\
 

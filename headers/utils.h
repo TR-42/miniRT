@@ -212,4 +212,11 @@ t_rgb	brend_rgb(
 			)
 		;
 
+t_rgb	rgb_color_default(
+			const t_objs *obj,
+			const t_ray *ray,
+			double hit_at
+			)
+		;
+
 #endif
