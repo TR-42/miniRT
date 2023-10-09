@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:50:19 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/08 19:51:16 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/10/10 00:21:57 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,33 @@
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
 
+#if defined(DEBUG) || defined(ENABLE_PNG)
+
+size_t	g_debug_x;
+size_t	g_debug_y;
+
+static void	_set_debug_x_y(
+	size_t x,
+	size_t y
+)
+{
+	g_debug_x = x;
+	g_debug_y = y;
+}
+
+#else
+
+static void	_set_debug_x_y(
+	size_t x,
+	size_t y
+)
+{
+	(void)x;
+	(void)y;
+}
+
+#endif
+
 static void	_set_gradient(
 	t_cnvas *canvas,
 	const t_scene *scene
@@ -40,6 +67,7 @@ static void	_set_gradient(
 		ix = 0;
 		while (ix < CANVAS_WIDTH)
 		{
+			_set_debug_x_y(ix, iy);
 			ray = cam_get_ray(&(scene->camera), canvas, ix, iy);
 			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, scene));
 			ix += 1;
