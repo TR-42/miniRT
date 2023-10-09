@@ -10,10 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include <cylinder.h>
+
+#include <vect3d.h>
+#include <utils.h>
+
+#include "_cylinder_calc_helper.h"
 
 // ref: https://knzw.tech/raytracing/?page_id=19
 // #toc-03476ddd7e79e9c8fa7d759966a93ba4-13
+// ref: http://marupeke296.com/COL_3D_No25_RayToSilinder.html
+
+// TODO: normalがなにか違う気がする
+// TODO: 底面に対してもhitを計算する
+static bool	_get_hit_side(
+	const t_cylnd *obj,
+	const t_ray *ray,
+	const double t_range[2],
+	t_hit *hit_rec
+)
+{
+	double		tmp;
+	t_cyl_hlp	hlp;
+
+	hlp = cyl_hlp_new(obj, ray);
+	if (hlp.is_hit_val < 0)
+		return (false);
+	tmp = (hlp.tmp_b - sqrt(hlp.is_hit_val)) / hlp.tmp_a;
+	if (tmp <= t_range[0] || t_range[1] <= tmp)
+		return (false);
+	hit_rec->at = vec3_add(hlp.l, vec3_mul(hlp.v, tmp));
+	hit_rec->t = tmp;
+	tmp = vec3_dot(obj->axis, vec3_sub(hit_rec->at, hlp.p))
+		/ vec3_dot(obj->axis, obj->axis);
+	hit_rec->normal = vec3_normalize(vec3_sub(
+				hit_rec->at,
+				vec3_add(hlp.p, vec3_mul(obj->axis, tmp))
+				));
+	return (true);
+}
 
 static bool	_cylinder_hit(
 	const t_cylnd *obj,
@@ -22,11 +59,7 @@ static bool	_cylinder_hit(
 	t_hit *hit_rec
 )
 {
-	(void)obj;
-	(void)ray;
-	(void)t_range;
-	(void)hit_rec;
-	return (false);
+	return (_get_hit_side(obj, ray, t_range, hit_rec));
 }
 
 __attribute__((nonnull))

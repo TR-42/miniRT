@@ -25,6 +25,7 @@ SRCS_CANVAS	:= \
 	to_png.c\
 
 SRCS_CYLINDER	:=\
+	_cylinder_calc_helper.c\
 	cylinder_color.c\
 	cylinder_hit.c\
 	cylinder_init.c\
