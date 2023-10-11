@@ -23,7 +23,6 @@
 // #toc-03476ddd7e79e9c8fa7d759966a93ba4-13
 // ref: http://marupeke296.com/COL_3D_No25_RayToSilinder.html
 
-// TODO: normalがなにか違う気がする
 // TODO: 底面に対してもhitを計算する
 static bool	_get_hit_side(
 	const t_cylnd *obj,
@@ -43,12 +42,16 @@ static bool	_get_hit_side(
 		return (false);
 	hit_rec->at = vec3_add(hlp.l, vec3_mul(hlp.v, tmp));
 	hit_rec->t = tmp;
-	tmp = vec3_dot(obj->axis, vec3_sub(hit_rec->at, hlp.p))
-		/ vec3_dot(obj->axis, obj->axis);
+	tmp = ((hit_rec->t * hlp.d_sv) - hlp.d_ps) / hlp.d_ss;
 	hit_rec->normal = vec3_normalize(vec3_sub(
 				hit_rec->at,
-				vec3_add(hlp.p, vec3_mul(obj->axis, tmp))
-				));
+				vec3_add3(
+					hlp.l,
+					hlp.p,
+					vec3_mul(hlp.s, tmp)
+					)
+				)
+			);
 	return (true);
 }
 
