@@ -34,7 +34,33 @@ typedef struct s_cyl_hlp
 	double	is_hit_val;
 }	t_cyl_hlp;
 
+// helper for top and bottom
+// 末尾アンスコは、1と2のより近い方を表す
+typedef struct s_cyl_hlp2
+{
+	double	d_n_m;
+	double	radius;
+	double	h_half;
+	t_vec3	n1;
+	t_vec3	p1;
+	double	t1;
+	t_vec3	n2;
+	t_vec3	p2;
+	double	t2;
+	t_vec3	n_;
+	t_vec3	p_;
+	double	t_;
+	t_vec3	hit_at;
+	double	hit_r;
+}	t_cyl_hlp2;
+
 t_cyl_hlp	cyl_hlp_new(
+				const t_cylnd *cylnd,
+				const t_ray *ray
+				)
+			;
+
+t_cyl_hlp2	cyl_hlp_top_btm_new(
 				const t_cylnd *cylnd,
 				const t_ray *ray
 				)
