@@ -52,6 +52,13 @@ void	mymlx_set_image(
 		__attribute__((nonnull))
 		;
 
+int		on_key_pressed(
+			int keycode,
+			t_mymlx *mymlx
+			)
+		__attribute__((nonnull))
+		;
+
 int		on_loop(
 			t_mymlx *mymlx
 			)

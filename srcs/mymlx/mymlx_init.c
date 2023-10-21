@@ -43,6 +43,7 @@ bool	mymlx_init(t_mymlx *mymlx, const t_scene *scene, int width, int height)
 	mymlx->scene = scene;
 	mlx_loop_hook(mymlx->mlx, on_loop, mymlx);
 	mlx_expose_hook(mymlx->win, _on_exposed, mymlx);
+	mlx_key_hook(mymlx->win, on_key_pressed, mymlx);
 	mlx_hook(mymlx->win, DestroyNotify, StructureNotifyMask,
 		_on_destroyed, mymlx);
 	return (true);

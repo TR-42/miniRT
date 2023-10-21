@@ -44,6 +44,7 @@ SRCS_MYMLX	:=\
 	mymlx_dispose.c\
 	mymlx_init.c\
 	mymlx_set_image.c\
+	on_key_pressed.c\
 	on_loop.c\
 
 SRCS_RAY	:=\
