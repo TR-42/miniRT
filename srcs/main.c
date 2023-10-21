@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// - EXIT_FAILURE
 #include <stdlib.h>
+
+// (for debug)
+// - getpid
+// - system
 #include <unistd.h>
+
+// - open
+// - O_RDONLY
 #include <fcntl.h>
 
 // (for debug)
