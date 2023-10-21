@@ -18,24 +18,31 @@ __attribute__((nonnull))
 void	_set_img_pixel_row(
 	const t_mymlx *mymlx,
 	const t_cnvas *canvas,
-	int y
+	const t_byte *src,
+	t_byte *dst
 )
 {
-	t_byte	*src;
-	t_byte	*dst;
-	int		x;
+	int	x;
 
 	x = 0;
-	src = canvas->buf + y * canvas->width * 4;
-	dst = mymlx->img_d + y * mymlx->line_length;
-	while (x < canvas->width)
+	while (x++ < canvas->width)
 	{
-		dst[0] = src[0];
-		dst[1] = src[1];
-		dst[2] = src[2];
+		if (mymlx->endian == 0)
+		{
+			dst[0] = src[CANVAS_PIX_B];
+			dst[1] = src[CANVAS_PIX_G];
+			dst[2] = src[CANVAS_PIX_R];
+			dst[3] = src[CANVAS_PIX_A];
+		}
+		else
+		{
+			dst[0] = src[CANVAS_PIX_A];
+			dst[1] = src[CANVAS_PIX_R];
+			dst[2] = src[CANVAS_PIX_G];
+			dst[3] = src[CANVAS_PIX_B];
+		}
 		dst += mymlx->bpp / 8;
-		src += 4;
-		x++;
+		src += CANVAS_PIX_SIZE;
 	}
 }
 
@@ -50,6 +57,15 @@ void	mymlx_set_image(
 
 	y = 0;
 	while (y < canvas->height)
-		_set_img_pixel_row(mymlx, canvas, y++);
+	{
+		_set_img_pixel_row(
+			mymlx,
+			canvas,
+			canvas->buf + (y * canvas->width * 4),
+			mymlx->img_d + (y * mymlx->line_length)
+			)
+		;
+		y += 1;
+	}
 	mlx_put_image_to_window(mymlx->mlx, mymlx->win, mymlx->img, 0, 0);
 }

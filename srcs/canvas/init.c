@@ -22,7 +22,7 @@ bool	canvas_init(
 )
 {
 	ft_bzero(dst, sizeof(t_cnvas));
-	dst->buf = ft_calloc(4, (size_t)width * (size_t)height);
+	dst->buf = ft_calloc(CANVAS_PIX_SIZE, (size_t)width * (size_t)height);
 	if (dst->buf == NULL)
 		return (false);
 	dst->height = height;
