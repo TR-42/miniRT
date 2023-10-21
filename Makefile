@@ -101,6 +101,8 @@ LIBFT_DIR	:=	./libft
 LIBFT	:=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	:=	make -C $(LIBFT_DIR)
 
+X11_DIR	=	/usr/X11
+
 MLX_DIR	:=	./minilibx
 MLX	:=	$(MLX_DIR)/libmlx.a
 MLX_MAKE	:=	make -C $(MLX_DIR)
@@ -108,8 +110,18 @@ MLX_MAKE	:=	make -C $(MLX_DIR)
 LIB_NOMAIN	:=	lib_nomain.a
 
 override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
-INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
-LIB_LINK	:=	-L. -l_nomain -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
+INCLUDES	:=\
+	-I $(HEADERS_DIR)\
+	-I $(LIBFT_DIR)\
+	-I $(MLX_DIR)\
+	-I $(X11_DIR)/include\
+
+LIB_LINK	:=\
+	-L. -l_nomain\
+	-lm\
+	-L$(LIBFT_DIR) -lft\
+	-L$(MLX_DIR) -lmlx\
+	-L$(X11_DIR)/lib -lXext -lX11\
 
 ifneq (,$(findstring -DENABLE_PNG, $(CFLAGS)))
 # os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b
