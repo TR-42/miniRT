@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:50:19 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/08 19:51:16 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/10/21 21:31:24 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <rt_loader.h>
 #include <print_inline_img.h>
 #include <utils.h>
+#include <mymlx.h>
 
 #include <scene.h>
 
@@ -97,8 +98,13 @@ static bool	_do_show(
 	const t_scene *scene
 )
 {
-	(void)canvas;
-	(void)scene;
+	t_mymlx	mymlx;
+
+	if (!mymlx_init(&mymlx, scene, canvas->width, canvas->height))
+		return (perr_retint("mymlx_init", false));
+	mymlx_set_image(&mymlx, canvas);
+	mlx_loop(mymlx.mlx);
+	mymlx_dispose(&mymlx);
 	return (true);
 }
 

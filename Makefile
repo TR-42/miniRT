@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/08/02 00:55:12 by kfujita          ###   ########.fr        #
+#    Updated: 2023/10/20 00:07:50 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,12 @@ SRCS_LOADER	:=\
 	load_rt.c\
 	loader.c\
 	print_load_err.c\
+
+SRCS_MYMLX	:=\
+	mymlx_dispose.c\
+	mymlx_init.c\
+	mymlx_set_image.c\
+	on_loop.c\
 
 SRCS_RAY	:=\
 	at.c\
@@ -80,6 +86,7 @@ SRCS_NOMAIN	:= \
 	$(addprefix canvas/, $(SRCS_CANVAS))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
+	$(addprefix mymlx/, $(SRCS_MYMLX))\
 	$(addprefix ray/, $(SRCS_RAY))\
 	$(addprefix sphere/, $(SRCS_SPHERE))\
 	$(addprefix utils/, $(SRCS_UTILS))\
