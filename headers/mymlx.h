@@ -23,6 +23,7 @@ typedef struct s_mymlx
 	void			*mlx;
 	void			*win;
 	void			*img;
+	t_byte			*img_d;
 	const t_scene	*scene;
 	int				bpp;
 	int				line_length;

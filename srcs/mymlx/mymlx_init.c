@@ -40,6 +40,10 @@ bool	mymlx_init(t_mymlx *mymlx, const t_scene *scene, int width, int height)
 	mymlx->img = mlx_new_image(mymlx->mlx, width, height);
 	if (mymlx->img == NULL)
 		return (!mymlx_dispose(mymlx));
+	mymlx->img_d = (t_byte *)mlx_get_data_addr(mymlx->img, &(mymlx->bpp),
+			&(mymlx->line_length), &(mymlx->endian));
+	if (mymlx->bpp != 32)
+		return (!mymlx_dispose(mymlx));
 	mymlx->scene = scene;
 	mlx_loop_hook(mymlx->mlx, on_loop, mymlx);
 	mlx_expose_hook(mymlx->win, _on_exposed, mymlx);

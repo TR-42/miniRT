@@ -18,16 +18,16 @@ __attribute__((nonnull))
 void	_set_img_pixel_row(
 	const t_mymlx *mymlx,
 	const t_cnvas *canvas,
-	unsigned char *dst,
 	int y
 )
 {
 	t_byte	*src;
+	t_byte	*dst;
 	int		x;
 
 	x = 0;
 	src = canvas->buf + y * canvas->width * 4;
-	dst += y * mymlx->line_length;
+	dst = mymlx->img_d + y * mymlx->line_length;
 	while (x < canvas->width)
 	{
 		dst[0] = src[0];
@@ -46,17 +46,10 @@ void	mymlx_set_image(
 	const t_cnvas *canvas
 )
 {
-	unsigned char	*img;
 	int				y;
 
-	img = (unsigned char *)mlx_get_data_addr(
-			mymlx->img,
-			&(mymlx->bpp),
-			&(mymlx->line_length),
-			&(mymlx->endian)
-			);
 	y = 0;
 	while (y < canvas->height)
-		_set_img_pixel_row(mymlx, canvas, img, y++);
+		_set_img_pixel_row(mymlx, canvas, y++);
 	mlx_put_image_to_window(mymlx->mlx, mymlx->win, mymlx->img, 0, 0);
 }
