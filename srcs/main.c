@@ -68,8 +68,9 @@ static bool	_do_show(
 	size_t	len;
 	bool	ret;
 
+	(void)scene;
 	tmp = NULL;
-	len = canvas_to_png(&canvas, &tmp);
+	len = canvas_to_png(canvas, &tmp);
 	ret = print_inline_img(tmp, len);
 	if (!ret)
 		perr_retint("print_inline_img", false);
