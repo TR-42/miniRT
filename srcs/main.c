@@ -14,6 +14,10 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+// (for debug)
+// - sprintf
+#include <stdio.h>
+
 #include <canvas.h>
 #include <renderer.h>
 #include <rt_loader.h>
@@ -109,3 +113,19 @@ int	main(
 	vect_dispose(&(scene.objs));
 	return (!ret);
 }
+
+#if DEBUG
+
+# define DEBUG_LEAKS_CMD_LEN (32)
+
+__attribute__((destructor))
+static void	destructor(void) {
+	char	cmd[DEBUG_LEAKS_CMD_LEN];
+
+	if (getenv("DEBUG") == NULL)
+		return ;
+	snprintf(cmd, DEBUG_LEAKS_CMD_LEN, "leaks %d > /dev/stderr", getpid());
+	system(cmd);
+}
+
+#endif
