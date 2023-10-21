@@ -68,6 +68,42 @@ static bool	_load_rt_file(
 	return (false);
 }
 
+#ifdef ENABLE_PNG
+
+__attribute__((nonnull))
+static bool	_do_show(
+	t_cnvas *canvas,
+	const t_scene *scene
+)
+{
+	t_byte	*tmp;
+	size_t	len;
+	bool	ret;
+
+	tmp = NULL;
+	len = canvas_to_png(&canvas, &tmp);
+	ret = print_inline_img(tmp, len);
+	if (!ret)
+		perr_retint("print_inline_img", false);
+	free(tmp);
+	return (ret);
+}
+
+#else
+
+__attribute__((nonnull))
+static bool	_do_show(
+	t_cnvas *canvas,
+	const t_scene *scene
+)
+{
+	(void)canvas;
+	(void)scene;
+	return (true);
+}
+
+#endif
+
 int	main(
 	int argc,
 	const char *argv[]
@@ -75,9 +111,7 @@ int	main(
 {
 	t_cnvas	canvas;
 	t_scene	scene;
-	t_byte	*tmp;
-	size_t	len;
-	int		ret;
+	bool	ret;
 
 	if (argc != 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
@@ -89,13 +123,8 @@ int	main(
 		return (EXIT_FAILURE);
 	}
 	_set_gradient(&canvas, &scene);
-	tmp = NULL;
-	len = canvas_to_png(&canvas, &tmp);
+	ret = _do_show(&canvas, &scene);
 	canvas_dispose(&canvas);
 	vect_dispose(&(scene.objs));
-	ret = print_inline_img(tmp, len);
-	if (!ret)
-		perr_retint("print_inline_img", 0);
-	free(tmp);
 	return (!ret);
 }
