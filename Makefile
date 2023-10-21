@@ -52,6 +52,9 @@ SRCS_RAY	:=\
 	init_dst.c\
 	to_rgb.c\
 
+SRCS_RENDERER	:=\
+	render.c\
+
 SRCS_SPHERE	:=\
 	sphere_color.c\
 	sphere_hit.c\
@@ -88,6 +91,7 @@ SRCS_NOMAIN	:= \
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix mymlx/, $(SRCS_MYMLX))\
 	$(addprefix ray/, $(SRCS_RAY))\
+	$(addprefix renderer/, $(SRCS_RENDERER))\
 	$(addprefix sphere/, $(SRCS_SPHERE))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\

@@ -14,40 +14,15 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include <camera.h>
 #include <canvas.h>
+#include <renderer.h>
 #include <rt_loader.h>
 #include <print_inline_img.h>
 #include <utils.h>
 #include <mymlx.h>
 
-#include <scene.h>
-
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
-
-static void	_set_gradient(
-	t_cnvas *canvas,
-	const t_scene *scene
-)
-{
-	int		ix;
-	int		iy;
-	t_ray	ray;
-
-	iy = 0;
-	while (iy < CANVAS_HEIGHT)
-	{
-		ix = 0;
-		while (ix < CANVAS_WIDTH)
-		{
-			ray = cam_get_ray(&(scene->camera), canvas, ix, iy);
-			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, scene));
-			ix += 1;
-		}
-		iy += 1;
-	}
-}
 
 __attribute__((nonnull))
 static bool	_load_rt_file(
@@ -128,7 +103,7 @@ int	main(
 		canvas_dispose(&canvas);
 		return (EXIT_FAILURE);
 	}
-	_set_gradient(&canvas, &scene);
+	render(&canvas, &scene);
 	ret = _do_show(&canvas, &scene);
 	canvas_dispose(&canvas);
 	vect_dispose(&(scene.objs));
