@@ -99,6 +99,7 @@ t_lderr	load_rt_line(
 	if (arr == NULL)
 		return (perr_retint("ft_split", LOAD_ERR_PRINTED));
 	err = LOAD_ERR_SUCCESS;
+	_ignore_comment(arr);
 	if (arr[0] != NULL)
 		err = _parse_input(arr, dst);
 	free2darr((void **)arr);

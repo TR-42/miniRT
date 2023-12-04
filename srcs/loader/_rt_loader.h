@@ -15,6 +15,11 @@
 
 # include <rt_loader.h>
 
+void		_ignore_comment(
+				char **arr
+				)
+			;
+
 t_amb_light	_load_amb_light(
 				char *const arr[],
 				t_lderr *err
