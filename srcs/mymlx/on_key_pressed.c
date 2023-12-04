@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   on_key_pressed.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 00:10:39 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/02 00:19:05 by kfujita          ###   ########.fr       */
+/*   Created: 2023/10/21 21:51:37 by kfujita           #+#    #+#             */
+/*   Updated: 2023/10/21 21:53:01 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_mem/ft_mem.h>
+// - XK_*
+#include <X11/keysym.h>
 
-#include <canvas.h>
+#include <mymlx.h>
 
 __attribute__((nonnull))
-bool	canvas_init(
-	t_cnvas *dst,
-	int height,
-	int width
+int	on_key_pressed(
+	int keycode,
+	t_mymlx *mymlx
 )
 {
-	ft_bzero(dst, sizeof(t_cnvas));
-	dst->buf = ft_calloc(CANVAS_PIX_SIZE, (size_t)width * (size_t)height);
-	if (dst->buf == NULL)
-		return (false);
-	dst->height = height;
-	dst->width = width;
-	return (true);
+	if (keycode == XK_Escape)
+		mlx_loop_end(mymlx->mlx);
+	return (0);
 }

@@ -5,6 +5,8 @@
             "includePath": [
                 "headers",
                 "libft",
+                "minilibx",
+                "/usr/X11/include",
                 "${default}",
                 "/opt/homebrew/opt/libpng/include"
             ],

@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/08/02 00:55:12 by kfujita          ###   ########.fr        #
+#    Updated: 2023/10/20 00:07:50 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,21 @@ SRCS_LOADER	:=\
 	loader.c\
 	print_load_err.c\
 
+SRCS_MYMLX	:=\
+	mymlx_dispose.c\
+	mymlx_init.c\
+	mymlx_set_image.c\
+	on_key_pressed.c\
+	on_loop.c\
+
 SRCS_RAY	:=\
 	at.c\
 	hit_any.c\
 	init_dst.c\
 	to_rgb.c\
+
+SRCS_RENDERER	:=\
+	render.c\
 
 SRCS_SPHERE	:=\
 	sphere_color.c\
@@ -89,7 +99,9 @@ SRCS_NOMAIN	:= \
 	$(addprefix cylinder/, $(SRCS_CYLINDER))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
+	$(addprefix mymlx/, $(SRCS_MYMLX))\
 	$(addprefix ray/, $(SRCS_RAY))\
+	$(addprefix renderer/, $(SRCS_RENDERER))\
 	$(addprefix sphere/, $(SRCS_SPHERE))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
@@ -110,6 +122,8 @@ LIBFT_DIR	:=	./libft
 LIBFT	:=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	:=	make -C $(LIBFT_DIR)
 
+X11_DIR	=	/usr/X11
+
 MLX_DIR	:=	./minilibx
 MLX	:=	$(MLX_DIR)/libmlx.a
 MLX_MAKE	:=	make -C $(MLX_DIR)
@@ -117,8 +131,18 @@ MLX_MAKE	:=	make -C $(MLX_DIR)
 LIB_NOMAIN	:=	lib_nomain.a
 
 override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
-INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
-LIB_LINK	:=	-L. -l_nomain -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
+INCLUDES	:=\
+	-I $(HEADERS_DIR)\
+	-I $(LIBFT_DIR)\
+	-I $(MLX_DIR)\
+	-I $(X11_DIR)/include\
+
+LIB_LINK	:=\
+	-L. -l_nomain\
+	-lm\
+	-L$(LIBFT_DIR) -lft\
+	-L$(MLX_DIR) -lmlx\
+	-L$(X11_DIR)/lib -lXext -lX11\
 
 ifneq (,$(findstring -DENABLE_PNG, $(CFLAGS)))
 # os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b
