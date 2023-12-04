@@ -29,7 +29,7 @@ static double	_get_d(
 	oc = vec3_sub(ray->origin, obj->sphere.center);
 	*a = vec3_dot(ray->direction, ray->direction);
 	*b = 2 * vec3_dot(ray->direction, oc);
-	c = vec3_dot(oc, oc) - pow2f(obj->sphere.diameter);
+	c = vec3_dot(oc, oc) - pow2f(obj->sphere.diameter / 2);
 	return (pow2f(*b) - (4 * (*a) * c));
 }
 
@@ -43,8 +43,8 @@ static bool	_set_hit_rec(
 {
 	hit_rec->t = tmp;
 	hit_rec->at = ray_at(ray, tmp);
-	hit_rec->normal = vec3_div(
-			vec3_sub(hit_rec->at, obj->sphere.center), obj->sphere.diameter);
+	hit_rec->normal = vec3_div(vec3_sub(hit_rec->at, obj->sphere.center),
+			obj->sphere.diameter / 2);
 	return (true);
 }
 

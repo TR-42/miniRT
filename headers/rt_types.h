@@ -75,10 +75,17 @@ typedef bool			(*t_hit_func)(
 	t_hit *hit_rec
 ) __attribute__((nonnull));
 
+typedef t_rgb			(*t_rgb_func)(
+	const t_objs *obj,
+	const t_ray *ray,
+	double hit_at
+) __attribute__((nonnull));
+
 typedef struct s_objs_comm
 {
 	t_tobj		type;
 	t_hit_func	hit_func;
+	t_rgb_func	rgb_func;
 }	t_objs_comm;
 
 typedef struct s_sphere

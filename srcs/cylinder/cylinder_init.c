@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_init.c                                      :+:      :+:    :+:   */
+/*   cylinder_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 21:39:29 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/11 21:41:15 by kfujita          ###   ########.fr       */
+/*   Created: 2023/09/18 02:09:58 by kfujita           #+#    #+#             */
+/*   Updated: 2023/09/18 02:11:51 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sphere.h>
+#include <cylinder.h>
 
-t_objs	sphere_init(
-	t_vec3 center,
-	double diameter,
+t_objs	cylinder_init(
+	t_vec3 center_axis[2],
+	double diameter_height[2],
 	t_rgb color
 )
 {
 	t_objs	v;
 
 	v = (t_objs){0};
-	v.comm.type = T_OBJ_SPHERE;
-	sphere_init_f(&(v.sphere));
-	v.sphere.center = center;
-	v.sphere.diameter = diameter;
-	v.sphere.color = color;
+	v.comm.type = T_OBJ_CYLINDER;
+	cylinder_init_f(&(v.cylinder));
+	v.cylinder.center = center_axis[0];
+	v.cylinder.axis = center_axis[1];
+	v.cylinder.diameter = diameter_height[0];
+	v.cylinder.height = diameter_height[1];
+	v.cylinder.color = color;
 	return (v);
 }
 
-void	sphere_init_f(t_spher *v)
+void	cylinder_init_f(t_cylnd *v)
 {
-	v->comm.hit_func = sphere_hit;
-	v->comm.rgb_func = sphere_color;
+	v->comm.hit_func = cylinder_hit;
+	v->comm.rgb_func = cylinder_color;
 }
