@@ -55,7 +55,7 @@ t_lderr	_parse_vec3(
 		|| !try_strtod(arr2d[1], NULL, &(dst->y))
 		|| !try_strtod(arr2d[2], NULL, &(dst->z)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
-	else if (is_normalized && !_is_each_normalized(&dst))
+	else if (is_normalized && !_is_each_normalized(dst))
 		*err = LOAD_ERR_VAL_OUT_OF_RANGE;
 	else if (is_normalized)
 		*dst = vec3_normalize(*dst);
