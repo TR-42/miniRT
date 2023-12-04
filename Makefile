@@ -6,7 +6,7 @@
 #    By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/12/04 01:07:43 by myoshika         ###   ########.fr        #
+#    Updated: 2023/12/04 22:00:00 by myoshika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,17 @@ SRCS_CANVAS	:= \
 	set_color.c\
 	to_png.c\
 
+SRCS_CYLINDER	:=\
+	_cylinder_calc_helper.c\
+	cylinder_color.c\
+	cylinder_hit.c\
+	cylinder_init.c\
+
 SRCS_INLINE_IMG	:= \
 	print_inline_img.c \
 
 SRCS_LOADER	:=\
+	_ignore_comment.c\
 	_load_amb_light.c\
 	_load_camera.c\
 	_load_cylinder.c\
@@ -40,11 +47,21 @@ SRCS_LOADER	:=\
 	loader.c\
 	print_load_err.c\
 
+SRCS_MYMLX	:=\
+	mymlx_dispose.c\
+	mymlx_init.c\
+	mymlx_set_image.c\
+	on_key_pressed.c\
+	on_loop.c\
+
 SRCS_RAY	:=\
 	at.c\
 	hit_any.c\
 	init_dst.c\
 	to_rgb.c\
+
+SRCS_RENDERER	:=\
+	render.c\
 
 SRCS_SPHERE	:=\
 	sphere_color.c\
@@ -65,6 +82,7 @@ SRCS_UTILS	:=\
 	free2darr.c\
 	ft_strtod.c\
 	powf.c\
+	rgb_func_default.c\
 	try_str_to_byte.c\
 	try_strtod.c\
 
@@ -83,9 +101,12 @@ SRCS_VECT3D :=\
 SRCS_NOMAIN	:= \
 	$(addprefix camera/, $(SRCS_CAMERA))\
 	$(addprefix canvas/, $(SRCS_CANVAS))\
+	$(addprefix cylinder/, $(SRCS_CYLINDER))\
 	$(addprefix inline_img/, $(SRCS_INLINE_IMG))\
 	$(addprefix loader/, $(SRCS_LOADER))\
+	$(addprefix mymlx/, $(SRCS_MYMLX))\
 	$(addprefix ray/, $(SRCS_RAY))\
+	$(addprefix renderer/, $(SRCS_RENDERER))\
 	$(addprefix sphere/, $(SRCS_SPHERE))\
 	$(addprefix plane/, $(SRCS_PLANE))\
 	$(addprefix utils/, $(SRCS_UTILS))\
@@ -107,6 +128,8 @@ LIBFT_DIR	:=	./libft
 LIBFT	:=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	:=	make -C $(LIBFT_DIR)
 
+X11_DIR	=	/usr/X11
+
 MLX_DIR	:=	./minilibx
 MLX	:=	$(MLX_DIR)/libmlx.a
 MLX_MAKE	:=	make -C $(MLX_DIR)
@@ -114,8 +137,18 @@ MLX_MAKE	:=	make -C $(MLX_DIR)
 LIB_NOMAIN	:=	lib_nomain.a
 
 override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
-INCLUDES	:=	-I $(HEADERS_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
-LIB_LINK	:=	-L. -l_nomain -lm -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx
+INCLUDES	:=\
+	-I $(HEADERS_DIR)\
+	-I $(LIBFT_DIR)\
+	-I $(MLX_DIR)\
+	-I $(X11_DIR)/include\
+
+LIB_LINK	:=\
+	-L. -l_nomain\
+	-lm\
+	-L$(LIBFT_DIR) -lft\
+	-L$(MLX_DIR) -lmlx\
+	-L$(X11_DIR)/lib -lXext -lX11\
 
 ifneq (,$(findstring -DENABLE_PNG, $(CFLAGS)))
 # os switch ref: https://qiita.com/y-vectorfield/items/5e117e090ed38422de6b

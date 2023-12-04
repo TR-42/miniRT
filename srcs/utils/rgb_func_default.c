@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   rgb_func_default.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 00:10:39 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/02 00:19:05 by kfujita          ###   ########.fr       */
+/*   Created: 2023/10/07 23:10:01 by kfujita           #+#    #+#             */
+/*   Updated: 2023/10/07 23:12:18 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_mem/ft_mem.h>
-
-#include <canvas.h>
+#include <utils.h>
 
 __attribute__((nonnull))
-bool	canvas_init(
-	t_cnvas *dst,
-	int height,
-	int width
+t_rgb	rgb_color_default(
+	const t_objs *obj,
+	const t_ray *ray,
+	double hit_at
 )
 {
-	ft_bzero(dst, sizeof(t_cnvas));
-	dst->buf = ft_calloc(CANVAS_PIX_SIZE, (size_t)width * (size_t)height);
-	if (dst->buf == NULL)
-		return (false);
-	dst->height = height;
-	dst->width = width;
-	return (true);
+	t_vec3	n;
+
+	(void)obj;
+	n = vec3_normalize(vec3_sub(ray_at(ray, hit_at), vec3_(0, 0, -1)));
+	return ((t_rgb){
+		.r = (n.x + 1) * 127.99,
+		.g = (n.y + 1) * 127.99,
+		.b = (n.z + 1) * 127.99,
+	});
 }

@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   mymlx_dispose.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 00:10:39 by kfujita           #+#    #+#             */
-/*   Updated: 2023/08/02 00:19:05 by kfujita          ###   ########.fr       */
+/*   Created: 2023/10/19 23:46:57 by kfujita           #+#    #+#             */
+/*   Updated: 2023/10/21 21:28:54 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_mem/ft_mem.h>
+#include <stdlib.h>
 
-#include <canvas.h>
+#include <mymlx.h>
 
 __attribute__((nonnull))
-bool	canvas_init(
-	t_cnvas *dst,
-	int height,
-	int width
-)
+bool	mymlx_dispose(t_mymlx *mymlx)
 {
-	ft_bzero(dst, sizeof(t_cnvas));
-	dst->buf = ft_calloc(CANVAS_PIX_SIZE, (size_t)width * (size_t)height);
-	if (dst->buf == NULL)
-		return (false);
-	dst->height = height;
-	dst->width = width;
+	if (mymlx->img != NULL)
+	{
+		mlx_destroy_image(mymlx->mlx, mymlx->img);
+		mymlx->img = NULL;
+	}
+	if (mymlx->win != NULL)
+	{
+		mlx_destroy_window(mymlx->mlx, mymlx->win);
+		mymlx->win = NULL;
+	}
+	if (mymlx->mlx != NULL)
+	{
+		mlx_destroy_display(mymlx->mlx);
+		free(mymlx->mlx);
+		mymlx->mlx = NULL;
+	}
 	return (true);
 }

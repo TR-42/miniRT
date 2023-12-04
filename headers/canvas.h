@@ -17,6 +17,12 @@
 # include <stdint.h>
 # include "rt_types.h"
 
+# define CANVAS_PIX_R 0
+# define CANVAS_PIX_G 1
+# define CANVAS_PIX_B 2
+# define CANVAS_PIX_A 3
+# define CANVAS_PIX_SIZE 4
+
 typedef struct s_cnvas
 {
 	int		height;

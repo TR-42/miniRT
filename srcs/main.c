@@ -6,47 +6,35 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:50:19 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/08 19:51:16 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/10/21 21:31:24 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// - EXIT_FAILURE
 #include <stdlib.h>
+
+// (for debug)
+// - getpid
+// - system
 #include <unistd.h>
+
+// - open
+// - O_RDONLY
 #include <fcntl.h>
 
-#include <camera.h>
+// (for debug)
+// - sprintf
+#include <stdio.h>
+
 #include <canvas.h>
+#include <renderer.h>
 #include <rt_loader.h>
 #include <print_inline_img.h>
 #include <utils.h>
-
-#include <scene.h>
+#include <mymlx.h>
 
 #define CANVAS_HEIGHT 480
 #define CANVAS_WIDTH 640
-
-static void	_set_gradient(
-	t_cnvas *canvas,
-	const t_scene *scene
-)
-{
-	int		ix;
-	int		iy;
-	t_ray	ray;
-
-	iy = 0;
-	while (iy < CANVAS_HEIGHT)
-	{
-		ix = 0;
-		while (ix < CANVAS_WIDTH)
-		{
-			ray = cam_get_ray(&(scene->camera), canvas, ix, iy);
-			canvas_set_color(canvas, ix, iy, ray_to_rgb(ray, scene));
-			ix += 1;
-		}
-		iy += 1;
-	}
-}
 
 __attribute__((nonnull))
 static bool	_load_rt_file(
@@ -68,6 +56,48 @@ static bool	_load_rt_file(
 	return (false);
 }
 
+#ifdef ENABLE_PNG
+
+__attribute__((nonnull))
+static bool	_do_show(
+	t_cnvas *canvas,
+	const t_scene *scene
+)
+{
+	t_byte	*tmp;
+	size_t	len;
+	bool	ret;
+
+	(void)scene;
+	tmp = NULL;
+	len = canvas_to_png(canvas, &tmp);
+	ret = print_inline_img(tmp, len);
+	if (!ret)
+		perr_retint("print_inline_img", false);
+	free(tmp);
+	return (ret);
+}
+
+#else
+
+__attribute__((nonnull))
+static bool	_do_show(
+	t_cnvas *canvas,
+	const t_scene *scene
+)
+{
+	t_mymlx	mymlx;
+
+	if (!mymlx_init(&mymlx, scene, canvas->width, canvas->height))
+		return (perr_retint("mymlx_init", false));
+	mymlx_set_image(&mymlx, canvas);
+	mlx_loop(mymlx.mlx);
+	mymlx_dispose(&mymlx);
+	return (true);
+}
+
+#endif
+
 int	main(
 	int argc,
 	const char *argv[]
@@ -75,9 +105,7 @@ int	main(
 {
 	t_cnvas	canvas;
 	t_scene	scene;
-	t_byte	*tmp;
-	size_t	len;
-	int		ret;
+	bool	ret;
 
 	if (argc != 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
@@ -88,14 +116,25 @@ int	main(
 		canvas_dispose(&canvas);
 		return (EXIT_FAILURE);
 	}
-	_set_gradient(&canvas, &scene);
-	tmp = NULL;
-	len = canvas_to_png(&canvas, &tmp);
+	render(&canvas, &scene);
+	ret = _do_show(&canvas, &scene);
 	canvas_dispose(&canvas);
 	vect_dispose(&(scene.objs));
-	ret = print_inline_img(tmp, len);
-	if (!ret)
-		perr_retint("print_inline_img", 0);
-	free(tmp);
 	return (!ret);
 }
+
+#if DEBUG
+
+# define DEBUG_LEAKS_CMD_LEN (32)
+
+__attribute__((destructor))
+static void	destructor(void) {
+	char	cmd[DEBUG_LEAKS_CMD_LEN];
+
+	if (getenv("DEBUG") == NULL)
+		return ;
+	snprintf(cmd, DEBUG_LEAKS_CMD_LEN, "leaks %d > /dev/stderr", getpid());
+	system(cmd);
+}
+
+#endif
