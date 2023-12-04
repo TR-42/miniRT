@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 19:56:14 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/09 00:40:39 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/04 21:52:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_objs_comm	comm;
-	t_vec3		center;
+	t_vec3		point;
 	t_vec3		orientation;
 	t_rgb		color;
 }	t_plane;

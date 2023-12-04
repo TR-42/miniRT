@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _print_plane.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 00:31:28 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/18 00:39:08 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/03 21:50:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	_print_plane(t_plane v)
 	if (v.comm.type != T_OBJ_PLANE)
 		printf("\t!!! ERR: Object type mismatch (expected PLANE but was %s)\n",
 			_get_tobj_str(v.comm.type));
-	_print_vec3("     Center", v.center);
+	_print_vec3("     Point", v.point);
 	_print_vec3("Orientation", v.orientation);
 	_print_rgb("      Color", v.color);
 }
