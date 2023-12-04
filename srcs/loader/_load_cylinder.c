@@ -12,6 +12,7 @@
 
 #include <utils.h>
 
+#include <cylinder.h>
 #include "_rt_loader.h"
 
 #define ELEM_CNT 6
@@ -35,5 +36,6 @@ t_cylnd	_load_cylinder(
 		*err = LOAD_ERR_NOT_A_NUMBER;
 	else
 		_parse_rgb(arr[5], &(v.color), err);
+	cylinder_init_f(&v);
 	return (v);
 }

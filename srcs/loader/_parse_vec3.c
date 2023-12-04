@@ -53,6 +53,8 @@ t_lderr	_parse_vec3(
 		)
 	)
 		*err = LOAD_ERR_VAL_OUT_OF_RANGE;
+	else if (is_normalized)
+		*dst = vec3_normalize(*dst);
 	free2darr((void **)arr2d);
 	return (*err);
 }

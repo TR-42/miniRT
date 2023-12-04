@@ -102,5 +102,7 @@ t_rgb	ray_to_rgb(
 	if (ref_rate != 0)
 		ref_rate += _get_mirror_ref_rate(scene, &ray, &hit, &hit_to_light);
 	ref_rate += _get_amb_light_ref_rate(scene);
-	return (brend_rgb(scene->amb_light.color, hit.obj->sphere.color, ref_rate));
+	return (brend_rgb(scene->amb_light.color,
+			hit.obj->comm.rgb_func(hit.obj, &ray, hit.t),
+			ref_rate));
 }
