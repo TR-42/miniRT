@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/08/02 00:55:12 by kfujita          ###   ########.fr        #
+#    Updated: 2023/12/04 01:07:43 by myoshika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,11 @@ SRCS_SPHERE	:=\
 	sphere_hit.c\
 	sphere_init.c\
 
+SRCS_PLANE	:=\
+	plane_color.c\
+	plane_hit.c\
+	plane_init.c\
+
 SRCS_UTILS	:=\
 	arrlen2d.c\
 	base64_encode.c\
@@ -82,6 +87,7 @@ SRCS_NOMAIN	:= \
 	$(addprefix loader/, $(SRCS_LOADER))\
 	$(addprefix ray/, $(SRCS_RAY))\
 	$(addprefix sphere/, $(SRCS_SPHERE))\
+	$(addprefix plane/, $(SRCS_PLANE))\
 	$(addprefix utils/, $(SRCS_UTILS))\
 	$(addprefix vect3d/, $(SRCS_VECT3D))\
 

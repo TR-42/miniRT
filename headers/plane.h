@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 00:42:42 by kfujita           #+#    #+#             */
-/*   Updated: 2023/09/17 00:42:43 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/04 00:59:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "ray.h"
 
 t_objs	plane_init(
-			t_vec3 center,
-			double diameter,
+			t_vec3 point,
+			t_vec3 orientation,
 			t_rgb color
 			)
 		;
@@ -40,6 +40,6 @@ t_rgb	plane_color(
 		__attribute__((nonnull))
 		;
 
-void	plane_init_f(t_spher *v);
+void	plane_init_f(t_plane *v);
 
 #endif

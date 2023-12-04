@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _load_plane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 08:40:20 by kfujita           #+#    #+#             */
-/*   Updated: 2023/09/17 00:44:29 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/04 02:18:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_plane	_load_plane(
 	v.comm.type = T_OBJ_PLANE;
 	if (arrlen2d((void *)arr) != ELEM_CNT)
 		*err = LOAD_ERR_INVAL_ARGS_COUNT;
-	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
+	else if (_parse_vec3(arr[1], false, &(v.point), err) == LOAD_ERR_SUCCESS
 		&& _parse_vec3(arr[2], true, &(v.orientation), err) == LOAD_ERR_SUCCESS)
 		_parse_rgb(arr[3], &(v.color), err);
 	plane_init_f(&v);
