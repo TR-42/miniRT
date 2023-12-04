@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 00:39:13 by kfujita           #+#    #+#             */
-/*   Updated: 2023/09/17 00:40:35 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/04 22:05:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,7 @@ t_rgb	plane_color(
 	double hit_at
 )
 {
-	t_vec3	n;
-
-	(void)obj;
-	n = vec3_normalize(vec3_sub(ray_at(ray, hit_at), vec3_(0, 0, -1)));
-	return ((t_rgb){
-		.r = (n.x + 1) * 127.99,
-		.g = (n.y + 1) * 127.99,
-		.b = (n.z + 1) * 127.99,
-	});
+	(void)ray;
+	(void)hit_at;
+	return (obj->plane.color);
 }

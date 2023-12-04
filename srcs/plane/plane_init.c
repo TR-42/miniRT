@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 00:40:29 by kfujita           #+#    #+#             */
-/*   Updated: 2023/12/04 00:07:07 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:01:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ t_objs	plane_init(
 void	plane_init_f(t_plane *v)
 {
 	v->comm.hit_func = plane_hit;
+	v->comm.rgb_func = plane_color;
 }
