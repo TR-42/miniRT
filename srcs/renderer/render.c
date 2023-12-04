@@ -14,6 +14,33 @@
 #include <renderer.h>
 #include <scene.h>
 
+#if defined(DEBUG) || defined(ENABLE_PNG)
+
+size_t	g_debug_x;
+size_t	g_debug_y;
+
+static void	_set_debug_x_y(
+	size_t x,
+	size_t y
+)
+{
+	g_debug_x = x;
+	g_debug_y = y;
+}
+
+#else
+
+static void	_set_debug_x_y(
+	size_t x,
+	size_t y
+)
+{
+	(void)x;
+	(void)y;
+}
+
+#endif
+
 __attribute__((nonnull))
 void	render(
 	t_cnvas *canvas,
@@ -27,6 +54,7 @@ void	render(
 	iy = 0;
 	while (iy < canvas->height)
 	{
+		_set_debug_x_y(ix, iy);
 		ix = 0;
 		while (ix < canvas->width)
 		{
