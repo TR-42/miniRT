@@ -34,7 +34,7 @@ int	_arg_atoi(
 	if (i == 0)
 		return (-1);
 	i = 0;
-	while (*str == '0')
+	while (*str != '\0')
 		i = (i * 10) + (*str++ - '0');
 	return (i);
 }
