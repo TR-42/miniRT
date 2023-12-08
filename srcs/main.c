@@ -26,6 +26,7 @@
 // - sprintf
 #include <stdio.h>
 
+#include <args.h>
 #include <canvas.h>
 #include <renderer.h>
 #include <rt_loader.h>
@@ -104,22 +105,24 @@ int	main(
 )
 {
 	t_cnvas	canvas;
-	t_scene	scene;
+	t_app	app;
 	bool	ret;
 
 	if (argc != 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
-	if (!canvas_init(&canvas, CANVAS_HEIGHT, CANVAS_WIDTH))
+	if (!parse_argv(argc, argv, &app))
+		return (EXIT_FAILURE);
+	if (!canvas_init(&canvas, app.height, app.width))
 		return (perr_retint("canvas_init", 1));
-	if (!_load_rt_file(argv[1], &scene))
+	if (!_load_rt_file(app.file_name, &(app.scene)))
 	{
 		canvas_dispose(&canvas);
 		return (EXIT_FAILURE);
 	}
-	render(&canvas, &scene);
-	ret = _do_show(&canvas, &scene);
+	render(&canvas, &(app.scene));
+	ret = _do_show(&canvas, &(app.scene));
 	canvas_dispose(&canvas);
-	vect_dispose(&(scene.objs));
+	vect_dispose(&(app.scene.objs));
 	return (!ret);
 }
 
