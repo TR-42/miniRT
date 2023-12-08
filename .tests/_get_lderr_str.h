@@ -30,6 +30,7 @@ static const char	*_get_lderr_str(t_lderr err)
 	else IF_RET_ERR_STR(LOAD_ERR_INVAL_ARGS_COUNT)
 	else IF_RET_ERR_STR(LOAD_ERR_TOO_FEW_PARAMS)
 	else IF_RET_ERR_STR(LOAD_ERR_NO_CAMERA)
+	else IF_RET_ERR_STR(LOAD_ERR_NRM_VEC_LEN_ZERO)
 	else
 		return ("(Unknown load_error id)");
 }
