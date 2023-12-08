@@ -108,6 +108,7 @@ int	main(
 
 	if (argc < 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
+	app = (t_app){0};
 	if (!parse_argv(argc, argv, &app))
 		return (EXIT_FAILURE);
 	if (!canvas_init(&canvas, app.height, app.width))
