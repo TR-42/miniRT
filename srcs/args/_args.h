@@ -53,6 +53,12 @@ bool	_is_arg_width(
 		__attribute__((nonnull))
 		;
 
+bool	_is_arg_allow_comment(
+			const char *str
+			)
+		__attribute__((nonnull))
+		;
+
 bool	_parse_arg_width(
 			t_app *args,
 			int *i,

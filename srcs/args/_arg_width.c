@@ -12,6 +12,8 @@
 
 #include <ft_string/ft_string.h>
 
+#include <utils.h>
+
 #include "_args.h"
 
 bool	_is_arg_width(

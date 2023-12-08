@@ -14,6 +14,8 @@
 #include <rt_types.h>
 #include <utils.h>
 
+#include "_args.h"
+
 #define DEFAULT_HEIGHT 480
 #define DEFAULT_WIDTH 640
 
@@ -45,7 +47,6 @@ bool	parse_argv(
 )
 {
 	int		i;
-	bool	result;
 
 	if (argc < 2)
 		return (errstr_retint("Too few arguments", NULL, false));
