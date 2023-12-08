@@ -106,7 +106,7 @@ int	main(
 	t_app	app;
 	bool	ret;
 
-	if (argc != 2)
+	if (argc < 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
 	if (!parse_argv(argc, argv, &app))
 		return (EXIT_FAILURE);
