@@ -36,8 +36,14 @@ void	print_load_err(t_lderr err)
 		_print(ERR_MSG_UNKNOWN_TYPE_ID);
 	else if (err == LOAD_ERR_NOT_A_NUMBER)
 		_print(ERR_MSG_NOT_A_NUMBER);
+	else if (err == LOAD_ERR_VAL_OUT_OF_RANGE)
+		_print(ERR_MSG_VAL_OUT_OF_RANGE);
 	else if (err == LOAD_ERR_INVAL_ARGS_COUNT)
 		_print(ERR_MSG_INVAL_ARGS_COUNT);
 	else if (err == LOAD_ERR_TOO_FEW_PARAMS)
 		_print(ERR_MSG_NO_CAMERA);
+	else if (err == LOAD_ERR_NO_CAMERA)
+		_print(ERR_MSG_NO_CAMERA);
+	else
+		_print("unknown error");
 }
