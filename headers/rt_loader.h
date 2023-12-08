@@ -37,6 +37,7 @@ typedef enum e_load_err
  */
 t_lderr	load_rt(
 			int fd,
+			bool allow_comment,
 			t_scene *dst
 			)
 		__attribute__((nonnull))
@@ -46,11 +47,13 @@ t_lderr	load_rt(
  * @brief RTファイルの一行を解析し、sceneに記録する
  * 
  * @param line RTファイルの一行
+ * @param allow_comment コメント行を許可するかどうか
  * @param dst sceneを書き込む場所
  * @return t_lderr 読み込み/解析結果 (エラー情報)
  */
 t_lderr	load_rt_line(
 			const char *line,
+			bool allow_comment,
 			t_scene *dst
 			)
 		__attribute__((nonnull))

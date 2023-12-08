@@ -14,8 +14,6 @@
 
 #include "_rt_loader.h"
 
-#if defined(DEBUG) || defined(ENABLE_PNG)
-
 __attribute__((nonnull))
 static bool	_is_comment(const char *line)
 {
@@ -37,13 +35,3 @@ void	_ignore_comment(char **arr)
 		arr[i++] = NULL;
 	}
 }
-
-#else
-
-void	_ignore_comment(char **arr)
-{
-	(void)arr;
-	return ;
-}
-
-#endif
