@@ -101,7 +101,7 @@ t_lderr	load_rt_line(
 		return (perr_retint("ft_split", LOAD_ERR_PRINTED));
 	err = LOAD_ERR_SUCCESS;
 	if (allow_comment)
-	_ignore_comment(arr);
+		_ignore_comment(arr);
 	if (arr[0] != NULL)
 		err = _parse_input(arr, dst);
 	free2darr((void **)arr);
