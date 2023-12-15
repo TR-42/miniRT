@@ -15,6 +15,13 @@ NAME	:=	miniRT
 SRCS_MAIN	:= \
 	main.c \
 
+SRCS_ARGS	:=\
+	_arg_allow_comment.c\
+	_arg_atoi.c\
+	_arg_height.c\
+	_arg_width.c\
+	parse_argv.c\
+
 SRCS_CAMERA	:=\
 	cam_get_ray.c\
 
@@ -99,6 +106,7 @@ SRCS_VECT3D :=\
 	vec3_sub.c\
 
 SRCS_NOMAIN	:= \
+	$(addprefix args/, $(SRCS_ARGS))\
 	$(addprefix camera/, $(SRCS_CAMERA))\
 	$(addprefix canvas/, $(SRCS_CANVAS))\
 	$(addprefix cylinder/, $(SRCS_CYLINDER))\

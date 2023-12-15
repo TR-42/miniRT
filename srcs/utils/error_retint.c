@@ -27,6 +27,8 @@
 
 #include <utils.h>
 
+#define ERROR_STR "Error\n"
+
 int	perr_retint(
 	const char *str,
 	int ret
@@ -50,6 +52,7 @@ int	errstr_retint(
 	int ret
 )
 {
+	write(STDERR_FILENO, ERROR_STR, sizeof(ERROR_STR) - 1);
 	if (str != NULL)
 		ft_putstr_fd(str, STDERR_FILENO);
 	if (msg != NULL)

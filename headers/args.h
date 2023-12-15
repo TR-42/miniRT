@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _ignore_comment.c                                  :+:      :+:    :+:   */
+/*   args.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 23:25:36 by kfujita           #+#    #+#             */
-/*   Updated: 2023/10/07 23:43:29 by kfujita          ###   ########.fr       */
+/*   Created: 2023/12/08 23:58:12 by kfujita           #+#    #+#             */
+/*   Updated: 2023/12/08 23:58:47 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef ARGS_H
+# define ARGS_H
 
-#include "_rt_loader.h"
+# include "rt_types.h"
 
-__attribute__((nonnull))
-static bool	_is_comment(const char *line)
-{
-	return (line[0] == '#');
-}
+bool	parse_argv(
+			int argc,
+			const char *argv[],
+			t_app *app
+			)
+		__attribute__((nonnull))
+		;
 
-void	_ignore_comment(char **arr)
-{
-	size_t	i;
-
-	if (arr == NULL || arr[0] == NULL)
-		return ;
-	i = 0;
-	while (arr[i] != NULL && !_is_comment(arr[i]))
-		i++;
-	while (arr[i] != NULL)
-	{
-		free((void *)arr[i]);
-		arr[i++] = NULL;
-	}
-}
+#endif

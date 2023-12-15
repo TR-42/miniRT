@@ -26,6 +26,7 @@
 // - sprintf
 #include <stdio.h>
 
+#include <args.h>
 #include <canvas.h>
 #include <renderer.h>
 #include <rt_loader.h>
@@ -33,12 +34,10 @@
 #include <utils.h>
 #include <mymlx.h>
 
-#define CANVAS_HEIGHT 480
-#define CANVAS_WIDTH 640
-
 __attribute__((nonnull))
 static bool	_load_rt_file(
 	const char *fname,
+	bool allow_comment,
 	t_scene *dst
 )
 {
@@ -48,7 +47,7 @@ static bool	_load_rt_file(
 	fd = open(fname, O_RDONLY);
 	if (fd < 0)
 		return (perr_retint("open RT file", false));
-	err = load_rt(fd, dst);
+	err = load_rt(fd, allow_comment, dst);
 	if (err == LOAD_ERR_SUCCESS)
 		return (true);
 	vect_dispose(&(dst->objs));
@@ -104,22 +103,25 @@ int	main(
 )
 {
 	t_cnvas	canvas;
-	t_scene	scene;
+	t_app	app;
 	bool	ret;
 
-	if (argc != 2)
+	if (argc < 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
-	if (!canvas_init(&canvas, CANVAS_HEIGHT, CANVAS_WIDTH))
+	app = (t_app){0};
+	if (!parse_argv(argc, argv, &app))
+		return (EXIT_FAILURE);
+	if (!canvas_init(&canvas, app.height, app.width))
 		return (perr_retint("canvas_init", 1));
-	if (!_load_rt_file(argv[1], &scene))
+	if (!_load_rt_file(app.file_name, app.allow_comment, &(app.scene)))
 	{
 		canvas_dispose(&canvas);
 		return (EXIT_FAILURE);
 	}
-	render(&canvas, &scene);
-	ret = _do_show(&canvas, &scene);
+	render(&canvas, &(app.scene));
+	ret = _do_show(&canvas, &(app.scene));
 	canvas_dispose(&canvas);
-	vect_dispose(&(scene.objs));
+	vect_dispose(&(app.scene.objs));
 	return (!ret);
 }
 

@@ -87,6 +87,7 @@ static t_lderr	_parse_input(char *const arr[], t_scene *scene)
 __attribute__((nonnull))
 t_lderr	load_rt_line(
 	const char *line,
+	bool allow_comment,
 	t_scene *dst
 )
 {
@@ -99,7 +100,8 @@ t_lderr	load_rt_line(
 	if (arr == NULL)
 		return (perr_retint("ft_split", LOAD_ERR_PRINTED));
 	err = LOAD_ERR_SUCCESS;
-	_ignore_comment(arr);
+	if (allow_comment)
+		_ignore_comment(arr);
 	if (arr[0] != NULL)
 		err = _parse_input(arr, dst);
 	free2darr((void **)arr);

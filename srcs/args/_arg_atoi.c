@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _ignore_comment.c                                  :+:      :+:    :+:   */
+/*   _arg_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 23:25:36 by kfujita           #+#    #+#             */
-/*   Updated: 2023/10/07 23:43:29 by kfujita          ###   ########.fr       */
+/*   Created: 2023/12/08 23:20:36 by kfujita           #+#    #+#             */
+/*   Updated: 2023/12/08 23:51:15 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <ft_is/ft_is.h>
 
-#include "_rt_loader.h"
+#include "_args.h"
+
+#define MAX_INT_LEN 6
 
 __attribute__((nonnull))
-static bool	_is_comment(const char *line)
+int	_arg_atoi(
+	const char *str
+)
 {
-	return (line[0] == '#');
-}
+	int	i;
 
-void	_ignore_comment(char **arr)
-{
-	size_t	i;
-
-	if (arr == NULL || arr[0] == NULL)
-		return ;
 	i = 0;
-	while (arr[i] != NULL && !_is_comment(arr[i]))
-		i++;
-	while (arr[i] != NULL)
+	while (str[i] != '\0')
 	{
-		free((void *)arr[i]);
-		arr[i++] = NULL;
+		if (!ft_isdigit(str[i]))
+			return (-1);
+		if (MAX_INT_LEN < ++i)
+			return (-1);
 	}
+	if (i == 0)
+		return (-1);
+	i = 0;
+	while (*str != '\0')
+		i = (i * 10) + (*str++ - '0');
+	return (i);
 }

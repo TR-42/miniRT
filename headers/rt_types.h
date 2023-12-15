@@ -135,4 +135,13 @@ typedef struct s_scene
 	t_vect		objs;
 }	t_scene;
 
+typedef struct s_app
+{
+	int			height;
+	int			width;
+	bool		allow_comment;
+	const char	*file_name;
+	t_scene		scene;
+}	t_app;
+
 #endif
