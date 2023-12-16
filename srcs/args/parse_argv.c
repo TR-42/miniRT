@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:42:36 by kfujita           #+#    #+#             */
-/*   Updated: 2023/12/09 00:02:44 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:56:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ static bool	_parse_argv(
 	else if (_is_arg_allow_comment(argv[*i]))
 	{
 		app->allow_comment = true;
+		return (true);
+	}
+	else if (_is_arg_force_normalize(argv[*i]))
+	{
+		app->force_normalize = true;
 		return (true);
 	}
 	else

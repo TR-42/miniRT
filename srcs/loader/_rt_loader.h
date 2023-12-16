@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _rt_loader.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 08:41:48 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/16 23:22:40 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:59:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_amb_light	_load_amb_light(
 
 t_cam		_load_camera(
 				char *const arr[],
+				bool force_normalize,
 				t_lderr *err
 				)
 			__attribute__((nonnull))
@@ -50,6 +51,7 @@ t_spher		_load_sphere(
 
 t_plane		_load_plane(
 				char *const arr[],
+				bool force_normalize,
 				t_lderr *err
 				)
 			__attribute__((nonnull))
@@ -57,6 +59,7 @@ t_plane		_load_plane(
 
 t_cylnd		_load_cylinder(
 				char *const arr[],
+				bool force_normalize,
 				t_lderr *err
 				)
 			__attribute__((nonnull))
@@ -72,7 +75,7 @@ t_lderr		_parse_rgb(
 
 t_lderr		_parse_vec3(
 				const char *input,
-				bool is_normalized,
+				bool *force_normalize,
 				t_vec3 *dst,
 				t_lderr *err
 				)

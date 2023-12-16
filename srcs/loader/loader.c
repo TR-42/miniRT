@@ -25,7 +25,11 @@
 #define TID_PLANE "pl"
 #define TID_CYLINDER "cy"
 
-static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
+static t_lderr	_parse_input_obj(
+	char *const arr[],
+	bool force_normalize,
+	t_scene *scene
+)
 {
 	t_lderr	err;
 	t_objs	obj;
@@ -35,9 +39,9 @@ static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
 	if (ft_strncmp(arr[0], TID_SPHERE, sizeof(TID_SPHERE)) == 0)
 		obj.sphere = _load_sphere(arr, &err);
 	else if (ft_strncmp(arr[0], TID_PLANE, sizeof(TID_PLANE)) == 0)
-		obj.plane = _load_plane(arr, &err);
+		obj.plane = _load_plane(arr, force_normalize, &err);
 	else if (ft_strncmp(arr[0], TID_CYLINDER, sizeof(TID_CYLINDER)) == 0)
-		obj.cylinder = _load_cylinder(arr, &err);
+		obj.cylinder = _load_cylinder(arr, force_normalize, &err);
 	else
 		err = LOAD_ERR_UNKNOWN_TYPE_ID;
 	if (err != LOAD_ERR_SUCCESS)
@@ -61,7 +65,11 @@ static bool	_is_dup_def(bool *flag, t_lderr *err)
 	}
 }
 
-static t_lderr	_parse_input(char *const arr[], t_scene *scene)
+static t_lderr	_parse_input(
+	char *const arr[],
+	bool force_normalize,
+	t_scene *scene
+)
 {
 	t_lderr	err;
 
@@ -73,7 +81,7 @@ static t_lderr	_parse_input(char *const arr[], t_scene *scene)
 	else if (ft_strncmp(arr[0], TID_CAMERA, sizeof(TID_CAMERA)) == 0)
 	{
 		if (!_is_dup_def(&(scene->is_camera_set), &err))
-			scene->camera = _load_camera(arr, &err);
+			scene->camera = _load_camera(arr, force_normalize, &err);
 	}
 	else if (ft_strncmp(arr[0], TID_LIGHT, sizeof(TID_LIGHT)) == 0)
 	{
@@ -81,7 +89,7 @@ static t_lderr	_parse_input(char *const arr[], t_scene *scene)
 			scene->light = _load_light(arr, &err);
 	}
 	else
-		err = _parse_input_obj(arr, scene);
+		err = _parse_input_obj(arr, force_normalize, scene);
 	return (err);
 }
 
@@ -89,6 +97,7 @@ __attribute__((nonnull))
 t_lderr	load_rt_line(
 	const char *line,
 	bool allow_comment,
+	bool force_normalize,
 	t_scene *dst
 )
 {
@@ -104,7 +113,7 @@ t_lderr	load_rt_line(
 	if (allow_comment)
 		_ignore_comment(arr);
 	if (arr[0] != NULL)
-		err = _parse_input(arr, dst);
+		err = _parse_input(arr, force_normalize, dst);
 	free2darr((void **)arr);
 	return (err);
 }

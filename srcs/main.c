@@ -26,8 +26,6 @@
 // - sprintf
 #include <stdio.h>
 
-#include <ft_mem/ft_mem.h>
-
 #include <args.h>
 #include <canvas.h>
 #include <renderer.h>
@@ -40,6 +38,7 @@ __attribute__((nonnull))
 static bool	_load_rt_file(
 	const char *fname,
 	bool allow_comment,
+	bool force_normalize,
 	t_scene *dst
 )
 {
@@ -49,7 +48,7 @@ static bool	_load_rt_file(
 	fd = open(fname, O_RDONLY);
 	if (fd < 0)
 		return (perr_retint("open RT file", false));
-	err = load_rt(fd, allow_comment, dst);
+	err = load_rt(fd, allow_comment, force_normalize, dst);
 	if (err == LOAD_ERR_SUCCESS)
 		return (true);
 	vect_dispose(&(dst->objs));
@@ -110,12 +109,13 @@ int	main(
 
 	if (argc < 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
-	ft_bzero(&app, sizeof(t_app));
+	app = (t_app){0};
 	if (!parse_argv(argc, argv, &app))
 		return (EXIT_FAILURE);
 	if (!canvas_init(&canvas, app.height, app.width))
 		return (perr_retint("canvas_init", 1));
-	if (!_load_rt_file(app.file_name, app.allow_comment, &(app.scene)))
+	if (!_load_rt_file(app.file_name, app.allow_comment,
+			app.force_normalize, &(app.scene)))
 	{
 		canvas_dispose(&canvas);
 		return (EXIT_FAILURE);
