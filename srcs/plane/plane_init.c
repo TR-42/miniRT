@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <plane.h>
 
 t_objs	plane_init(
@@ -20,7 +22,7 @@ t_objs	plane_init(
 {
 	t_objs	v;
 
-	v = (t_objs){0};
+	ft_bzero(&v, sizeof(t_objs));
 	v.comm.type = T_OBJ_PLANE;
 	plane_init_f(&(v.plane));
 	v.plane.point = point;

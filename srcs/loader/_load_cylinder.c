@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <utils.h>
 
 #include <cylinder.h>
@@ -25,7 +27,7 @@ t_cylnd	_load_cylinder(
 {
 	t_cylnd	v;
 
-	v = (t_cylnd){0};
+	ft_bzero(&v, sizeof(t_cylnd));
 	v.comm.type = T_OBJ_CYLINDER;
 	if (arrlen2d((void *)arr) != ELEM_CNT)
 		*err = LOAD_ERR_INVAL_ARGS_COUNT;

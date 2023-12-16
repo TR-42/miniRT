@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <utils.h>
 
 #include "_rt_loader.h"
@@ -24,7 +26,7 @@ t_amb_light	_load_amb_light(
 {
 	t_amb_light	v;
 
-	v = (t_amb_light){0};
+	ft_bzero(&v, sizeof(t_amb_light));
 	if (arrlen2d((void *)arr) != ELEM_CNT)
 		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (!try_strtod(arr[1], NULL, &(v.ratio)))

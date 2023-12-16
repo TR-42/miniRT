@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <utils.h>
 
 #include "_rt_loader.h"
@@ -25,7 +27,7 @@ t_spher	_load_sphere(
 {
 	t_spher	v;
 
-	v = (t_spher){0};
+	ft_bzero(&v, sizeof(t_spher));
 	v.comm.type = T_OBJ_SPHERE;
 	if (arrlen2d((void *)arr) != ELEM_CNT)
 		*err = LOAD_ERR_INVAL_ARGS_COUNT;

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <utils.h>
 
 #include "_rt_loader.h"
@@ -24,7 +26,7 @@ t_light	_load_light(
 {
 	t_light	v;
 
-	v = (t_light){0};
+	ft_bzero(&v, sizeof(t_light));
 	if (arrlen2d((void *)arr) != ELEM_CNT)
 		*err = LOAD_ERR_INVAL_ARGS_COUNT;
 	else if (_parse_vec3(arr[1], false, &(v.point), err) == LOAD_ERR_SUCCESS
