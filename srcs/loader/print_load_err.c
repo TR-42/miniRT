@@ -43,7 +43,7 @@ void	print_load_err(t_lderr err)
 	else if (err == LOAD_ERR_INVAL_ARGS_COUNT)
 		_print(ERR_MSG_INVAL_ARGS_COUNT);
 	else if (err == LOAD_ERR_TOO_FEW_PARAMS)
-		_print(ERR_MSG_NO_CAMERA);
+		_print(ERR_MSG_TOO_FEW_PARAMS);
 	else if (err == LOAD_ERR_NO_CAMERA)
 		_print(ERR_MSG_NO_CAMERA);
 	else if (err == LOAD_ERR_NO_AMB_L)
