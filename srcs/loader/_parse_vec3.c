@@ -18,6 +18,22 @@
 
 #define ELEM_CNT 3
 
+static void	_normalize_chk(
+	const bool *force_normalize,
+	t_vec3 *dst,
+	t_lderr *err
+)
+{
+	if (force_normalize == NULL)
+		return ;
+	if (*force_normalize)
+		*dst = vec3_normalize(*dst);
+	else if (vec3_len(*dst) != 1)
+		*err = LOAD_ERR_NRM_VEC_LEN_NOT_1;
+	if (vec3_len(*dst) == 0)
+		*err = LOAD_ERR_NRM_VEC_LEN_ZERO;
+}
+
 __attribute__((nonnull(1, 3)))
 t_lderr	_parse_vec3(
 	const char *input,
@@ -41,15 +57,7 @@ t_lderr	_parse_vec3(
 		|| !try_strtod(arr2d[1], NULL, &(dst->y))
 		|| !try_strtod(arr2d[2], NULL, &(dst->z)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
-	else if (force_normalize != NULL)
-	{
-		if (*force_normalize)
-			*dst = vec3_normalize(*dst);
-		else if (vec3_len(*dst) != 1)
-			*err = LOAD_ERR_NRM_VEC_LEN_NOT_1;
-		if (vec3_len(*dst) == 0)
-			*err = LOAD_ERR_NRM_VEC_LEN_ZERO;
-	}
+	_normalize_chk(force_normalize, dst, err);
 	free2darr((void **)arr2d);
 	return (*err);
 }
