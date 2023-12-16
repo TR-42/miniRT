@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <mymlx.h>
 #include <X11/X.h>
 
@@ -30,7 +32,7 @@ static int	_on_destroyed(t_mymlx *d)
 __attribute__((nonnull))
 bool	mymlx_init(t_mymlx *mymlx, const t_scene *scene, int width, int height)
 {
-	*mymlx = (t_mymlx){0};
+	ft_bzero(mymlx, sizeof(t_mymlx));
 	mymlx->mlx = mlx_init();
 	if (mymlx->mlx == NULL)
 		return (false);

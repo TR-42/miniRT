@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
 #include <ft_string/ft_string.h>
 
 #include <rt_loader.h>
@@ -29,7 +30,7 @@ static t_lderr	_parse_input_obj(char *const arr[], t_scene *scene)
 	t_lderr	err;
 	t_objs	obj;
 
-	obj = (t_objs){0};
+	ft_bzero(&obj, sizeof(t_objs));
 	err = LOAD_ERR_SUCCESS;
 	if (ft_strncmp(arr[0], TID_SPHERE, sizeof(TID_SPHERE)) == 0)
 		obj.sphere = _load_sphere(arr, &err);

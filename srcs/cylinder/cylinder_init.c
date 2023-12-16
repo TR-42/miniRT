@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_mem/ft_mem.h>
+
 #include <cylinder.h>
 
 t_objs	cylinder_init(
@@ -20,7 +22,7 @@ t_objs	cylinder_init(
 {
 	t_objs	v;
 
-	v = (t_objs){0};
+	ft_bzero(&v, sizeof(t_objs));
 	v.comm.type = T_OBJ_CYLINDER;
 	cylinder_init_f(&(v.cylinder));
 	v.cylinder.center = center_axis[0];

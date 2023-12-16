@@ -12,6 +12,8 @@
 
 #include <math.h>
 
+#include <ft_mem/ft_mem.h>
+
 #include <scene.h>
 #include <utils.h>
 
@@ -94,7 +96,7 @@ t_rgb	ray_to_rgb(
 	double	ref_rate;
 
 	objs = (t_objs *)(scene->objs.p);
-	hit = (t_hit){0};
+	ft_bzero(&hit, sizeof(t_hit));
 	if (!ray_hit_any(&ray, objs, scene->objs.len, &hit))
 		return ((t_rgb){0});
 	hit_to_light = vec3_normalize(vec3_sub(scene->light.point, hit.at));

@@ -26,6 +26,8 @@
 // - sprintf
 #include <stdio.h>
 
+#include <ft_mem/ft_mem.h>
+
 #include <args.h>
 #include <canvas.h>
 #include <renderer.h>
@@ -108,7 +110,7 @@ int	main(
 
 	if (argc < 2)
 		return (errstr_retint("usage", "miniRT <RT file name>", EXIT_FAILURE));
-	app = (t_app){0};
+	ft_bzero(&app, sizeof(t_app));
 	if (!parse_argv(argc, argv, &app))
 		return (EXIT_FAILURE);
 	if (!canvas_init(&canvas, app.height, app.width))

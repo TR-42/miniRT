@@ -12,6 +12,8 @@
 
 #include <math.h>
 
+#include <ft_mem/ft_mem.h>
+
 #include <camera.h>
 
 // ref: https://www.scratchapixel.com/lessons/3d-basic-rendering/
@@ -30,7 +32,7 @@ t_ray	cam_get_ray(
 	t_vec3	u;
 	t_vec3	v;
 
-	ray = (t_ray){0};
+	ft_bzero(&ray, sizeof(t_ray));
 	if (canvas->width <= x
 		|| canvas->height <= y)
 		return (ray);

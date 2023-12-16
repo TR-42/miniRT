@@ -16,6 +16,7 @@
 // - errno
 #include <errno.h>
 
+#include <ft_mem/ft_mem.h>
 #include <ft_string/ft_string.h>
 #include <gnl/get_next_line.h>
 
@@ -43,7 +44,7 @@ static t_lderr	_init_struct(
 {
 	t_lderr		err;
 
-	*dst = (t_scene){0};
+	ft_bzero(dst, sizeof(t_scene));
 	err = LOAD_ERR_SUCCESS;
 	*gnl = gen_gnl_state(fd, 4096);
 	if (gnl->buf == NULL)
