@@ -38,6 +38,8 @@ t_cylnd	_load_cylinder(
 		&& (!try_strtod(arr[3], NULL, &(v.diameter))
 			|| !try_strtod(arr[4], NULL, &(v.height))))
 		*err = LOAD_ERR_NOT_A_NUMBER;
+	else if (v.diameter <= 0 || v.height <= 0)
+		*err = LOAD_ERR_VAL_OUT_OF_RANGE;
 	else
 		_parse_rgb(arr[5], &(v.color), err);
 	cylinder_init_f(&v);

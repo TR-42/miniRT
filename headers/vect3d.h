@@ -38,4 +38,6 @@ t_vec3	vec3_normalize(t_vec3 a);
 
 t_vec3	vec3_reflect(t_vec3 input, t_vec3 normal);
 
+double	vec3_deg(t_vec3 a, t_vec3 b);
+
 #endif

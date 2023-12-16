@@ -34,6 +34,8 @@ t_spher	_load_sphere(
 	else if (_parse_vec3(arr[1], false, &(v.center), err) == LOAD_ERR_SUCCESS
 		&& !try_strtod(arr[2], NULL, &(v.diameter)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
+	else if (v.diameter <= 0)
+		*err = LOAD_ERR_VAL_OUT_OF_RANGE;
 	else
 		_parse_rgb(arr[3], &(v.color), err);
 	sphere_init_f(&v);
