@@ -15,7 +15,7 @@
 
 #define ERR_MSG_DUP_DEF "multiple definition of A, C, or L"
 #define ERR_MSG_UNKNOWN_TYPE_ID "unknown type id"
-#define ERR_MSG_NOT_A_NUMBER "not a number"
+#define ERR_MSG_NOT_A_NUMBER "not a valid number"
 #define ERR_MSG_VAL_OUT_OF_RANGE "value out of range"
 #define ERR_MSG_INVAL_ARGS_COUNT "invalid arguments length"
 #define ERR_MSG_TOO_FEW_PARAMS "too few parameters"
