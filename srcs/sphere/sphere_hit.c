@@ -72,8 +72,5 @@ bool	sphere_hit(
 	tmp = (-b - d) / (2 * a);
 	if (t_range[0] < tmp && tmp < t_range[1])
 		return (_set_hit_rec(obj, ray, tmp, hit_rec));
-	tmp = (-b + d) / (2 * a);
-	if (t_range[0] < tmp && tmp < t_range[1])
-		return (_set_hit_rec(obj, ray, tmp, hit_rec));
 	return (false);
 }

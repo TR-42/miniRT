@@ -56,6 +56,11 @@ static double	_get_direct_ref_rate(
 	if (ray_hit_any(&ray_to_light, (t_objs *)scene->objs.p,
 			scene->objs.len, &tmp) && tmp.t < hit_to_l_len)
 		return (0);
+	ray_to_light.origin = scene->light.point;
+	ray_to_light.direction = vec3_mul(*hit_to_light, -1);
+	if (ray_hit_any(&ray_to_light, (t_objs *)scene->objs.p,
+			scene->objs.len, &tmp) && tmp.t < hit_to_l_len)
+		return (0);
 	ref_rate = scene->light.brightness;
 	ref_rate *= (double)RRR_DIRECT / (RRR_AMB + RRR_DIRECT + RRR_MIRROR);
 	ref_rate *= dot_n_l;

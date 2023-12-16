@@ -88,5 +88,7 @@ t_lderr	load_rt(
 	dispose_gnl_state(&gnl);
 	if (err == LOAD_ERR_SUCCESS && !dst->is_camera_set)
 		return (LOAD_ERR_NO_CAMERA);
+	else if (err == LOAD_ERR_SUCCESS && !dst->is_amb_l_set)
+		return (LOAD_ERR_NO_AMB_L);
 	return (err);
 }

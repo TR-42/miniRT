@@ -35,7 +35,8 @@ bool	plane_hit(
 		return (false);
 	t = (vec3_dot(obj->plane.point, obj->plane.orientation) \
 		- vec3_dot(ray->origin, obj->plane.orientation)) / denom;
-	if (t_range[0] < t && t < t_range[1])
+	if (t_range[0] < t && t < t_range[1]
+		&& 90 <= vec3_deg(ray->direction, obj->plane.orientation))
 	{
 		hit_rec->t = t;
 		hit_rec->at = ray_at(ray, t);
