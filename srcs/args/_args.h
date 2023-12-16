@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _args.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:48:58 by kfujita           #+#    #+#             */
-/*   Updated: 2023/12/08 23:56:14 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:57:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 
 # define ARG_ALLOW_COMMENT "-c"
 # define ARG_ALLOW_COMMENT_LONG "--allow-comment"
+
+# define ARG_FORCE_NORMALIZE "-n"
+# define ARG_FORCE_NORMALIZE_LONG "--force-normalize"
 
 bool	_print_too_few_args(const char *msg);
 
@@ -54,6 +57,12 @@ bool	_is_arg_width(
 		;
 
 bool	_is_arg_allow_comment(
+			const char *str
+			)
+		__attribute__((nonnull))
+		;
+
+bool	_is_arg_force_normalize(
 			const char *str
 			)
 		__attribute__((nonnull))

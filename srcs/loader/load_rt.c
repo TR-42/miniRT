@@ -64,6 +64,7 @@ __attribute__((nonnull))
 t_lderr	load_rt(
 	int fd,
 	bool allow_comment,
+	bool force_normalize,
 	t_scene *dst
 )
 {
@@ -80,7 +81,7 @@ t_lderr	load_rt(
 		tmp = _remove_lf(get_next_line(&gnl));
 		if (tmp == NULL)
 			break ;
-		err = load_rt_line(tmp, allow_comment, dst);
+		err = load_rt_line(tmp, allow_comment, force_normalize, dst);
 		free(tmp);
 	}
 	if (errno != 0)

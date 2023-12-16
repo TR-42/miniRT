@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _parse_vec3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 00:16:26 by kfujita           #+#    #+#             */
-/*   Updated: 2023/07/17 00:23:17 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:58:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,26 @@
 
 #define ELEM_CNT 3
 
-static bool	_is_normalized(double v)
+static void	_normalize_chk(
+	const bool *force_normalize,
+	t_vec3 *dst,
+	t_lderr *err
+)
 {
-	return (-1 <= v && v <= 1);
-}
-
-static bool	_is_each_normalized(const t_vec3 *v)
-{
-	return (
-		_is_normalized(v->x)
-		&& _is_normalized(v->y)
-		&& _is_normalized(v->x)
-	);
+	if (force_normalize == NULL)
+		return ;
+	if (*force_normalize)
+		*dst = vec3_normalize(*dst);
+	else if (vec3_len(*dst) != 1)
+		*err = LOAD_ERR_NRM_VEC_LEN_NOT_1;
+	if (vec3_len(*dst) == 0)
+		*err = LOAD_ERR_NRM_VEC_LEN_ZERO;
 }
 
 __attribute__((nonnull(1, 3)))
 t_lderr	_parse_vec3(
 	const char *input,
-	bool is_normalized,
+	bool *force_normalize,
 	t_vec3 *dst,
 	t_lderr *err
 )
@@ -55,12 +57,7 @@ t_lderr	_parse_vec3(
 		|| !try_strtod(arr2d[1], NULL, &(dst->y))
 		|| !try_strtod(arr2d[2], NULL, &(dst->z)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
-	else if (is_normalized && !_is_each_normalized(dst))
-		*err = LOAD_ERR_VAL_OUT_OF_RANGE;
-	else if (is_normalized)
-		*dst = vec3_normalize(*dst);
-	if (is_normalized && vec3_len(*dst) == 0)
-		*err = LOAD_ERR_NRM_VEC_LEN_ZERO;
+	_normalize_chk(force_normalize, dst, err);
 	free2darr((void **)arr2d);
 	return (*err);
 }

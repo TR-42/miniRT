@@ -140,6 +140,7 @@ typedef struct s_app
 	int			height;
 	int			width;
 	bool		allow_comment;
+	bool		force_normalize;
 	const char	*file_name;
 	t_scene		scene;
 }	t_app;

@@ -6,7 +6,7 @@
 #    By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 18:44:27 by kfujita           #+#    #+#              #
-#    Updated: 2023/12/04 22:00:00 by myoshika         ###   ########.fr        #
+#    Updated: 2023/12/16 20:01:27 by myoshika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS_MAIN	:= \
 SRCS_ARGS	:=\
 	_arg_allow_comment.c\
 	_arg_atoi.c\
+	_arg_force_normalize.c\
 	_arg_height.c\
 	_arg_width.c\
 	parse_argv.c\
