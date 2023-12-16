@@ -41,9 +41,9 @@ t_ray	cam_get_ray(
 	p[1] = (1 - (2 * ((double)y + 0.5) / canvas->height))
 		* tan((fov_y / 2) * M_PI / 180);
 	u = vec3_normalize(vec3_cross(vec3_(0, 1, 0),
-				vec3_mul(cam->orientation, -1)));
-	v = vec3_cross(vec3_mul(cam->orientation, -1), u);
+				cam->orientation));
+	v = vec3_cross(cam->orientation, u);
 	ray.direction = vec3_normalize(vec3_add3(vec3_mul(u, p[0]),
-				vec3_mul(v, p[1]), vec3_mul(cam->orientation, -1)));
+				vec3_mul(v, p[1]), cam->orientation));
 	return (ray);
 }
