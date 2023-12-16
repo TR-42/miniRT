@@ -27,6 +27,7 @@ typedef enum e_load_err
 	LOAD_ERR_TOO_FEW_PARAMS,
 	LOAD_ERR_NO_CAMERA,
 	LOAD_ERR_NRM_VEC_LEN_ZERO,
+	LOAD_ERR_NRM_VEC_LEN_NOT_1,
 }	t_lderr;
 
 /**

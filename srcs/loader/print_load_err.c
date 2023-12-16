@@ -21,6 +21,7 @@
 #define ERR_MSG_TOO_FEW_PARAMS "too few parameters"
 #define ERR_MSG_NO_CAMERA "camera is missing"
 #define ERR_MSG_NRM_VEC_LEN_ZERO "invalid normal vector (len is zero)"
+#define ERR_MSG_NRM_VEC_LEN_NOT_1 "invalid normal vector (len is not 1)"
 
 static void	_print(const char *const msg)
 {
@@ -47,6 +48,8 @@ void	print_load_err(t_lderr err)
 		_print(ERR_MSG_NO_CAMERA);
 	else if (err == LOAD_ERR_NRM_VEC_LEN_ZERO)
 		_print(ERR_MSG_NRM_VEC_LEN_ZERO);
+	else if (err == LOAD_ERR_NRM_VEC_LEN_NOT_1)
+		_print(ERR_MSG_NRM_VEC_LEN_NOT_1);
 	else
 		_print("unknown error");
 }

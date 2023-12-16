@@ -18,20 +18,6 @@
 
 #define ELEM_CNT 3
 
-static bool	_is_normalized(double v)
-{
-	return (-1 <= v && v <= 1);
-}
-
-static bool	_is_each_normalized(const t_vec3 *v)
-{
-	return (
-		_is_normalized(v->x)
-		&& _is_normalized(v->y)
-		&& _is_normalized(v->x)
-	);
-}
-
 __attribute__((nonnull(1, 3)))
 t_lderr	_parse_vec3(
 	const char *input,
@@ -55,14 +41,15 @@ t_lderr	_parse_vec3(
 		|| !try_strtod(arr2d[1], NULL, &(dst->y))
 		|| !try_strtod(arr2d[2], NULL, &(dst->z)))
 		*err = LOAD_ERR_NOT_A_NUMBER;
-	else if (force_normalize && !_is_each_normalized(dst))
+	else if (force_normalize != NULL)
 	{
-		if (!*force_normalize)
-			*err = LOAD_ERR_VAL_OUT_OF_RANGE;
-		*dst = vec3_normalize(*dst);
+		if (*force_normalize)
+			*dst = vec3_normalize(*dst);
+		else if (vec3_len(*dst) != 1)
+			*err = LOAD_ERR_NRM_VEC_LEN_NOT_1;
+		if (vec3_len(*dst) == 0)
+			*err = LOAD_ERR_NRM_VEC_LEN_ZERO;
 	}
-	if (vec3_len(*dst) == 0)
-		*err = LOAD_ERR_NRM_VEC_LEN_ZERO;
 	free2darr((void **)arr2d);
 	return (*err);
 }
