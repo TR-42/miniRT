@@ -27,6 +27,11 @@
 # define ARG_FORCE_NORMALIZE "-n"
 # define ARG_FORCE_NORMALIZE_LONG "--force-normalize"
 
+# define RT_FILE_EXT ".rt"
+
+# define MSG_USAGE_TITLE "usage"
+# define MSG_USAGE_CONTENT "./miniRT [-w width] [-h height] [-c] [-n] *.rt"
+
 bool	_print_too_few_args(const char *msg);
 
 int		_arg_atoi(
