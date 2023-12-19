@@ -66,7 +66,7 @@ static bool	_parse_argv(
 		app->force_normalize = true;
 		return (true);
 	}
-	else if (_str_end_with(argv[*i], RT_FILE_EXT))
+	else if (app->file_name == NULL && _str_end_with(argv[*i], RT_FILE_EXT))
 		app->file_name = argv[*i];
 	else
 		return (errstr_retint(MSG_USAGE_TITLE, MSG_USAGE_CONTENT, false));
